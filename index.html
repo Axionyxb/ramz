@@ -91,6 +91,18 @@
       animation: drift 24s linear infinite;
     }
     @keyframes drift{from{transform:translateY(0)} to{transform:translateY(35px)}}
+
+    /* === НОВОЕ: мини‑виджет обратного отсчёта === */
+    .countdown{
+      position:fixed; right:18px; bottom:18px; z-index:60;
+      display:flex; align-items:center; gap:10px;
+      background:linear-gradient(180deg, rgba(140,240,255,.15), rgba(140,240,255,.08));
+      border:1px solid rgba(140,240,255,.35); color:var(--white);
+      padding:10px 14px; border-radius:14px; box-shadow:0 14px 40px rgba(0,0,0,.35);
+      cursor:pointer; user-select:none;
+    }
+    .countdown b{color:#8cf0ff}
+    .countdown small{color:var(--muted); display:block; line-height:1.1}
   </style>
 </head>
 <body>
@@ -198,6 +210,15 @@
     </section>
   </main>
 
+  <!-- НОВОЕ: мини‑виджет с обратным отсчётом до следующего окна -->
+  <div class="countdown" id="timer" title="До следующего тура">
+    <div>⏱</div>
+    <div>
+      <b id="cd">00:00:00</b>
+      <small id="cdlabel">Следующее окно через</small>
+    </div>
+  </div>
+
   <script>
     // === Настраиваем ссылки на ботов (замени на реальные username) ===
     const PAYMENT_BOT = 'PAYMENT_BOT'; // например, StarsPayBot
@@ -208,11 +229,13 @@
     gameBtn.href = `https://t.me/${GAME_BOT}`;
 
     // === Текущее 3‑часовое окно по Москве (UTC+3) ===
-    function moscowWindow(){
+    function mskDate(){
       const now = new Date();
-      // Посчитаем московское время как UTC+3
       const utc = now.getTime() + now.getTimezoneOffset()*60000;
-      const msk = new Date(utc + 3*3600*1000);
+      return new Date(utc + 3*3600*1000);
+    }
+    function moscowWindow(){
+      const msk = mskDate();
       const h = msk.getHours();
       const start = Math.floor(h/3)*3;
       const end = (start + 3) % 24;
@@ -220,9 +243,7 @@
       return `${pad(start)}:00–${pad(end)}:00 МСК`;
     }
     function tierByTime(){
-      const now = new Date();
-      const utc = now.getTime() + now.getTimezoneOffset()*60000;
-      const msk = new Date(utc + 3*3600*1000);
+      const msk = mskDate();
       const start = Math.floor(msk.getHours()/3)*3;
       const idx = (start/3)%3; // 0..2
       return [1,2,3][idx];
@@ -233,6 +254,37 @@
     }
     refreshWindow();
     setInterval(refreshWindow, 60*1000);
+
+    // === Мини‑виджет обратного отсчёта ===
+    function secondsToNextBoundary(){
+      const msk = mskDate();
+      const start = Math.floor(msk.getHours()/3)*3;
+      let next = new Date(msk);
+      next.setHours(start + 3, 0, 0, 0);
+      if (start + 3 >= 24) {
+        next.setDate(next.getDate() + 1);
+        next.setHours(0, 0, 0, 0);
+      }
+      return Math.max(0, Math.floor((next - msk)/1000));
+    }
+    function fmt(s){
+      const h = Math.floor(s/3600).toString().padStart(2,'0');
+      const m = Math.floor((s%3600)/60).toString().padStart(2,'0');
+      const z = (s%60).toString().padStart(2,'0');
+      return `${h}:${m}:${z}`;
+    }
+    (function tick(){
+      const el = document.getElementById('cd');
+      if(!el) return;
+      let left = secondsToNextBoundary();
+      el.textContent = fmt(left);
+      if (left === 0) setTimeout(()=>{ refreshWindow(); }, 1200);
+      setTimeout(tick, 1000);
+    })();
+    // клик по виджету — скролл к CTA
+    document.getElementById('timer').addEventListener('click', ()=>{
+      document.getElementById('play').scrollIntoView({behavior:'smooth'});
+    });
   </script>
 </body>
 </html>
