@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>Stars Spin — игра со слот‑механикой в Telegram</title>
+  <meta name="description" content="Крути барабаны, набирай очки и соревнуйся с друзьями. Покупай Stars в Telegram и запускай игру одним нажатием." />
+  <meta name="theme-color" content="#0c1021" />
+  <style>
+    :root{
+      --bg1:#0c1021; --bg2:#0a0d1a; --bg3:#080a14;
+      --primary:#8cf0ff; --accent:#ffd166; --ok:#7CFFB2; --danger:#ff6b6b;
+      --card:#12172f; --muted:#9aa3c1; --white:#fff;
+      --grad: radial-gradient(1200px 600px at 10% -10%, rgba(98,0,234,.25), transparent 45%),
+              radial-gradient(1000px 800px at 120% 20%, rgba(255,214,102,.25), transparent 50%),
+              linear-gradient(180deg, var(--bg1), var(--bg2) 40%, var(--bg3));
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: Inter, Segoe UI, Roboto, Arial, system-ui, -apple-system;
+      background: var(--grad);
+      color: var(--white);
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+    .container{max-width:1100px; margin:0 auto; padding:0 20px}
+    header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(160%) blur(8px); background:linear-gradient(180deg, rgba(12,16,33,.9), rgba(12,16,33,.6) 60%, transparent);}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:700}
+    .logo{width:34px; height:34px; display:grid; place-items:center; border-radius:10px; background:linear-gradient(135deg,#2bb1ff,#8cf0ff); color:#001728; box-shadow:0 6px 20px rgba(140,240,255,.35)}
+    .nav a{color:var(--muted); text-decoration:none; font-size:14px; margin-left:18px}
+    .nav a:hover{color:var(--white)}
+    .hero{padding:84px 0 40px}
+    .title{font-weight:900; font-size:48px; line-height:1.1; margin:8px 0 14px}
+    .subtitle{color:var(--muted); font-size:18px; max-width:720px}
+    .cta{display:flex; gap:12px; flex-wrap:wrap; margin:24px 0 10px}
+    .btn{
+      --b: #8cf0ff; display:inline-flex; align-items:center; gap:10px;
+      background:linear-gradient(180deg, rgba(140,240,255,.14), rgba(140,240,255,.06));
+      color:var(--white); border:1px solid rgba(140,240,255,.35);
+      padding:12px 18px; border-radius:14px; text-decoration:none; font-weight:600;
+      transition:.2s transform, .2s box-shadow, .2s border-color;
+      box-shadow:0 10px 30px rgba(140,240,255,.15);
+    }
+    .btn:hover{transform:translateY(-2px); box-shadow:0 16px 40px rgba(140,240,255,.25)}
+    .btn.alt{--b:#ffd166; border-color:rgba(255,214,102,.4);
+      background:linear-gradient(180deg, rgba(255,214,102,.16), rgba(255,214,102,.06));
+      box-shadow:0 10px 30px rgba(255,214,102,.15)
+    }
+    .pill{display:inline-flex; align-items:center; gap:8px; color:#0d1b2a;
+      background:linear-gradient(180deg,#ffd166,#ffc14d);
+      border-radius:999px; padding:8px 12px; font-weight:800; font-size:13px;
+      box-shadow:0 8px 24px rgba(255,214,102,.35); margin-top:12px;
+    }
+    .screen{
+      position:relative; margin:36px 0 0; border-radius:22px; background:linear-gradient(180deg,#0f1330,#0b0f24);
+      border:1px solid rgba(255,255,255,.06); padding:22px; box-shadow:0 24px 80px rgba(0,0,0,.45);
+      overflow:hidden;
+    }
+    .reel{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; padding:16px; border-radius:16px;
+      background:linear-gradient(180deg,#111735,#0e1330); border:1px solid rgba(255,255,255,.08);
+      box-shadow:inset 0 4px 20px rgba(0,0,0,.4);
+      font-size:34px; text-align:center;
+    }
+    .slot{background:#0b0f24; border-radius:12px; padding:10px 4px; border:1px solid rgba(255,255,255,.08);
+      box-shadow:inset 0 8px 24px rgba(0,0,0,.45); height:70px; display:grid; place-items:center;
+      animation:roll 3s cubic-bezier(.2,.8,.2,1) infinite;
+    }
+    .slot:nth-child(2){animation-delay:.2s} .slot:nth-child(3){animation-delay:.35s}
+    @keyframes roll{0%{transform:translateY(-10px)} 50%{transform:translateY(4px)} 100%{transform:translateY(-10px)}}
+    .grid{display:grid; gap:18px; grid-template-columns:repeat(3,minmax(0,1fr)); margin:26px 0}
+    .card{background:var(--card); border-radius:18px; padding:18px; border:1px solid rgba(255,255,255,.06)}
+    .card h3{margin:0 0 6px; font-size:18px}
+    .muted{color:var(--muted)}
+    .steps{display:grid; gap:18px; grid-template-columns:repeat(3,minmax(0,1fr)); margin:10px 0 30px}
+    .step{background:linear-gradient(180deg,#101739,#0d1330); border:1px solid rgba(255,255,255,.08); border-radius:18px; padding:18px}
+    .step .n{width:28px; height:28px; display:grid; place-items:center; border-radius:8px; background:#1e264d; color:#8cf0ff; font-weight:800}
+    .foot{border-top:1px solid rgba(255,255,255,.06); color:var(--muted); padding:20px 0 60px; font-size:13px}
+    .tag{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border:1px dashed rgba(255,255,255,.18); border-radius:999px; color:var(--muted); font-size:12px}
+    @media (max-width:960px){
+      .title{font-size:36px}
+      .grid, .steps{grid-template-columns:1fr}
+      .reel{font-size:30px}
+    }
+    /* subtle stars */
+    .stars{position:absolute; inset:-25% -10% auto -10%; height:50vh; pointer-events:none; opacity:.6;
+      background-image:radial-gradient(2px 2px at 10% 20%, #8cf0ff 60%, transparent),
+                       radial-gradient(2px 2px at 30% 60%, #ffd166 60%, transparent),
+                       radial-gradient(2px 2px at 80% 30%, #7cffb2 60%, transparent);
+      animation: drift 24s linear infinite;
+    }
+    @keyframes drift{from{transform:translateY(0)} to{transform:translateY(35px)}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">🎰</div>
+        <div>Stars Spin</div>
+      </div>
+      <nav>
+        <a href="#how">Как это работает</a>
+        <a href="#faq">FAQ</a>
+        <a href="#play" class="tag">Открыть в Telegram ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="pill">🔥 Новые туры каждый 3 часа • <span id="window-pill"></span></div>
+      <h1 class="title">Крути барабаны. Набирай очки. Делись результатом.</h1>
+      <p class="subtitle">
+        Stars Spin — лёгкая игра со слот‑механикой внутри Telegram. Покупай Stars и запускай игру одним нажатием.
+        Без регистрации и лишних форм — всё происходит в Telegram.
+      </p>
+      <div class="cta" id="play">
+        <a class="btn" id="payBtn" href="https://t.me/PAYMENT_BOT" target="_blank" rel="noopener">
+          <span>💳 Оплатить Stars</span>
+        </a>
+        <a class="btn alt" id="gameBtn" href="https://t.me/GAME_BOT" target="_blank" rel="noopener">
+          <span>▶️ Перейти к игре</span>
+        </a>
+      </div>
+
+      <div class="screen">
+        <div class="stars"></div>
+        <div class="reel" aria-hidden="true">
+          <div class="slot">🍒</div>
+          <div class="slot">7️⃣</div>
+          <div class="slot">🍋</div>
+        </div>
+        <p class="muted" style="margin:12px 4px 0">
+          Механика на базе системной 🎰‑анимации Telegram. Результат честно берётся из <code>dice.value</code>.
+        </p>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h3>Просто и прозрачно</h3>
+        <p class="muted">Результат приходит из Telegram после анимации. Мы лишь красиво считаем очки и фиксируем их.</p>
+      </div>
+      <div class="card">
+        <h3>Игровые окна</h3>
+        <p class="muted">Каждый тур длится 3 часа по МСК. Игра «по времени» — кнопка активна в своём окне.</p>
+      </div>
+      <div class="card">
+        <h3>Соревнование</h3>
+        <p class="muted">Лидеры по очкам — в топе. Планируем сезонные таблицы и бонусы за серии.</p>
+      </div>
+    </section>
+
+    <section id="how">
+      <h2 class="title" style="font-size:28px">Как это работает</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="n">1</div>
+          <h3>Оплати Stars</h3>
+          <p class="muted">Нажми «Оплатить Stars» — откроется наш бот‑оплата в Telegram.</p>
+        </div>
+        <div class="step">
+          <div class="n">2</div>
+          <h3>Открой игру</h3>
+          <p class="muted">Кнопка «Перейти к игре» переведёт тебя в игровой бот. Там уже ждёт фикс‑клавиатура.</p>
+        </div>
+        <div class="step">
+          <div class="n">3</div>
+          <h3>Крути и выигрывай очки</h3>
+          <p class="muted">Бот отправляет 🎰, считывает результат, начисляет очки, а также ведёт логи.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" style="margin:24px 0 6px">
+      <h2 class="title" style="font-size:28px">FAQ</h2>
+      <div class="card">
+        <h3>Это безопасно?</h3>
+        <p class="muted">Да. Мы используем стандартные возможности Telegram. Оплата проходит через Stars, игра — в чат‑боте.</p>
+      </div>
+      <div class="card">
+        <h3>Нужна регистрация?</h3>
+        <p class="muted">Нет. Достаточно открыть бота в Telegram.</p>
+      </div>
+      <div class="card">
+        <h3>Можно на телефоне?</h3>
+        <p class="muted">Конечно. Вёрстка адаптивная и отлично выглядит на мобильных.</p>
+      </div>
+    </section>
+
+    <section class="foot">
+      <div class="muted">
+        По всем вопросам — напишите нам в Telegram. Проект — развлекательная онлайн‑игра со слот‑механикой.
+        Термины, связанные с азартными учреждениями, на сайте не используются.
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // === Настраиваем ссылки на ботов (замени на реальные username) ===
+    const PAYMENT_BOT = 'PAYMENT_BOT'; // например, StarsPayBot
+    const GAME_BOT    = 'GAME_BOT';    // ваш игровой бот
+    const payBtn = document.getElementById('payBtn');
+    const gameBtn = document.getElementById('gameBtn');
+    payBtn.href  = `https://t.me/${PAYMENT_BOT}`;
+    gameBtn.href = `https://t.me/${GAME_BOT}`;
+
+    // === Текущее 3‑часовое окно по Москве (UTC+3) ===
+    function moscowWindow(){
+      const now = new Date();
+      // Посчитаем московское время как UTC+3
+      const utc = now.getTime() + now.getTimezoneOffset()*60000;
+      const msk = new Date(utc + 3*3600*1000);
+      const h = msk.getHours();
+      const start = Math.floor(h/3)*3;
+      const end = (start + 3) % 24;
+      const pad = n => n.toString().padStart(2,'0');
+      return `${pad(start)}:00–${pad(end)}:00 МСК`;
+    }
+    function tierByTime(){
+      const now = new Date();
+      const utc = now.getTime() + now.getTimezoneOffset()*60000;
+      const msk = new Date(utc + 3*3600*1000);
+      const start = Math.floor(msk.getHours()/3)*3;
+      const idx = (start/3)%3; // 0..2
+      return [1,2,3][idx];
+    }
+    const pill = document.getElementById('window-pill');
+    function refreshWindow(){
+      pill.textContent = `${tierByTime()}⭐ • ${moscowWindow()}`;
+    }
+    refreshWindow();
+    setInterval(refreshWindow, 60*1000);
+  </script>
+</body>
+</html>
