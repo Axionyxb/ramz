@@ -3,79 +3,64 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>КГЭУ — главная</title>
-  <meta name="description" content="Казанский государственный энергетический университет — поступление, программы, контакты.">
+  <title>КГЭУ — простая главная</title>
+  <meta name="description" content="Простой макет главной страницы КГЭУ.">
   <style>
-    /* Очень простой, «земной» стиль без анимаций и сложных эффектов */
     :root{
-      --bg: #f5f6f8;
-      --text: #1e1f23;
-      --muted:#596072;
-      --line: #e1e3e8;
-      --blue: #2b6cb0;   /* обычный синий */
-      --green:#2f855a;   /* простой зелёный */
+      --bg:#f4f5f7;
+      --text:#1f2328;
+      --muted:#5c6675;
+      --line:#dfe3ea;
       --card:#ffffff;
-      --radius: 10px;
-      --maxw: 1040px; /* не идеально круглое число — так иногда делают «на глаз» */
+      --blue:#2f6fad;
+      --maxw: 1000px;
+      --radius: 6px;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
-      font:16px/1.55 -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial,sans-serif}
+      font:16px/1.55 -apple-system, Segoe UI, Roboto, Arial, sans-serif}
     img{max-width:100%;display:block}
-    a{color:var(--blue);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .container{max-width:var(--maxw);margin:0 auto;padding:0 18px}
-    header, section, footer{padding:20px 0} /* не идеально выверенные отступы, но аккуратно */
-    h1,h2,h3{margin:0 0 .6rem 0;line-height:1.2}
+    a{text-decoration:none;color:var(--blue)}
     p{margin:.5rem 0 1rem 0;color:var(--muted)}
-
-    /* Шапка — очень простая */
-    .topbar{border-bottom:1px solid var(--line);background:#fff}
-    .nav{display:flex;align-items:center;gap:14px;height:62px}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
-    .logo{width:30px;height:30px;border-radius:6px;background:var(--blue);display:grid;place-items:center;color:#fff;font-size:14px}
-    .spacer{flex:1}
-    .links{display:flex;gap:16px}
-    .links a{color:var(--text)}
-
-    /* Хиро — без иллюстраций и градиентов */
-    .hero{border-bottom:1px solid var(--line);background:#fff}
-    .lead{max-width:60ch}
-
-    /* Быстрые ссылки — простые карточки без теней */
+    h1,h2,h3{margin:0 0 .5rem 0;line-height:1.2}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 16px}
+    header,section,footer{padding:18px 0}
     .row{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
-    .card{grid-column:span 4;border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:14px}
-    .card h3{font-size:18px;margin:0 0 .4rem 0}
-    .card .more{display:inline-flex;gap:6px;align-items:center;font-weight:600}
-
-    /* Программы — скромные плитки */
-    .tile{grid-column:span 4;border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:14px}
-    .tag{display:inline-block;font-size:12px;color:#444;background:#f0f2f5;border-radius:6px;padding:2px 8px;margin-bottom:6px}
-
-    /* Новости — с заглушками вместо фото */
+    .card{grid-column:span 4;border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:12px}
+    .tile{grid-column:span 4;border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:12px}
     .news{grid-column:span 6;border:1px solid var(--line);background:var(--card);border-radius:var(--radius);overflow:hidden}
     .news .pad{padding:12px}
-    .ph{aspect-ratio:16/9;background:#dde3ec;display:grid;place-items:center;color:#5a6575;font-size:14px}
-
-    /* Цифры — без иконок и акцентов */
+    .ph{aspect-ratio:16/9;background:#e7ebf1;display:grid;place-items:center;color:#6b7380;font-size:14px}
     .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-    .stat{border:1px solid var(--line);background:#fff;border-radius:var(--radius);padding:14px}
-    .stat b{font-size:24px;display:block}
+    .stat{border:1px solid var(--line);background:#fff;border-radius:var(--radius);padding:12px}
+    .stat b{font-size:22px;display:block}
 
-    /* CTA поступления */
-    .strip{border:1px dashed var(--line);background:#fff;border-radius:var(--radius);padding:16px}
+    /* Примитивная шапка */
+    .topbar{border-bottom:1px solid var(--line);background:#fff}
+    .nav{display:flex;align-items:center;gap:12px;height:58px}
+    .brand{display:flex;align-items:center;gap:8px;font-weight:800}
+    .logo{width:28px;height:28px;border-radius:4px;background:#2f6fad;display:grid;place-items:center;color:#fff;font-size:13px}
+    .spacer{flex:1}
+    .links{display:flex;gap:14px}
+    .links a{color:var(--text)}
 
-    /* Футер — как у типового сайта */
-    footer{border-top:1px solid var(--line);background:#fff}
-    .foot{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px}
-    .fine{font-size:12px;color:#6b7280}
+    /* Кнопки — нарисованы, но не кликабельны */
+    .btn, .more, .links a, .cta-link{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:8px 10px;border:1px solid var(--line);border-radius:6px;
+      background:#f8f9fb;color:#4a596d;font-weight:600;
+      pointer-events:none;               /* отключаем клики */
+      user-select:none;                  /* на всякий случай */
+      opacity:.85;cursor:default;
+    }
+    .btn.primary{background:#e9eef6;color:#274b78;border-color:#cdd6e3}
+    .btn:active, .more:active{transform:none}
 
-    /* Мобилка */
+    /* Мобильная адаптация */
     @media (max-width: 960px){
       .tile,.card{grid-column:span 6}
       .news{grid-column:span 12}
       .stats{grid-template-columns:repeat(2,1fr)}
-      .foot{grid-template-columns:1fr}
     }
     @media (max-width: 640px){
       .tile,.card{grid-column:span 12}
@@ -93,34 +78,34 @@
       </div>
       <div class="spacer"></div>
       <nav class="links">
-        <a href="#programs">Программы</a>
-        <a href="#news">Новости</a>
-        <a href="#contacts">Контакты</a>
+        <a href="#programs" aria-disabled="true">Программы</a>
+        <a href="#news" aria-disabled="true">Новости</a>
+        <a href="#contacts" aria-disabled="true">Контакты</a>
       </nav>
-      <a class="btn" href="#apply" style="margin-left:10px;color:#fff;background:var(--green);padding:8px 12px;border-radius:8px;border:1px solid #2f734e">Поступить</a>
+      <span class="btn primary" aria-disabled="true" style="margin-left:8px">Поступить</span>
     </div>
   </div>
 
   <!-- Хиро -->
-  <header class="hero">
-    <div class="container" style="padding-top:22px;padding-bottom:14px">
-      <h1 style="margin-bottom:.4rem">Казанский государственный энергетический университет</h1>
-      <p class="lead">Без лишнего блеска: понятная структура, простые кнопки и быстрые ссылки для абитуриентов и студентов.</p>
-      <div class="row" style="margin-top:12px">
+  <header>
+    <div class="container">
+      <h1>Казанский государственный энергетический университет</h1>
+      <p>Простой макет без эффектов — базовая типографика, сетка, минимум декоративности.</p>
+      <div class="row" style="margin-top:10px">
         <div class="card">
           <h3>Сроки приёма</h3>
           <p>Календарь подачи документов и этапы зачисления.</p>
-          <a class="more" href="#dates">Открыть →</a>
+          <span class="more" aria-disabled="true">Открыть</span>
         </div>
         <div class="card">
           <h3>Как поступить</h3>
           <p>Шаги, документы, минимальные баллы и контакты комиссии.</p>
-          <a class="more" href="#apply">Открыть →</a>
+          <span class="more" aria-disabled="true">Открыть</span>
         </div>
         <div class="card">
           <h3>Стипендии</h3>
           <p>Академические, социальные, повышенные и именные.</p>
-          <a class="more" href="#scholarships">Открыть →</a>
+          <span class="more" aria-disabled="true">Открыть</span>
         </div>
       </div>
     </div>
@@ -133,40 +118,19 @@
       <p>Бакалавриат, магистратура, аспирантура.</p>
       <div class="row">
         <article class="tile">
-          <span class="tag">Бакалавриат</span>
           <h3>Электроэнергетика и электротехника</h3>
           <p>Сетевые и распределённые энергосистемы, релейная защита, Smart Grid.</p>
-          <a href="#" class="more">Подробнее →</a>
+          <span class="more" aria-disabled="true">Подробнее</span>
         </article>
         <article class="tile">
-          <span class="tag">Бакалавриат</span>
           <h3>Энергетическое машиностроение</h3>
           <p>Турбины, котлоагрегаты, теплообменники, диагностика оборудования.</p>
-          <a href="#" class="more">Подробнее →</a>
+          <span class="more" aria-disabled="true">Подробнее</span>
         </article>
         <article class="tile">
-          <span class="tag">Бакалавриат</span>
           <h3>Информатика и вычислительная техника</h3>
           <p>ПО, ИИ в энергосистемах, SCADA, кибербезопасность объектов.</p>
-          <a href="#" class="more">Подробнее →</a>
-        </article>
-        <article class="tile">
-          <span class="tag">Магистратура</span>
-          <h3>Возобновляемая энергетика</h3>
-          <p>Солнце, ветер, микро‑сети, аккумулирование и устойчивое развитие.</p>
-          <a href="#" class="more">Подробнее →</a>
-        </article>
-        <article class="tile">
-          <span class="tag">Магистратура</span>
-          <h3>Прикладная математика и физика</h3>
-          <p>Моделирование процессов, вычислительная механика, большие данные.</p>
-          <a href="#" class="more">Подробнее →</a>
-        </article>
-        <article class="tile">
-          <span class="tag">Аспирантура</span>
-          <h3>Цифровая энергетика</h3>
-          <p>Прогноз нагрузки, оптимизация режимов, цифровые подстанции.</p>
-          <a href="#" class="more">Подробнее →</a>
+          <span class="more" aria-disabled="true">Подробнее</span>
         </article>
       </div>
     </div>
@@ -182,7 +146,7 @@
           <div class="pad">
             <h3>Открытие лаборатории Smart Grid</h3>
             <p>Учебно‑научный полигон для моделирования режимов энергосистем.</p>
-            <a href="#" class="more">Читать →</a>
+            <span class="more" aria-disabled="true">Читать</span>
           </div>
         </article>
         <article class="news">
@@ -190,7 +154,7 @@
           <div class="pad">
             <h3>Победа на Energy Hack</h3>
             <p>Система прогнозирования аварийных отключений от команды КГЭУ.</p>
-            <a href="#" class="more">Читать →</a>
+            <span class="more" aria-disabled="true">Читать</span>
           </div>
         </article>
       </div>
@@ -213,33 +177,45 @@
   <!-- Поступление -->
   <section id="apply">
     <div class="container">
-      <div class="strip">
-        <h2 style="margin:0 0 .4rem 0">Поступление 2025</h2>
+      <div style="border:1px dashed var(--line);background:#fff;border-radius:var(--radius);padding:12px">
+        <h2 style="margin:0 0 .3rem 0">Поступление 2025</h2>
         <p style="margin:.2rem 0 1rem 0">Подача документов онлайн и консультации приёмной комиссии.</p>
-        <a href="#" class="more">Перейти в кабинет абитуриента →</a>
+        <span class="btn" aria-disabled="true">Кабинет абитуриента</span>
       </div>
     </div>
   </section>
 
   <!-- Футер -->
   <footer id="contacts">
-    <div class="container foot">
+    <div class="container" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px">
       <div>
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
           <div class="logo">KE</div>
-          <div><strong>КГЭУ</strong><br><span class="fine">Казанский государственный энергетический университет</span></div>
+          <div><strong>КГЭУ</strong><br><span style="color:#6b7380;font-size:12px">Казанский государственный энергетический университет</span></div>
         </div>
-        <p class="fine">© 2025 КГЭУ. Демоверсия. Некоторые разделы могут быть неполными.</p>
+        <p style="color:#6b7380;font-size:12px">© 2025 КГЭУ. Демоверсия. Некоторые разделы могут быть неполными.</p>
       </div>
       <div>
-        <h3 style="margin:0 0 .4rem 0">Контакты</h3>
+        <h3 style="margin:0 0 .3rem 0">Контакты</h3>
         <p>420066, Казань, ул. Красносельская, 51<br>Тел.: +7 (843) 519‑42‑02<br>E‑mail: kgeu@kgeu.ru</p>
       </div>
       <div>
-        <h3 style="margin:0 0 .4rem 0">Разделы</h3>
-        <p><a href="#programs">Программы</a><br><a href="#news">Новости</a><br><a href="#campus">Кампус</a><br><a href="#apply">Поступление</a></p>
+        <h3 style="margin:0 0 .3rem 0">Разделы</h3>
+        <p><span class="cta-link" aria-disabled="true">Программы</span><br><span class="cta-link" aria-disabled="true">Новости</span><br><span class="cta-link" aria-disabled="true">Кампус</span><br><span class="cta-link" aria-disabled="true">Поступление</span></p>
       </div>
     </div>
   </footer>
+
+  <script>
+    // На всякий случай предотвращаем клики по любым ссылкам/кнопкам, если вдруг где-то останутся <a> или <button>
+    document.addEventListener('click', function(e){
+      const t = e.target;
+      if (t.closest('a') || t.closest('button') || t.classList.contains('btn') || t.classList.contains('more') || t.classList.contains('cta-link')){
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }
+    }, true);
+  </script>
 </body>
 </html>
