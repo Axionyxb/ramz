@@ -1,179 +1,380 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CryptoNews — ИИ‑платформа новостей крипторынка</title>
-  <meta name="description" content="CryptoNews — ИИ‑медиа: сбор, дедупликация, факт‑чек и публикация новостей. Оставьте заявку на пилот." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter','ui-sans-serif','system-ui'] },
-          colors: { night:'#0A0F1A', brand:{500:'#6366F1',600:'#4F46E5'} },
-          boxShadow: { glow:'0 0 60px rgba(99,102,241,.35), 0 0 120px rgba(56,189,248,.20)' }
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>КГЭУ — Энергия знаний</title>
+  <meta name="description" content="Казанский государственный энергетический университет — поступление, образовательные программы, наука и кампус.">
+  <meta name="theme-color" content="#0b0c10">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%233b82f6'/%3E%3Cstop offset='.7' stop-color='%2322c55e'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='64' cy='64' r='64' fill='url(%23g)'/%3E%3Cpath d='M29 82l35-56 35 56H29z' fill='white'/%3E%3C/svg%3E">
+  <style>
+    :root{
+      --bg: #0b0c10;
+      --bg-soft: #0e1117;
+      --card: #11131b;
+      --text: #e6e8ee;
+      --muted:#a5a9b6;
+      --brand:#3b82f6;
+      --accent:#22c55e;
+      --stroke: #1c2030;
+      --radius: 18px;
+      --radius-sm: 12px;
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+      --maxw: 1200px;
+      --blur: saturate(1.2) blur(10px);
+      --ring: color-mix(in oklab, var(--brand) 42%, transparent);
+      --ring-2: color-mix(in oklab, var(--accent) 32%, transparent);
+      --gradient: radial-gradient(90% 60% at 10% -10%, color-mix(in oklab, var(--brand) 18%, transparent), transparent 50%),
+                   radial-gradient(70% 70% at 100% -20%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 60%);
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f7f8fb; --bg-soft:#f1f4f9; --card:#ffffff; --text:#0b0c10; --muted:#4b5362; --stroke:#e7e9f2;
+        --shadow: 0 20px 60px rgba(8, 23, 47, .08);
       }
     }
-  </script>
-  <style>
-    .gradient{background:
-      radial-gradient(1000px 600px at 10% -10%, rgba(56,189,248,.18), transparent 60%),
-      radial-gradient(900px 500px at 90% 10%, rgba(167,139,250,.16), transparent 60%),
-      linear-gradient(180deg,#0B1220 0%, #090F19 100%);}
-    .glass{background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); backdrop-filter: blur(12px);}
-    .hidden-iframe{position:absolute; width:0; height:0; border:0; clip:rect(0,0,0,0);}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+      font:16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+    .soft-grad{background:var(--gradient)}
+
+    /* ==== NAV ==== */
+    .nav{position:sticky;top:0;z-index:100;background:color-mix(in oklab, var(--bg) 80%, transparent);
+      backdrop-filter:var(--blur);border-bottom:1px solid var(--stroke)}
+    .nav-inner{display:flex;align-items:center;gap:16px;height:76px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.2px}
+    .brand-logo{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
+      background:linear-gradient(160deg, var(--brand), color-mix(in oklab, var(--accent) 35%, var(--brand)));
+      box-shadow:var(--shadow)}
+    .brand-logo svg{width:22px;height:22px;fill:white}
+    .spacer{flex:1}
+    .nav-links{display:flex;gap:22px}
+    .nav-links a{opacity:.9;transition:opacity .2s ease, transform .2s ease}
+    .nav-links a:hover{opacity:1;transform:translateY(-1px)}
+    .cta{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--stroke);
+      background:linear-gradient(180deg, color-mix(in oklab, var(--card) 92%, transparent), var(--card));
+      padding:10px 14px;border-radius:999px;font-weight:600;transition:transform .15s ease, box-shadow .15s ease}
+    .cta:hover{transform:translateY(-1px);box-shadow:0 10px 24px color-mix(in oklab, var(--brand) 12%, transparent)}
+    .btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(160deg, var(--brand), color-mix(in oklab, var(--accent) 40%, var(--brand)));
+      color:#fff;padding:11px 16px;border-radius:14px;border:1px solid color-mix(in oklab, var(--brand) 60%, black);
+      font-weight:800;box-shadow:var(--shadow);transition:transform .15s ease, box-shadow .15s ease}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 18px 36px color-mix(in oklab, var(--brand) 18%, transparent)}
+    .menu{display:none}
+
+    /* ==== HERO ==== */
+    .hero{padding:56px 0 28px;border-bottom:1px solid var(--stroke);position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;inset:-10% -20% -40% -20%;background:var(--gradient);filter:blur(40px);opacity:.7;z-index:-1}
+    .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:32px;align-items:center}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px dashed var(--stroke);
+      border-radius:999px;color:var(--muted);font-size:12px;background:color-mix(in oklab, var(--card) 70%, transparent)}
+    h1{font-size:clamp(32px, 5vw, 54px);line-height:1.08;margin:14px 0 12px;letter-spacing:-.02em}
+    .lead{font-size:clamp(15px, 2.1vw, 19px);color:var(--muted);max-width:64ch}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}
+    .quick{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+    .quick a{border:1px solid var(--stroke);border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px;
+      background:linear-gradient(180deg, color-mix(in oklab, var(--card) 92%, transparent), var(--card));transition:transform .15s ease}
+    .quick a:hover{transform:translateY(-2px)}
+    .quick svg{width:18px;height:18px}
+    .illus{position:relative;border:1px solid var(--stroke);border-radius:22px;overflow:hidden;
+      background:linear-gradient(160deg, color-mix(in oklab, var(--brand) 12%, var(--card)), var(--card));
+      min-height:320px;box-shadow:var(--shadow)}
+    .illus::after{content:\"\";position:absolute;inset:0;background:radial-gradient(60% 40% at 70% 10%, color-mix(in oklab, var(--accent) 18%, transparent), transparent)}
+    .pulse{position:absolute;inset:auto 20px 20px auto;border:1px solid var(--stroke);border-radius:14px;background:var(--card);
+      padding:10px 12px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow);animation:float 6s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+    /* ==== SECTIONS ==== */
+    section{padding:46px 0}
+    .section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:18px;gap:16px}
+    .section-head h2{margin:0;font-size:clamp(22px, 3.6vw, 34px)}
+    .muted{color:var(--muted)}
+
+    /* ==== GRID & CARDS ==== */
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    .card{border:1px solid var(--stroke);background:linear-gradient(180deg, color-mix(in oklab, var(--card) 92%, transparent), var(--card));
+      border-radius:var(--radius);padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.06)}
+    .program{grid-column:span 4;display:flex;flex-direction:column;gap:10px;transition:transform .15s ease, box-shadow .15s ease}
+    .program:hover{transform:translateY(-4px);box-shadow:0 24px 44px rgba(0,0,0,.18)}
+    .tag{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+    .tag i{width:8px;height:8px;border-radius:2px;background:var(--brand);display:inline-block}
+    .program h3{font-size:18px;margin:6px 0}
+    .program a.more{margin-top:auto;display:inline-flex;align-items:center;gap:8px;color:var(--brand);font-weight:800}
+    .program a.more:hover{filter:saturate(1.1)}
+
+    /* ==== NEWS ==== */
+    .news{grid-column:span 6;border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+    .news img{aspect-ratio:16/9;object-fit:cover}
+    .news .pad{padding:14px}
+
+    /* ==== STATS ==== */
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .stat{border:1px solid var(--stroke);background:linear-gradient(180deg, color-mix(in oklab, var(--card) 92%, transparent), var(--card));
+      border-radius:var(--radius);padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.06)}
+    .stat b{font-size:30px;display:block;letter-spacing:-.01em}
+
+    /* ==== FOOTER ==== */
+    footer{border-top:1px solid var(--stroke);padding:38px 0;background:linear-gradient(180deg, transparent, color-mix(in oklab, var(--card) 92%, var(--bg)))}
+    .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px}
+    .foot-logo{display:flex;align-items:center;gap:12px}
+    .fine{font-size:12px;color:var(--muted)}
+
+    /* ==== CONTROLS ==== */
+    .controls{display:flex;gap:10px}
+    .icon-btn{border:1px solid var(--stroke);background:linear-gradient(180deg, color-mix(in oklab, var(--card) 92%, transparent), var(--card));
+      border-radius:12px;padding:8px;display:inline-grid;place-items:center;transition:transform .15s ease}
+    .icon-btn:hover{transform:translateY(-2px)}
+    .icon{width:18px;height:18px}
+
+    /* ==== BADGE ==== */
+    .badge{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--stroke);
+      background:linear-gradient(180deg, color-mix(in oklab, var(--card) 92%, transparent), var(--card));
+      padding:8px 12px;border-radius:14px;font-weight:700;box-shadow:0 12px 28px rgba(0,0,0,.08)}
+
+    /* ==== RESPONSIVE ==== */
+    @media (max-width: 1024px){
+      .hero-grid{grid-template-columns:1fr}
+      .nav-links{display:none}
+      .menu{display:inline-grid}
+      .program{grid-column:span 6}
+      .news{grid-column:span 12}
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .foot-grid{grid-template-columns:1fr}
+    }
+    @media (max-width: 640px){
+      .program{grid-column:span 12}
+      .stats{grid-template-columns:1fr}
+      .quick{grid-template-columns:1fr}
+    }
   </style>
 </head>
-<body class="bg-night text-white antialiased">
-  <!-- Header -->
-  <header class="sticky top-0 z-40 bg-night/70 backdrop-blur border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 via-sky-500 to-teal-400 shadow-glow"></div>
-        <span class="font-extrabold text-xl">CryptoNews</span>
+<body class="soft-grad">
+  <!-- NAVBAR -->
+  <nav class="nav" aria-label="Главная навигация">
+    <div class="container nav-inner">
+      <a class="brand" href="#" aria-label="КГЭУ — на главную">
+        <span class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l7.5 20h-3.2l-1.7-4.8H9.5L7.8 22H4.5L12 2zm1.3 11.1L12 7.8l-1.3 5.3h2.6z"/></svg>
+        </span>
+        КГЭУ
       </a>
-      <nav class="hidden md:flex items-center gap-8 text-sm text-white/80">
-        <a href="#about" class="hover:text-white">О продукте</a>
-        <a href="#features" class="hover:text-white">Возможности</a>
-        <a href="#contact" class="hover:text-white">Контакты</a>
-        <a href="#contact" class="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-400 hover:to-sky-400 transition font-semibold">Заявка</a>
-      </nav>
-      <a href="#contact" class="md:hidden px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-sky-500 font-semibold">Заявка</a>
+      <div class="spacer"></div>
+      <div class="nav-links" role="menubar">
+        <a role="menuitem" href="#programs">Программы</a>
+        <a role="menuitem" href="#news">Новости</a>
+        <a role="menuitem" href="#campus">Кампус</a>
+        <a role="menuitem" href="#contacts">Контакты</a>
+      </div>
+      <div class="controls">
+        <button id="theme" class="icon-btn" aria-label="Переключить тему" title="Тёмная/светлая тема">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 3a1 1 0 010 2 7 7 0 100 14 7 7 0 010-14 1 1 0 010-2z"/></svg>
+        </button>
+        <button class="menu icon-btn" aria-label="Открыть меню" onclick="toggleMenu()">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+        </button>
+        <a class="btn" href="#apply">Поступить</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Энергетика • Инжиниринг • Цифровые технологии</span>
+        <h1>Энергия знаний — будущее в твоих руках</h1>
+        <p class="lead">Казанский государственный энергетический университет готовит инженеров, исследователей и лидеров для энергетики, ИТ и высоких технологий. Программы бакалавриата, магистратуры и аспирантуры — от классической энергетики до ИИ и устойчивого развития.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#programs">Смотреть программы</a>
+          <a class="cta" href="#abiturient">Абитуриенту</a>
+          <a class="cta" href="#students">Студенту</a>
+        </div>
+        <div class="quick" aria-label="Быстрые ссылки">
+          <a href="#dates"><svg viewBox="0 0 24 24"><path d="M7 2v2H5a2 2 0 00-2 2v3h18V6a2 2 0 00-2-2h-2V2h-2v2H9V2H7zm14 9H3v9a2 2 0 002 2h14a2 2 0 002-2v-9z"/></svg> Сроки приёма</a>
+          <a href="#apply"><svg viewBox="0 0 24 24"><path d="M12 3l9 4-9 4-9-4 9-4zm-9 7l9 4 9-4v7l-9 4-9-4v-7z"/></svg> Как поступить</a>
+          <a href="#scholarships"><svg viewBox="0 0 24 24"><path d="M4 7l8-4 8 4-8 4-8-4zm0 5l8 4 8-4v5l-8 4-8-4v-5z"/></svg> Стипендии</a>
+        </div>
+      </div>
+      <div class="illus" role="img" aria-label="Иллюстрация: кампус и лаборатории КГЭУ">
+        <div class="pulse"><svg class="icon" viewBox="0 0 24 24"><path d="M3 13h4l3-8 4 14 3-6h4"/></svg> Smart Grid</div>
+      </div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="gradient">
-    <div class="max-w-7xl mx-auto px-4 py-24 md:py-32">
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div>
-          <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
-            ИИ‑медиа<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-sky-400 to-teal-300">собирает и публикует главное за минуты</span>
-          </h1>
-          <p class="mt-6 text-white/70 text-lg md:text-xl">
-            Сбор → дедупликация → факт‑чек → саммари → публикация. Market‑Impact‑Score выделяет действительно важные события.
-          </p>
-          <div class="mt-8 flex flex-wrap gap-4">
-            <a href="#contact" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-400 hover:to-sky-400 transition-all font-semibold shadow-glow">Оставить заявку</a>
-            <a href="#features" class="px-6 py-3 rounded-2xl glass hover:bg-white/10 transition-all font-semibold">Посмотреть возможности</a>
+  <!-- PROGRAMS -->
+  <section id="programs" aria-labelledby="programs-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="programs-title">Образовательные программы</h2>
+        <a class="cta" href="#" aria-label="Все программы">Все программы →</a>
+      </div>
+      <div class="grid">
+        <article class="card program" aria-label="Электроэнергетика и электротехника">
+          <span class="tag"><i></i> Бакалавриат • очно</span>
+          <h3>Электроэнергетика и электротехника</h3>
+          <p class="muted">Сетевые и распределённые энергосистемы, релейная защита, умные сети (Smart Grid).</p>
+          <a class="more" href="#">Подробнее</a>
+        </article>
+        <article class="card program" aria-label="Энергетическое машиностроение">
+          <span class="tag"><i></i> Бакалавриат • очно</span>
+          <h3>Энергетическое машиностроение</h3>
+          <p class="muted">Турбины, котлоагрегаты, теплообменники, цифровые двойники и диагностика оборудования.</p>
+          <a class="more" href="#">Подробнее</a>
+        </article>
+        <article class="card program" aria-label="Информатика и вычислительная техника">
+          <span class="tag"><i></i> Бакалавриат • очно</span>
+          <h3>Информатика и вычислительная техника</h3>
+          <p class="muted">Программная инженерия, ИИ в энергосистемах, SCADA, кибербезопасность критической инфраструктуры.</p>
+          <a class="more" href="#">Подробнее</a>
+        </article>
+        <article class="card program" aria-label="Возобновляемая энергетика">
+          <span class="tag"><i></i> Магистратура • очно</span>
+          <h3>Возобновляемая энергетика</h3>
+          <p class="muted">Ветер, солнце, аккумулирование, микро‑сети, оптимизация и устойчивое развитие.</p>
+          <a class="more" href="#">Подробнее</a>
+        </article>
+        <article class="card program" aria-label="Прикладная математика и физика">
+          <span class="tag"><i></i> Магистратура • очно</span>
+          <h3>Прикладная математика и физика</h3>
+          <p class="muted">Моделирование энергопроцессов, вычислительная механика, большие данные в энергетике.</p>
+          <a class="more" href="#">Подробнее</a>
+        </article>
+        <article class="card program" aria-label="Цифровая энергетика">
+          <span class="tag"><i></i> Аспирантура</span>
+          <h3>Цифровая энергетика</h3>
+          <p class="muted">Нейросетевые методы прогноза нагрузки, оптимизация режимов, цифровые подстанции.</p>
+          <a class="more" href="#">Подробнее</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <section id="news" aria-labelledby="news-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="news-title">Новости и события</h2>
+        <a class="cta" href="#">Все новости →</a>
+      </div>
+      <div class="grid">
+        <article class="card news">
+          <img alt="Студенты в лаборатории электротехники" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%233b82f6'/%3E%3Cstop offset='.7' stop-color='%2322c55e'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3Ctext x='50%25' y='52%25' text-anchor='middle' font-family='Arial' font-size='44' fill='white'%3EЛаборатории КГЭУ%3C/text%3E%3C/svg%3E">
+          <div class="pad">
+            <h3>Открытие обновлённой лаборатории Smart Grid</h3>
+            <p class="muted">Запущен учебно‑научный полигон для моделирования режимов энергосистем и релейной защиты.</p>
+            <a class="more" href="#">Читать новость</a>
           </div>
-          <div class="mt-8 text-sm text-white/70">Тел.: <a href="tel:+79603110778" class="underline">+7 (960) 311‑07‑78</a> · TG: <a href="https://t.me/k0lyasik10" target="_blank" class="underline">@k0lyasik10</a></div>
+        </article>
+        <article class="card news">
+          <img alt="Команда студентов на хакатоне" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%2322c55e'/%3E%3Cstop offset='.7' stop-color='%233b82f6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g2)'/%3E%3Ctext x='50%25' y='52%25' text-anchor='middle' font-family='Arial' font-size='44' fill='white'%3EХакатон%3C/text%3E%3C/svg%3E">
+          <div class="pad">
+            <h3>Команда КГЭУ заняла 1 место в Energy Hack</h3>
+            <p class="muted">Студенты кафедры ИВТ разработали систему прогнозирования аварийных отключений.</p>
+            <a class="more" href="#">Читать новость</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAMPUS / STATS -->
+  <section id="campus" aria-labelledby="campus-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="campus-title">Кампус в цифрах</h2>
+        <span class="muted">Учёба, исследование и студенческая жизнь</span>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>9 500+</b> студентов</div>
+        <div class="stat"><b>15</b> научных центров</div>
+        <div class="stat"><b>120+</b> партнёров отрасли</div>
+        <div class="stat"><b>98%</b> трудоустройство</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLY / CTA -->
+  <section id="apply" aria-labelledby="apply-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="apply-title">Поступление 2025</h2>
+        <span class="muted">Подай документы онлайн за 10 минут</span>
+      </div>
+      <div class="grid">
+        <article class="card" style="grid-column: span 8" aria-label="Онлайн‑поступление">
+          <h3>Онлайн‑кабинет абитуриента</h3>
+          <p class="muted">Загружай документы, отслеживай конкурс, общайся с приёмной комиссией.</p>
+          <a class="more" href="#">Перейти в кабинет</a>
+        </article>
+        <article class="card" style="grid-column: span 4" aria-label="Консультация">
+          <h3>Есть вопрос?</h3>
+          <p class="muted">Напиши в приёмную — ответим в Telegram или по почте.</p>
+          <a class="more" href="#">Связаться</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contacts" aria-labelledby="contacts-title">
+    <div class="container foot-grid">
+      <div>
+        <div class="foot-logo">
+          <span class="brand-logo" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l7.5 20h-3.2l-1.7-4.8H9.5L7.8 22H4.5L12 2z"/></svg></span>
+          <div>
+            <strong>КГЭУ</strong><br>
+            <span class="muted">Казанский государственный энергетический университет</span>
+          </div>
         </div>
-        <div class="glass rounded-3xl p-6 md:p-8">
-          <div class="aspect-video rounded-xl bg-black/30 border border-white/10 grid place-content-center">
-            <div class="text-center">
-              <div class="text-7xl">⚡️</div>
-              <div class="mt-2 text-white/80">Саммари • Импакт • Дайджест</div>
-            </div>
-          </div>
-          <ul class="mt-6 grid gap-2 text-white/80 text-sm">
-            <li>• Интеграции: RSS/API/X, Telegram</li>
-            <li>• Саммари 70–90 слов и 3 заголовка</li>
-            <li>• SLA: ≤ 5 минут от события до поста</li>
-            <li>• Дайджесты и автопостинг в канал</li>
-          </ul>
-        </div>
+        <p class="fine">© 2025 КГЭУ. Все права защищены. Демонстрационный макет (MVP+ премиум‑стиль).</p>
+      </div>
+      <div>
+        <h3 style="margin-top:0">Контакты</h3>
+        <p class="muted">420066, Казань, ул. Красносельская, 51<br>Тел.: +7 (843) 519‑42‑02<br>E‑mail: kgeu@kgeu.ru</p>
+      </div>
+      <div>
+        <h3 style="margin-top:0">Разделы</h3>
+        <p><a href="#programs">Программы</a><br><a href="#news">Новости</a><br><a href="#campus">Кампус</a><br><a href="#apply">Поступление</a></p>
       </div>
     </div>
-  </section>
-
-  <!-- About & Features -->
-  <section id="about" class="max-w-7xl mx-auto px-4 py-20">
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="md:col-span-2">
-        <h2 class="text-3xl md:text-4xl font-extrabold">Проект «CryptoNews — ИИ‑платформа новостей»</h2>
-        <p class="mt-4 text-white/70">Строим по уставу: CPM/PERT, критический путь, предсказуемые релизы. Смысл — скорость и точность.</p>
-      </div>
-      <div class="glass rounded-2xl p-6">
-        <div class="text-sm text-white/60">Целевой SLA</div>
-        <div class="mt-1 text-4xl font-extrabold">≤ 5 мин</div>
-        <div class="text-white/60">От события до поста</div>
-      </div>
-    </div>
-  </section>
-
-  <section id="features" class="max-w-7xl mx-auto px-4 pb-16">
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="glass rounded-2xl p-6"><div class="text-2xl">🤖</div><h3 class="mt-2 font-bold text-xl">ИИ‑саммари</h3><p class="mt-2 text-white/70">Факт‑чек, тональность, три заголовка.</p></div>
-      <div class="glass rounded-2xl p-6"><div class="text-2xl">🧭</div><h3 class="mt-2 font-bold text-xl">Критический путь</h3><p class="mt-2 text-white/70">Релизы и дайджесты в срок (CPM/PERT).</p></div>
-      <div class="glass rounded-2xl p-6"><div class="text-2xl">📡</div><h3 class="mt-2 font-bold text-xl">Автодистрибуция</h3><p class="mt-2 text-white/70">Telegram, X, email‑дайджесты.</p></div>
-    </div>
-  </section>
-
-  <!-- Contact & Form (direct HTML POST to Telegram API) -->
-  <section id="contact" class="max-w-7xl mx-auto px-4 pb-28">
-    <div class="glass rounded-3xl p-8 md:p-12">
-      <div class="grid md:grid-cols-2 gap-10 items-start">
-        <div>
-          <h3 class="text-2xl md:text-3xl font-extrabold">Оставьте заявку на пилот</h3>
-          <p class="mt-3 text-white/70">Тема заявки: «CryptoNews — ИИ‑платформа новостей крипторынка».</p>
-          <div class="mt-6 space-y-2 text-white/80">
-            <div>Телефон: <a class="underline" href="tel:+79603110778">+7 (960) 311‑07‑78</a></div>
-            <div>Telegram: <a class="underline" href="https://t.me/k0lyasik10" target="_blank">@k0lyasik10</a></div>
-          </div>
-        </div>
-
-        <!-- hidden iframe to keep page after cross-origin form submit -->
-        <iframe name="tg_iframe" class="hidden-iframe" aria-hidden="true"></iframe>
-
-        <form id="leadForm" class="glass rounded-2xl p-6 w-full"
-              action="https://api.telegram.org/bot8152390500:AAFVlWj46XkRMMOG4KdLdnqBV_61CEieo8A/sendMessage"
-              method="post" target="tg_iframe" onsubmit="return prefillAndSubmit(this)">
-          <!-- Telegram API required fields -->
-          <input type="hidden" name="chat_id" value="791844006">
-          <input type="hidden" name="text" id="tg_text" value="">
-          <input type="hidden" name="parse_mode" value="HTML">
-          <input type="hidden" name="disable_web_page_preview" value="true">
-
-          <h4 class="font-bold text-lg">Форма заявки</h4>
-          <div class="mt-4 space-y-4">
-            <input type="hidden" id="topic" value="CryptoNews — ИИ‑платформа новостей крипторынка" />
-            <div>
-              <label class="text-sm text-white/70">ФИО</label>
-              <input required id="fio" class="mt-1 w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-brand-500 outline-none" placeholder="Иванов Иван" />
-            </div>
-            <div>
-              <label class="text-sm text-white/70">Номер телефона</label>
-              <input required id="phone" class="mt-1 w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-brand-500 outline-none" placeholder="+7 900 000‑00‑00" />
-            </div>
-            <div>
-              <label class="text-sm text-white/70">Вопрос</label>
-              <textarea required id="question" rows="3" class="mt-1 w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-brand-500 outline-none" placeholder="Коротко опишите, что вам важно получать в новостях"></textarea>
-            </div>
-            <div class="flex items-center gap-3 text-xs text-white/60">
-              <input id="agree" type="checkbox" required class="accent-indigo-500">
-              <label for="agree">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</label>
-            </div>
-            <button class="w-full px-6 py-3 rounded-2xl bg-gradient-to-r from-indigo-500 to-sky-500 font-semibold hover:from-indigo-400 hover:to-sky-400 transition">Отправить заявку</button>
-            <p id="formStatus" class="text-sm text-white/70 mt-2">После отправки страница останется открытой.</p>
-          </div>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <footer class="border-t border-white/10 py-8 text-center text-white/60">© 2025 CryptoNews · Сделано с ❤️</footer>
+  </footer>
 
   <script>
-    function prefillAndSubmit(form){
-      const fio = document.getElementById('fio').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const question = document.getElementById('question').value.trim();
-      const topic = document.getElementById('topic').value;
-      const utm = Object.fromEntries(new URLSearchParams(location.search).entries());
-      const text = '📝 Заявка на пилот по теме: ' + topic + '\\n' +
-                   'ФИО: ' + fio + '\\n' +
-                   'Телефон: ' + phone + '\\n' +
-                   'Вопрос: ' + question + '\\n' +
-                   'Страница: ' + location.href + '\\n' +
-                   'UTM: ' + JSON.stringify(utm);
-      document.getElementById('tg_text').value = text;
-      return true; // allow form submit
+    // Тёмная/светлая тема — сохранение выбора
+    const key = 'kgeu-theme';
+    const themeBtn = document.getElementById('theme');
+    const applyTheme = (mode)=>{
+      if(mode==='light'){document.documentElement.style.colorScheme='light';}
+      else if(mode==='dark'){document.documentElement.style.colorScheme='dark';}
+    };
+    const saved = localStorage.getItem(key);
+    if(saved) applyTheme(saved);
+    themeBtn.addEventListener('click', ()=>{
+      const current = getComputedStyle(document.documentElement).colorScheme;
+      const next = current === 'dark' ? 'light' : 'dark';
+      localStorage.setItem(key, next); applyTheme(next);
+    });
+
+    // Мобильное меню (раскрытие)
+    function toggleMenu(){
+      const links = document.querySelector('.nav-links');
+      if(!links) return; 
+      const visible = getComputedStyle(links).display !== 'none';
+      links.style.display = visible ? 'none' : 'flex';
+      links.style.flexDirection = 'column';
+      links.style.gap = '12px';
+      links.style.position = 'absolute';
+      links.style.top = '76px';
+      links.style.right = '22px';
+      links.style.background = getComputedStyle(document.documentElement).colorScheme === 'dark' ? '#11131b' : '#fff';
+      links.style.border = '1px solid var(--stroke)';
+      links.style.padding = '12px';
+      links.style.borderRadius = '12px';
+      links.style.boxShadow = 'var(--shadow)';
     }
   </script>
 </body>
