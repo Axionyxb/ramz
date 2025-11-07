@@ -1,221 +1,109 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>КГЭУ — простая главная</title>
-  <meta name="description" content="Простой макет главной страницы КГЭУ.">
-  <style>
-    :root{
-      --bg:#f4f5f7;
-      --text:#1f2328;
-      --muted:#5c6675;
-      --line:#dfe3ea;
-      --card:#ffffff;
-      --blue:#2f6fad;
-      --maxw: 1000px;
-      --radius: 6px;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
-      font:16px/1.55 -apple-system, Segoe UI, Roboto, Arial, sans-serif}
-    img{max-width:100%;display:block}
-    a{text-decoration:none;color:var(--blue)}
-    p{margin:.5rem 0 1rem 0;color:var(--muted)}
-    h1,h2,h3{margin:0 0 .5rem 0;line-height:1.2}
-    .container{max-width:var(--maxw);margin:0 auto;padding:0 16px}
-    header,section,footer{padding:18px 0}
-    .row{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
-    .card{grid-column:span 4;border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:12px}
-    .tile{grid-column:span 4;border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:12px}
-    .news{grid-column:span 6;border:1px solid var(--line);background:var(--card);border-radius:var(--radius);overflow:hidden}
-    .news .pad{padding:12px}
-    .ph{aspect-ratio:16/9;background:#e7ebf1;display:grid;place-items:center;color:#6b7380;font-size:14px}
-    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-    .stat{border:1px solid var(--line);background:#fff;border-radius:var(--radius);padding:12px}
-    .stat b{font-size:22px;display:block}
-
-    /* Примитивная шапка */
-    .topbar{border-bottom:1px solid var(--line);background:#fff}
-    .nav{display:flex;align-items:center;gap:12px;height:58px}
-    .brand{display:flex;align-items:center;gap:8px;font-weight:800}
-    .logo{width:28px;height:28px;border-radius:4px;background:#2f6fad;display:grid;place-items:center;color:#fff;font-size:13px}
-    .spacer{flex:1}
-    .links{display:flex;gap:14px}
-    .links a{color:var(--text)}
-
-    /* Кнопки — нарисованы, но не кликабельны */
-    .btn, .more, .links a, .cta-link{
-      display:inline-flex;align-items:center;gap:6px;
-      padding:8px 10px;border:1px solid var(--line);border-radius:6px;
-      background:#f8f9fb;color:#4a596d;font-weight:600;
-      pointer-events:none;               /* отключаем клики */
-      user-select:none;                  /* на всякий случай */
-      opacity:.85;cursor:default;
-    }
-    .btn.primary{background:#e9eef6;color:#274b78;border-color:#cdd6e3}
-    .btn:active, .more:active{transform:none}
-
-    /* Мобильная адаптация */
-    @media (max-width: 960px){
-      .tile,.card{grid-column:span 6}
-      .news{grid-column:span 12}
-      .stats{grid-template-columns:repeat(2,1fr)}
-    }
-    @media (max-width: 640px){
-      .tile,.card{grid-column:span 12}
-      .stats{grid-template-columns:1fr}
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Учись Просто — курсы для новичков</title>
+<meta name="description" content="Учитесь веб‑вёрстке, JavaScript и Python с нуля. Понятные уроки и практика.">
+<style>
+:root{
+  --bg:#f6f8fb;--ink:#111827;--muted:#6b7280;--paper:#ffffff;--line:#e5e7eb;
+  --brand:#2563eb;--radius:12px;--container:1000px;--gap:16px;
+}
+*{box-sizing:border-box;margin:0}
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;background:var(--bg);color:var(--ink);line-height:1.6}
+a{color:inherit;text-decoration:none}
+.container{max-width:var(--container);margin:0 auto;padding:0 16px}
+section{padding:40px 0}
+h1{font-size:clamp(28px,5.2vw,40px);line-height:1.15}
+h2{font-size:clamp(20px,3.4vw,28px);margin-bottom:8px}
+.lead{color:var(--muted)}
+header{background:#1f2937;color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
+.head{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+.logo{font-weight:800}
+nav{display:flex;gap:12px}
+nav a{color:#cfe3ff;padding:6px 8px;border-radius:8px}
+nav a:hover{background:rgba(255,255,255,.08)}
+.hero{display:grid;gap:var(--gap);grid-template-columns:1fr}
+.hero .box{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.btn{display:inline-block;margin-top:12px;padding:10px 14px;border-radius:10px;background:var(--brand);color:#fff;font-weight:700}
+.grid{display:grid;gap:var(--gap)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px}
+.card h3{margin:0 0 6px 0;font-size:16px}
+small{color:var(--muted)}
+footer{padding:28px 0;color:var(--muted);border-top:1px solid var(--line);text-align:center}
+@media (min-width:768px){
+  .hero{grid-template-columns:1fr 1fr}
+  .grid.cols-2{grid-template-columns:1fr 1fr}
+}
+@media (min-width:1024px){
+  .grid.cols-3{grid-template-columns:1fr 1fr 1fr}
+}
+</style>
 </head>
 <body>
-  <!-- Шапка -->
-  <div class="topbar">
-    <div class="container nav">
-      <div class="brand">
-        <div class="logo">KE</div>
-        КГЭУ
-      </div>
-      <div class="spacer"></div>
-      <nav class="links">
-        <a href="#programs" aria-disabled="true">Программы</a>
-        <a href="#news" aria-disabled="true">Новости</a>
-        <a href="#contacts" aria-disabled="true">Контакты</a>
-      </nav>
-      <span class="btn primary" aria-disabled="true" style="margin-left:8px">Поступить</span>
-    </div>
+<header>
+  <div class="container head">
+    <div class="logo">Учись Просто</div>
+    <nav>
+      <a href="#about">О нас</a>
+      <a href="#courses">Курсы</a>
+      <a href="#reviews">Отзывы</a>
+    </nav>
   </div>
+</header>
 
-  <!-- Хиро -->
-  <header>
-    <div class="container">
-      <h1>Казанский государственный энергетический университет</h1>
-      <p>Простой макет без эффектов — базовая типографика, сетка, минимум декоративности.</p>
-      <div class="row" style="margin-top:10px">
-        <div class="card">
-          <h3>Сроки приёма</h3>
-          <p>Календарь подачи документов и этапы зачисления.</p>
-          <span class="more" aria-disabled="true">Открыть</span>
-        </div>
-        <div class="card">
-          <h3>Как поступить</h3>
-          <p>Шаги, документы, минимальные баллы и контакты комиссии.</p>
-          <span class="more" aria-disabled="true">Открыть</span>
-        </div>
-        <div class="card">
-          <h3>Стипендии</h3>
-          <p>Академические, социальные, повышенные и именные.</p>
-          <span class="more" aria-disabled="true">Открыть</span>
-        </div>
-      </div>
+<main class="container">
+  <section id="about" class="hero">
+    <div class="box">
+      <h1>Начните путь в IT с нуля</h1>
+      <p class="lead">Понятные уроки, мини‑практика и поддержка наставника. Учитесь в удобном темпе на телефоне, планшете и компьютере.</p>
+      <a class="btn" href="#courses">Смотреть курсы</a>
     </div>
-  </header>
-
-  <!-- Программы -->
-  <section id="programs">
-    <div class="container">
-      <h2>Программы</h2>
-      <p>Бакалавриат, магистратура, аспирантура.</p>
-      <div class="row">
-        <article class="tile">
-          <h3>Электроэнергетика и электротехника</h3>
-          <p>Сетевые и распределённые энергосистемы, релейная защита, Smart Grid.</p>
-          <span class="more" aria-disabled="true">Подробнее</span>
-        </article>
-        <article class="tile">
-          <h3>Энергетическое машиностроение</h3>
-          <p>Турбины, котлоагрегаты, теплообменники, диагностика оборудования.</p>
-          <span class="more" aria-disabled="true">Подробнее</span>
-        </article>
-        <article class="tile">
-          <h3>Информатика и вычислительная техника</h3>
-          <p>ПО, ИИ в энергосистемах, SCADA, кибербезопасность объектов.</p>
-          <span class="more" aria-disabled="true">Подробнее</span>
-        </article>
-      </div>
+    <div class="box">
+      <b>Что внутри:</b>
+      <ul style="margin:8px 0 0 18px">
+        <li>короткие уроки по 10–15 минут</li>
+        <li>задания после каждой темы</li>
+        <li>простая проверка прогресса</li>
+      </ul>
     </div>
   </section>
 
-  <!-- Новости -->
-  <section id="news">
-    <div class="container">
-      <h2>Новости и события</h2>
-      <div class="row">
-        <article class="news">
-          <div class="ph">изображение</div>
-          <div class="pad">
-            <h3>Открытие лаборатории Smart Grid</h3>
-            <p>Учебно‑научный полигон для моделирования режимов энергосистем.</p>
-            <span class="more" aria-disabled="true">Читать</span>
-          </div>
-        </article>
-        <article class="news">
-          <div class="ph">фото</div>
-          <div class="pad">
-            <h3>Победа на Energy Hack</h3>
-            <p>Система прогнозирования аварийных отключений от команды КГЭУ.</p>
-            <span class="more" aria-disabled="true">Читать</span>
-          </div>
-        </article>
-      </div>
+  <section id="courses">
+    <h2>Популярные курсы</h2>
+    <p class="lead">Три базовых направления для старта.</p>
+    <div class="grid cols-3" style="margin-top:12px">
+      <article class="card">
+        <h3>HTML &amp; CSS</h3>
+        <p>Структура страницы, стили, сетки, адаптив. Первый мини‑проект.</p>
+        <small>4 недели · Практика</small>
+      </article>
+      <article class="card">
+        <h3>JavaScript базовый</h3>
+        <p>Переменные, функции, DOM‑манипуляции. Добавляем интерактив.</p>
+        <small>5 недель · Примеры</small>
+      </article>
+      <article class="card">
+        <h3>Python старт</h3>
+        <p>Синтаксис, условия и циклы. Небольшие задачи для закрепления.</p>
+        <small>4 недели · Практика</small>
+      </article>
     </div>
   </section>
 
-  <!-- Цифры -->
-  <section id="campus">
-    <div class="container">
-      <h2>Кампус в цифрах</h2>
-      <div class="stats">
-        <div class="stat"><b>9 500+</b> студентов</div>
-        <div class="stat"><b>15</b> научных центров</div>
-        <div class="stat"><b>120+</b> партнёров</div>
-        <div class="stat"><b>98%</b> трудоустройство</div>
-      </div>
+  <section id="reviews">
+    <h2>Отзывы</h2>
+    <div class="grid cols-3" style="margin-top:12px">
+      <div class="card"><small>«Стало понятно, как делать адаптивные сетки. Спасибо!» — Анна</small></div>
+      <div class="card"><small>«Хороший баланс теории и практики. Продолжаю учиться.» — Игорь</small></div>
+      <div class="card"><small>«С нуля разобралась с HTML/CSS, не страшно начинать.» — Дарья</small></div>
     </div>
   </section>
+</main>
 
-  <!-- Поступление -->
-  <section id="apply">
-    <div class="container">
-      <div style="border:1px dashed var(--line);background:#fff;border-radius:var(--radius);padding:12px">
-        <h2 style="margin:0 0 .3rem 0">Поступление 2025</h2>
-        <p style="margin:.2rem 0 1rem 0">Подача документов онлайн и консультации приёмной комиссии.</p>
-        <span class="btn" aria-disabled="true">Кабинет абитуриента</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Футер -->
-  <footer id="contacts">
-    <div class="container" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px">
-      <div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-          <div class="logo">KE</div>
-          <div><strong>КГЭУ</strong><br><span style="color:#6b7380;font-size:12px">Казанский государственный энергетический университет</span></div>
-        </div>
-        <p style="color:#6b7380;font-size:12px">© 2025 КГЭУ. Демоверсия. Некоторые разделы могут быть неполными.</p>
-      </div>
-      <div>
-        <h3 style="margin:0 0 .3rem 0">Контакты</h3>
-        <p>420066, Казань, ул. Красносельская, 51<br>Тел.: +7 (843) 519‑42‑02<br>E‑mail: kgeu@kgeu.ru</p>
-      </div>
-      <div>
-        <h3 style="margin:0 0 .3rem 0">Разделы</h3>
-        <p><span class="cta-link" aria-disabled="true">Программы</span><br><span class="cta-link" aria-disabled="true">Новости</span><br><span class="cta-link" aria-disabled="true">Кампус</span><br><span class="cta-link" aria-disabled="true">Поступление</span></p>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    // На всякий случай предотвращаем клики по любым ссылкам/кнопкам, если вдруг где-то останутся <a> или <button>
-    document.addEventListener('click', function(e){
-      const t = e.target;
-      if (t.closest('a') || t.closest('button') || t.classList.contains('btn') || t.classList.contains('more') || t.classList.contains('cta-link')){
-        e.preventDefault();
-        e.stopPropagation();
-        return false;
-      }
-    }, true);
-  </script>
+<footer>
+  © 2025 Учись Просто · hello@example.com
+</footer>
 </body>
 </html>
