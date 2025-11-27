@@ -1,125 +1,2208 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Учись Просто — курсы для новичков (версия Flex)</title>
-<meta name="description" content="Учитесь веб‑вёрстке, JavaScript и Python с нуля. Пример Flexbox.">
-<style>
-:root{
-  --bg:#f6f8fb;--ink:#111827;--muted:#6b7280;--paper:#ffffff;--line:#e5e7eb;
-  --brand:#2563eb;--radius:12px;--container:1000px;--gap:16px;
-}
-*{box-sizing:border-box;margin:0}
-body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;background:var(--bg);color:var(--ink);line-height:1.6}
-a{color:inherit;text-decoration:none}
-.container{max-width:var(--container);margin:0 auto;padding:0 16px}
-section{padding:40px 0}
-h1{font-size:clamp(28px,5.2vw,40px);line-height:1.15}
-h2{font-size:clamp(20px,3.4vw,28px);margin-bottom:8px}
-.lead{color:var(--muted)}
+  <meta charset="UTF-8" />
+  <title>КГЭУ — университет будущего</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Казанский государственный энергетический университет — поступление, направления, студенческая жизнь и поддержка абитуриентов."
+  />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-soft: #060b1e;
+      --bg-card: #0b1024;
+      --accent: #4f46e5;
+      --accent-soft: rgba(79, 70, 229, 0.12);
+      --accent-gradient: linear-gradient(135deg, #4f46e5, #22d3ee);
+      --accent2: #22d3ee;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border: rgba(148, 163, 184, 0.35);
+      --radius-xl: 18px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.65);
+      --nav-height: 80px;
+    }
 
-header{background:#1f2937;color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
-.head{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
-.logo{font-weight:800}
-nav{display:flex;gap:12px}
-nav a{color:#cfe3ff;padding:6px 8px;border-radius:8px}
-nav a:hover{background:rgba(255,255,255,.08)}
+    * {
+      box-sizing: border-box;
+    }
 
-/* HERO — теперь Flex вместо Grid */
-.hero{
-  display:flex;
-  flex-wrap:wrap;
-  gap:var(--gap);
-  align-items:center;
-  justify-content:space-between;
-}
-.hero .box{
-  flex:1 1 45%;
-  background:var(--paper);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:16px;
-  min-width:280px;
-}
-.btn{display:inline-block;margin-top:12px;padding:10px 14px;border-radius:10px;background:var(--brand);color:#fff;font-weight:700}
-.btn.outline{background:transparent;color:var(--brand);border:1px solid var(--brand)}
-.btn.outline:hover{background:#eff6ff}
+    html {
+      scroll-behavior: smooth;
+    }
 
-.grid{display:grid;gap:var(--gap)}
-.card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px}
-.card h3{margin:0 0 6px 0;font-size:16px}
-small{color:var(--muted)}
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #0f172a 0, #020617 46%, #020617 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
 
-footer{padding:28px 0;color:var(--muted);border-top:1px solid var(--line);text-align:center}
-@media (min-width:1024px){
-  .grid.cols-3{grid-template-columns:1fr 1fr 1fr}
-}
-</style>
+    /* Глобальные элементы */
+
+    .page-wrapper {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.12) 0, transparent 50%),
+        radial-gradient(circle at 100% 0%, rgba(79, 70, 229, 0.15) 0, transparent 55%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 12px;
+    }
+
+    section {
+      padding: 80px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.7);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      backdrop-filter: blur(14px);
+    }
+
+    .section-label-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent-gradient);
+    }
+
+    .section-title {
+      font-size: clamp(26px, 3vw, 32px);
+      margin: 18px 0 10px;
+      letter-spacing: 0.03em;
+    }
+
+    .section-subtitle {
+      max-width: 640px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 40px;
+      align-items: center;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      gap: 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .chip-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 11px 20px;
+      font-size: 14px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background-image: var(--accent-gradient);
+      color: #0b1024;
+      box-shadow: 0 18px 40px rgba(79, 70, 229, 0.5);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px) scale(1.01);
+      box-shadow: 0 24px 50px rgba(79, 70, 229, 0.6);
+    }
+
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.9);
+      border-color: rgba(148, 163, 184, 0.55);
+      color: var(--muted);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent2);
+      color: var(--accent2);
+      transform: translateY(-1px);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      font-size: 11px;
+      color: var(--muted);
+      gap: 8px;
+    }
+
+    .pill span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      background: rgba(248, 250, 252, 0.08);
+      font-size: 10px;
+    }
+
+    .badge {
+      display: inline-flex;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(22, 163, 74, 0.1);
+      border: 1px solid rgba(22, 163, 74, 0.6);
+      color: #bbf7d0;
+      font-size: 11px;
+    }
+
+    .cards-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .card {
+      position: relative;
+      padding: 18px 18px 16px;
+      border-radius: var(--radius-xl);
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.17), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.12), transparent 65%),
+        radial-gradient(circle at 100% 0%, rgba(129, 140, 248, 0.12), transparent 65%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(129, 140, 248, 0.9);
+      box-shadow: 0 25px 70px rgba(15, 23, 42, 0.9);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-title {
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .card-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .card-body {
+      font-size: 14px;
+      color: #e5e7eb;
+    }
+
+    .card-meta {
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      padding: 3px 9px;
+      font-size: 11px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: #e5e7eb;
+    }
+
+    /* ШАПКА */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.94), rgba(2, 6, 23, 0.97));
+      border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+      transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    header.scrolled {
+      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.85);
+      border-color: rgba(148, 163, 184, 0.6);
+    }
+
+    .nav {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: conic-gradient(from 180deg, #22d3ee, #4f46e5, #22c55e, #22d3ee);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 14px 35px rgba(56, 189, 248, 0.75);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-inner {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      background: #020617;
+      border: 2px solid rgba(226, 232, 240, 0.9);
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: #e5e7eb;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .logo-text-main {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .logo-text-sub {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 13px;
+    }
+
+    .nav-links a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--muted);
+      border: 1px solid transparent;
+      transition: all 0.18s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #e5e7eb;
+      border-color: rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: rgba(22, 163, 74, 0.12);
+      border: 1px solid rgba(22, 163, 74, 0.7);
+      color: #bbf7d0;
+    }
+
+    .nav-badge span {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+    }
+
+    .nav-toggle {
+      display: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .nav-toggle span,
+    .nav-toggle span::before,
+    .nav-toggle span::after {
+      display: block;
+      width: 14px;
+      height: 2px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      position: relative;
+    }
+
+    .nav-toggle span::before,
+    .nav-toggle span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      transition: transform 0.2s ease, top 0.2s ease, opacity 0.2s ease;
+    }
+
+    .nav-toggle span::before {
+      top: -5px;
+    }
+
+    .nav-toggle span::after {
+      top: 5px;
+    }
+
+    .nav-toggle.open span {
+      background: transparent;
+    }
+
+    .nav-toggle.open span::before {
+      top: 0;
+      transform: rotate(45deg);
+    }
+
+    .nav-toggle.open span::after {
+      top: 0;
+      transform: rotate(-45deg);
+    }
+
+    @media (max-width: 840px) {
+      .nav-links {
+        position: absolute;
+        inset: var(--nav-height) 0 auto 0;
+        background: rgba(2, 6, 23, 0.98);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+        padding: 12px 20px 14px;
+        flex-wrap: wrap;
+        justify-content: center;
+        transform-origin: top;
+        transform: scaleY(0.9);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: transform 0.2s ease, opacity 0.2s ease, visibility 0.2s ease;
+      }
+
+      .nav-links.open {
+        opacity: 1;
+        transform: scaleY(1);
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+
+      .nav-right .btn-primary {
+        display: none;
+      }
+    }
+
+    /* HERO */
+
+    #hero {
+      padding-top: calc(80px + 50px);
+      padding-bottom: 80px;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: clamp(30px, 4.4vw, 40px);
+      letter-spacing: 0.03em;
+      margin: 14px 0 12px;
+    }
+
+    .hero-title span {
+      background-image: var(--accent-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-lead {
+      color: var(--muted);
+      max-width: 520px;
+      font-size: 15px;
+    }
+
+    .hero-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .hero-right {
+      position: relative;
+      min-height: 260px;
+    }
+
+    .hero-card {
+      position: relative;
+      padding: 18px 18px 16px;
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.9);
+      max-width: 360px;
+      margin-left: auto;
+      overflow: hidden;
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(22, 163, 74, 0.12);
+      border: 1px solid rgba(22, 163, 74, 0.7);
+      color: #bbf7d0;
+      font-size: 11px;
+    }
+
+    .hero-badge span {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+    }
+
+    .hero-campus {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+      font-size: 11px;
+    }
+
+    .hero-stat {
+      padding: 8px 9px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .hero-floater {
+      position: absolute;
+      inset: auto -10px 0 auto;
+      transform: translate(18px, 18px);
+      display: grid;
+      gap: 10px;
+    }
+
+    .hero-floater-card {
+      padding: 8px 10px;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.65);
+      font-size: 11px;
+      color: var(--muted);
+      max-width: 190px;
+      box-shadow: 0 14px 40px rgba(15, 23, 42, 1);
+    }
+
+    .hero-floater-title {
+      font-size: 11px;
+      color: #e5e7eb;
+      margin-bottom: 4px;
+    }
+
+    .hero-floater-card strong {
+      color: #fbbf24;
+    }
+
+    @media (max-width: 900px) {
+      #hero {
+        padding-top: 96px;
+      }
+
+      .hero-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-card {
+        margin: 0 auto;
+      }
+
+      .hero-floater {
+        position: static;
+        transform: none;
+        margin-top: 14px;
+      }
+    }
+
+    /* Блок «Направления» */
+
+    #faculties {
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.16), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(79, 70, 229, 0.18), transparent 60%);
+    }
+
+    .faculty-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 36px;
+      align-items: flex-start;
+      margin-top: 24px;
+    }
+
+    .faculty-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .faculty-card .tag-row {
+      margin-top: 10px;
+    }
+
+    .faculty-side {
+      position: sticky;
+      top: calc(var(--nav-height) + 18px);
+    }
+
+    .progress-row {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+      font-size: 12px;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .progress-bar-inner {
+      height: 100%;
+      border-radius: 999px;
+      background-image: var(--accent-gradient);
+      width: var(--value, 50%);
+    }
+
+    /* Поступление */
+
+    #admissions {
+      background: radial-gradient(circle at 100% 0, rgba(56, 189, 248, 0.17), transparent 60%);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .step-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      margin-bottom: 8px;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .steps-note {
+      margin-top: 18px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* Кампус и жизнь */
+
+    #campus {
+      background: radial-gradient(circle at 0 100%, rgba(34, 197, 94, 0.16), transparent 60%);
+    }
+
+    .campus-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 32px;
+      margin-top: 26px;
+      align-items: flex-start;
+    }
+
+    .campus-gallery {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 12px;
+    }
+
+    .campus-photo-main {
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.28), rgba(15, 23, 42, 0.95));
+      height: 240px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .campus-photo-main::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(
+        135deg,
+        rgba(15, 23, 42, 0.15),
+        rgba(2, 6, 23, 0.85)
+      );
+      mix-blend-mode: soft-light;
+      pointer-events: none;
+    }
+
+    .campus-photo-main h4 {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    .campus-photo-main p {
+      margin: 4px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+      max-width: 260px;
+    }
+
+    .campus-photo-strip {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .campus-mini {
+      border-radius: 14px;
+      padding: 10px 11px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.95);
+      font-size: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .campus-mini strong {
+      font-size: 12px;
+    }
+
+    .campus-list {
+      margin-top: 16px;
+      display: grid;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .campus-list-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: var(--muted);
+    }
+
+    .campus-bullet {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent-gradient);
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    /* События */
+
+    #events {
+      background: radial-gradient(circle at 50% 0, rgba(79, 70, 229, 0.23), transparent 65%);
+    }
+
+    .events-layout {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 32px;
+      align-items: flex-start;
+    }
+
+    .events-timeline {
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      padding: 18px 18px 16px;
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.16), rgba(15, 23, 42, 0.95));
+      box-shadow: var(--shadow-soft);
+    }
+
+    .events-row {
+      display: grid;
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .event-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 10px;
+      font-size: 13px;
+      align-items: center;
+    }
+
+    .event-pill {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--muted);
+    }
+
+    .event-title {
+      font-size: 13px;
+    }
+
+    .event-meta {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .events-side {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* Студентам */
+
+    #students {
+      background: radial-gradient(circle at 0 0, rgba(34, 197, 94, 0.18), transparent 60%);
+    }
+
+    .students-grid {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 32px;
+      align-items: flex-start;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+    }
+
+    .quote-card {
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.16), rgba(15, 23, 42, 0.95));
+      padding: 18px 18px 16px;
+      font-size: 14px;
+      color: #e5e7eb;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .quote-author {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* FAQ */
+
+    #faq {
+      background: radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.17), transparent 60%);
+    }
+
+    .faq-grid {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 32px;
+      align-items: flex-start;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .faq-item {
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.95);
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .faq-item-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .faq-q {
+      font-size: 14px;
+    }
+
+    .faq-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+
+    .faq-a {
+      margin-top: 6px;
+      font-size: 13px;
+      color: var(--muted);
+      display: none;
+    }
+
+    .faq-item.open {
+      border-color: rgba(79, 70, 229, 0.95);
+      background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.18), rgba(15, 23, 42, 0.96));
+    }
+
+    .faq-item.open .faq-a {
+      display: block;
+    }
+
+    /* Контакты + карта */
+
+    #contacts {
+      background: radial-gradient(circle at 50% 0, rgba(15, 23, 42, 0.7), rgba(2, 6, 23, 1));
+    }
+
+    .contacts-grid {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 32px;
+      align-items: flex-start;
+    }
+
+    .contact-list {
+      font-size: 14px;
+      display: grid;
+      gap: 10px;
+      color: var(--muted);
+    }
+
+    .contact-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: #e5e7eb;
+    }
+
+    .contact-highlight {
+      font-size: 16px;
+      color: #f9fafb;
+    }
+
+    .contact-map {
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.18), rgba(15, 23, 42, 0.96));
+      padding: 14px;
+      font-size: 12px;
+      color: var(--muted);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .contact-map-placeholder {
+      margin-top: 10px;
+      border-radius: 14px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      padding: 16px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    /* Блок Telegram-бота */
+
+    #bot {
+      background: radial-gradient(circle at 50% 100%, rgba(34, 197, 94, 0.22), transparent 65%);
+    }
+
+    .bot-card {
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.65);
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.26), rgba(15, 23, 42, 0.98));
+      padding: 22px 20px 20px;
+      box-shadow: 0 26px 70px rgba(15, 23, 42, 0.98);
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 26px;
+      align-items: center;
+    }
+
+    .bot-title {
+      font-size: clamp(22px, 2.6vw, 26px);
+      margin: 10px 0 6px;
+    }
+
+    .bot-sub {
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 520px;
+    }
+
+    .bot-tag-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+      font-size: 12px;
+    }
+
+    .bot-tag {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.96);
+      padding: 7px 11px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+    }
+
+    .bot-tag span {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent-gradient);
+    }
+
+    .bot-right {
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.96);
+      padding: 14px 14px 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .bot-chat-bubble {
+      border-radius: 16px;
+      padding: 10px 11px;
+      margin-bottom: 8px;
+      max-width: 100%;
+    }
+
+    .bot-chat-bubble.user {
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+    }
+
+    .bot-chat-bubble.bot {
+      background: rgba(37, 99, 235, 0.16);
+      border: 1px solid rgba(59, 130, 246, 0.8);
+    }
+
+    .bot-hint {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .bot-cta-row {
+      margin-top: 18px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .bot-handle {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+        "Courier New", monospace;
+      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+    }
+
+    /* Футер */
+
+    footer {
+      padding: 20px;
+      border-top: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 11px;
+      color: var(--muted);
+      background: rgba(2, 6, 23, 0.98);
+    }
+
+    .footer-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 2px;
+    }
+
+    /* Адаптив */
+
+    @media (max-width: 960px) {
+      .grid-2,
+      .faculty-layout,
+      .campus-grid,
+      .events-layout,
+      .students-grid,
+      .faq-grid,
+      .contacts-grid,
+      .bot-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .faculty-side {
+        position: static;
+      }
+
+      section {
+        padding: 70px 18px;
+      }
+
+      .bot-right {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .cards-row {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-meta-row {
+        flex-direction: column;
+      }
+
+      .nav {
+        padding-inline: 16px;
+      }
+
+      .container {
+        max-width: 100%;
+      }
+
+      .bot-card {
+        padding: 18px 16px 16px;
+      }
+    }
+
+    /* Анимация появления */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
 <body>
-<header>
-  <div class="container head">
-    <div class="logo">Учись Просто</div>
-    <nav>
-      <a href="#about">О нас</a>
-      <a href="#courses">Курсы</a>
-      <a href="#reviews">Отзывы</a>
+<div class="page-wrapper">
+  <!-- Навигация -->
+  <header id="top-nav">
+    <nav class="nav">
+      <div class="nav-left">
+        <div class="logo-mark">
+          <div class="logo-inner">KG</div>
+        </div>
+        <div>
+          <div class="logo-text-main">КГЭУ</div>
+          <div class="logo-text-sub">Университет энергетики будущего</div>
+        </div>
+      </div>
+
+      <div class="nav-links" id="nav-links">
+        <a href="#hero" class="active">Главная</a>
+        <a href="#faculties">Направления</a>
+        <a href="#admissions">Поступление</a>
+        <a href="#campus">Кампус</a>
+        <a href="#events">События</a>
+        <a href="#students">Студентам</a>
+        <a href="#faq">FAQ</a>
+        <a href="#bot">Поддержка</a>
+      </div>
+
+      <div class="nav-right">
+        <div class="nav-badge">
+          <span></span>
+          Приёмная кампания открыта
+        </div>
+        <a href="#bot" class="btn-primary">Написать в Telegram</a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Открыть меню">
+          <span></span>
+        </button>
+      </div>
     </nav>
-  </div>
-</header>
+  </header>
 
-<main class="container">
-  <section id="about" class="hero">
-    <div class="box">
-      <h1>Начните путь в IT с нуля</h1>
-      <p class="lead">Теперь секция hero построена на Flexbox, а не на Grid. Это позволяет гибко выравнивать элементы и автоматически переносить их на маленьких экранах.</p>
-      <a class="btn" href="#courses">Смотреть курсы</a>
-    </div>
-    <div class="box">
-      <b>Что внутри:</b>
-      <ul style="margin:8px 0 0 18px">
-        <li>короткие уроки по 10–15 минут</li>
-        <li>задания после каждой темы</li>
-        <li>простая проверка прогресса</li>
-      </ul>
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container hero-inner reveal">
+      <div>
+        <div class="chip">
+          <div class="chip-dot"></div>
+          Казанский государственный энергетический университет
+        </div>
+        <h1 class="hero-title">
+          КГЭУ — <span>университет, который заряжает</span> на инженерное будущее
+        </h1>
+        <p class="hero-lead">
+          Получи сильное инженерное образование, погрузись в современную энергетическую отрасль,
+          IT и цифровые технологии. Кампус, лаборатории, проекты с компаниями —
+          всё в одном университете.
+        </p>
+
+        <div class="hero-meta-row">
+          <div class="pill">
+            <span>★</span>
+            Более 10&nbsp;000 студентов
+          </div>
+          <div class="pill">
+            <span>⚡</span>
+            Базовый вуз энергетической отрасли
+          </div>
+          <div class="pill">
+            <span>✔</span>
+            Бакалавриат, специалитет, магистратура, аспирантура
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <a href="#admissions" class="btn-primary">Как поступить</a>
+          <a href="#faculties" class="btn-ghost">Посмотреть направления</a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-card">
+          <div class="hero-card-header">
+            <div>
+              <div class="badge">День открытых дверей</div>
+              <div class="hero-campus">
+                Узнай всё о поступлении, встретись с преподавателями и студентами.
+              </div>
+            </div>
+            <div class="hero-badge">
+              <span></span>
+              Онлайн + офлайн
+            </div>
+          </div>
+
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <strong>4</strong>
+              уровня образования
+            </div>
+            <div class="hero-stat">
+              <strong>40+</strong>
+              образовательных программ
+            </div>
+            <div class="hero-stat">
+              <strong>95%</strong>
+              трудоустройство выпускников
+            </div>
+          </div>
+
+          <div class="hero-floater">
+            <div class="hero-floater-card">
+              <div class="hero-floater-title">Абитуриент спрашивает:</div>
+              «Какие предметы нужны для поступления на энергетику?»<br />
+              <strong>Telegram-бот КГЭУ</strong> отвечает за несколько секунд.
+            </div>
+            <div class="hero-floater-card">
+              <div class="hero-floater-title">Онлайн-поддержка</div>
+              Задавай вопросы 24/7 — расписание, приёмная комиссия, общежития, студенческая жизнь.
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="courses">
-    <h2>Популярные курсы</h2>
-    <p class="lead">Три базовых направления для старта.</p>
-    <div class="grid cols-3" style="margin-top:12px">
-      <article class="card">
-        <h3>HTML &amp; CSS</h3>
-        <p>Структура страницы, стили, сетки, адаптив. Первый мини‑проект.</p>
-        <small>4 недели · Практика</small>
-      </article>
-      <article class="card">
-        <h3>JavaScript базовый</h3>
-        <p>Переменные, функции, DOM‑манипуляции. Добавляем интерактив.</p>
-        <small>5 недель · Примеры</small>
-      </article>
-      <article class="card">
-        <h3>Python старт</h3>
-        <p>Синтаксис, условия и циклы. Небольшие задачи для закрепления.</p>
-        <small>4 недели · Практика</small>
-      </article>
+  <!-- Направления подготовки -->
+  <section id="faculties">
+    <div class="container reveal">
+      <span class="section-label">
+        <span class="section-label-dot"></span>
+        Направления подготовки
+      </span>
+      <h2 class="section-title">Куда можно поступить в КГЭУ</h2>
+      <p class="section-subtitle">
+        Классическая энергетика, цифровые технологии, управление и экономика.
+        Выбирай направление, которое ближе твоим интересам и целям.
+      </p>
+
+      <div class="faculty-layout">
+        <div class="faculty-list">
+          <article class="card faculty-card">
+            <div class="card-title">Электроэнергетика и электротехника</div>
+            <div class="card-sub">Классическая и возобновляемая энергетика</div>
+            <div class="card-body">
+              Проектирование и эксплуатация энергосистем, электрические станции,
+              smart-grid, цифровые подстанции, управление режимами энергосистем.
+            </div>
+            <div class="tag-row">
+              <span class="tag">ЕГЭ: профильная математика</span>
+              <span class="tag">Физика</span>
+              <span class="tag">Русский язык</span>
+            </div>
+            <div class="card-meta">
+              <span>Форма: очная / заочная</span>
+              <span>Места: бюджет + платные</span>
+            </div>
+          </article>
+
+          <article class="card faculty-card">
+            <div class="card-title">Теплоэнергетика и теплотехника</div>
+            <div class="card-sub">Теплоэлектростанции, тепловые сети, энергоэффективность</div>
+            <div class="card-body">
+              Работа с тепловыми системами, котельными установками, системами климатизации
+              и повышением энергетической эффективности предприятий.
+            </div>
+            <div class="tag-row">
+              <span class="tag">ЕГЭ: математика</span>
+              <span class="tag">Физика</span>
+              <span class="tag">Русский язык</span>
+            </div>
+            <div class="card-meta">
+              <span>Проекты с реальными предприятиями</span>
+              <span>Стажировки</span>
+            </div>
+          </article>
+
+          <article class="card faculty-card">
+            <div class="card-title">Информатика и вычислительная техника</div>
+            <div class="card-sub">IT, программирование, цифровая энергетика</div>
+            <div class="card-body">
+              Разработка программного обеспечения, анализ данных, цифровые двойники,
+              промышленные IoT-системы, кибербезопасность в энергетике.
+            </div>
+            <div class="tag-row">
+              <span class="tag">ЕГЭ: математика</span>
+              <span class="tag">Информатика / физика</span>
+              <span class="tag">Русский язык</span>
+            </div>
+            <div class="card-meta">
+              <span>IT-проекты и хакатоны</span>
+              <span>Партнёрства с компаниями</span>
+            </div>
+          </article>
+
+          <article class="card faculty-card">
+            <div class="card-title">Прикладная математика и информатика</div>
+            <div class="card-sub">Моделирование, анализ данных, алгоритмы</div>
+            <div class="card-body">
+              Математическое моделирование энергосистем, анализ больших данных,
+              машинное обучение в задачах энергетики и промышленности.
+            </div>
+            <div class="tag-row">
+              <span class="tag">Углубленная математика</span>
+              <span class="tag">Алгоритмы</span>
+              <span class="tag">Data Science</span>
+            </div>
+            <div class="card-meta">
+              <span>Подготовка к исследовательской карьере</span>
+              <span>Магистратура и аспирантура</span>
+            </div>
+          </article>
+
+          <article class="card faculty-card">
+            <div class="card-title">Экономика и управление в энергетике</div>
+            <div class="card-sub">Менеджмент, финансы, энергосервис</div>
+            <div class="card-body">
+              Умение управлять энергетическими проектами, анализировать эффективность,
+              работать с тарифами, инвестициями и стратегическим развитием компаний.
+            </div>
+            <div class="tag-row">
+              <span class="tag">Экономика</span>
+              <span class="tag">Управление</span>
+              <span class="tag">Проектный подход</span>
+            </div>
+            <div class="card-meta">
+              <span>Кейсы с компаниями</span>
+              <span>Стажировки и практика</span>
+            </div>
+          </article>
+
+          <article class="card faculty-card">
+            <div class="card-title">Магистратура и аспирантура</div>
+            <div class="card-sub">Углублённое обучение и наука</div>
+            <div class="card-body">
+              Исследовательские треки, научные проекты, участие в грантах,
+              развитие академической и профессиональной карьеры.
+            </div>
+            <div class="tag-row">
+              <span class="tag">Исследования</span>
+              <span class="tag">Научные публикации</span>
+              <span class="tag">Научные руководители</span>
+            </div>
+            <div class="card-meta">
+              <span>Зачисление по конкурсу</span>
+              <span>Индивидуальные траектории</span>
+            </div>
+          </article>
+        </div>
+
+        <aside class="faculty-side">
+          <div class="card">
+            <div class="card-title">Выбери свой маршрут</div>
+            <div class="card-sub">4 уровня образования — один университет</div>
+            <div class="card-body">
+              Бакалавриат, специалитет, магистратура и аспирантура — ты можешь
+              построить непрерывную траекторию обучения внутри КГЭУ и вырасти
+              от абитуриента до эксперта отрасли.
+            </div>
+            <div class="progress-row">
+              <div>
+                <div class="progress-label">
+                  <span>Бакалавриат / специалитет</span>
+                  <span>4–5 лет</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-bar-inner" style="--value: 75%;"></div>
+                </div>
+              </div>
+              <div>
+                <div class="progress-label">
+                  <span>Магистратура</span>
+                  <span>2 года</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-bar-inner" style="--value: 45%;"></div>
+                </div>
+              </div>
+              <div>
+                <div class="progress-label">
+                  <span>Аспирантура</span>
+                  <span>3–4 года</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-bar-inner" style="--value: 35%;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="card-meta">
+              <span>Нужна помощь с выбором?</span>
+              <a href="#bot" class="btn-ghost">Спросить у бота</a>
+            </div>
+          </div>
+        </aside>
+      </div>
     </div>
   </section>
 
-  <section id="reviews">
-    <h2>Отзывы</h2>
-    <div class="grid cols-3" style="margin-top:12px">
-      <div class="card"><small>«Flexbox делает адаптацию проще!» — Анна</small></div>
-      <div class="card"><small>«Теперь элементы красиво выравниваются.» — Игорь</small></div>
-      <div class="card"><small>«Код стал короче и понятнее.» — Дарья</small></div>
+  <!-- Поступление -->
+  <section id="admissions">
+    <div class="container reveal">
+      <span class="section-label">
+        <span class="section-label-dot"></span>
+        Поступление
+      </span>
+      <h2 class="section-title">Как поступить в КГЭУ</h2>
+      <p class="section-subtitle">
+        Основные шаги для абитуриента: от выбора направления до заселения в общежитие.
+        Telegram-бот поможет на каждом этапе.
+      </p>
+
+      <div class="steps-grid">
+        <article class="card">
+          <div class="step-num">1</div>
+          <div class="card-title">Выбери направление</div>
+          <div class="card-body">
+            Определи, что тебе ближе: классическая энергетика, IT и цифровые технологии,
+            экономика или управление. Изучи программы и списки вступительных испытаний.
+          </div>
+          <div class="card-meta">
+            <span>Подбор программ</span>
+            <span>Через бота</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="step-num">2</div>
+          <div class="card-title">Подготовь документы</div>
+          <div class="card-body">
+            Паспорт, документы об образовании, результаты ЕГЭ или внутренние экзамены,
+            фотографии, СНИЛС и другие необходимые бумаги в зависимости от формы обучения.
+          </div>
+          <div class="card-meta">
+            <span>Список документов</span>
+            <span>Актуальные требования</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="step-num">3</div>
+          <div class="card-title">Подай заявление</div>
+          <div class="card-body">
+            Подача заявления возможна очно в приёмной комиссии или онлайн.
+            Следи за конкурсными списками и сроками через официальный сайт и Telegram-каналы.
+          </div>
+          <div class="card-meta">
+            <span>Онлайн-подача</span>
+            <span>Консультация в боте</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="step-num">4</div>
+          <div class="card-title">Зачисление и общежитие</div>
+          <div class="card-body">
+            После зачисления — оформление договоров, при необходимости — заселение
+            в общежитие. Кураторы и студсовет помогут адаптироваться в университете.
+          </div>
+          <div class="card-meta">
+            <span>Кураторские группы</span>
+            <span>Студенческий кампус</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="steps-note">
+        Не уверен в направлении, вопрос по проходным баллам или срокам? Задай вопрос
+        <a href="#bot">нашему Telegram-боту КГЭУ</a> — он подскажет, куда тебе лучше поступать.
+      </div>
     </div>
   </section>
-</main>
 
-<footer>
-  © 2025 Учись Просто · hello@example.com
-</footer>
+  <!-- Кампус и студенческая жизнь -->
+  <section id="campus">
+    <div class="container reveal">
+      <span class="section-label">
+        <span class="section-label-dot"></span>
+        Кампус и студенческая жизнь
+      </span>
+      <h2 class="section-title">Университет, в котором хочется проводить время</h2>
+      <p class="section-subtitle">
+        Учёба — это только часть жизни в КГЭУ. Кампус, лаборатории, спортивная и творческая
+        инфраструктура помогают развиваться во всех направлениях.
+      </p>
+
+      <div class="campus-grid">
+        <div class="campus-gallery">
+          <div class="campus-photo-main">
+            <div>
+              <h4>Учебные корпуса и лаборатории</h4>
+              <p>
+                Современные лаборатории, компьютерные классы, научные центры. Занятия,
+                практикумы и проектная работа проходят на оборудовании, приближенном к
+                реальной отрасли.
+              </p>
+            </div>
+            <div style="font-size:11px;color:var(--muted);display:flex;gap:12px;align-items:center;justify-content:space-between;">
+              <span>Практика с первого курса</span>
+              <span>Технологический кампус</span>
+            </div>
+          </div>
+          <div class="campus-photo-strip">
+            <div class="campus-mini">
+              <strong>Общежития</strong>
+              <span>Студенческие общежития рядом с корпусами, студенческое сообщество,
+                мероприятия и совместные проекты.</span>
+            </div>
+            <div class="campus-mini">
+              <strong>Спорт и творчество</strong>
+              <span>Спортивные секции, творческие студии, КВН, волонтёрство и студенческие
+                клубы по интересам.</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="campus-list">
+            <div class="campus-list-item">
+              <div class="campus-bullet"></div>
+              <div>
+                <strong>Студенческие объединения</strong><br />
+                Научные кружки, проектные команды, стартап-сообщества, профком, студсовет —
+                каждый найдёт себе сообщество по душе.
+              </div>
+            </div>
+            <div class="campus-list-item">
+              <div class="campus-bullet"></div>
+              <div>
+                <strong>Проекты с компаниями</strong><br />
+                Участие в реальных кейсах и проектах партнёрских организаций, стажировки и
+                привязка дипломных работ к задачам бизнеса.
+              </div>
+            </div>
+            <div class="campus-list-item">
+              <div class="campus-bullet"></div>
+              <div>
+                <strong>Конференции и олимпиады</strong><br />
+                Научные конференции, олимпиады, хакатоны — возможность проявить себя и
+                получить дополнительные бонусы при поступлении в магистратуру.
+              </div>
+            </div>
+            <div class="campus-list-item">
+              <div class="campus-bullet"></div>
+              <div>
+                <strong>Поддержка иностранных студентов</strong><br />
+                Адаптационные программы, помощь с документами и интеграцией в студенческую
+                жизнь университета.
+              </div>
+            </div>
+          </div>
+          <div class="btn-row">
+            <a href="#events" class="btn-ghost">Посмотреть события</a>
+            <a href="#bot" class="btn-primary">Спросить про общежитие</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- События и олимпиады -->
+  <section id="events">
+    <div class="container reveal">
+      <span class="section-label">
+        <span class="section-label-dot"></span>
+        События
+      </span>
+      <h2 class="section-title">Олимпиады, форумы, день открытых дверей</h2>
+      <p class="section-subtitle">
+        В течение года КГЭУ проводит мероприятия для школьников, абитуриентов и студентов:
+        от инженерных олимпиад до карьерных форумов.
+      </p>
+
+      <div class="events-layout">
+        <div class="events-timeline">
+          <div class="card-sub">Примеры регулярных мероприятий</div>
+          <div class="events-row">
+            <div class="event-item">
+              <div class="event-pill">День открытых дверей</div>
+              <div>
+                <div class="event-title">Знакомство с университетом</div>
+                <div class="event-meta">Презентации направлений, экскурсии по корпусам и лабораториям.</div>
+              </div>
+              <div class="event-meta">1–2 раза в год</div>
+            </div>
+            <div class="event-item">
+              <div class="event-pill">Инженерные олимпиады</div>
+              <div>
+                <div class="event-title">Олимпиады по физике и математике</div>
+                <div class="event-meta">Дополнительные баллы при поступлении и развитие инженерного мышления.</div>
+              </div>
+              <div class="event-meta">Зима / весна</div>
+            </div>
+            <div class="event-item">
+              <div class="event-pill">Карьерные форумы</div>
+              <div>
+                <div class="event-title">Встречи с работодателями</div>
+                <div class="event-meta">Прямое общение с представителями компаний, стажировки и вакансии.</div>
+              </div>
+              <div class="event-meta">В течение года</div>
+            </div>
+            <div class="event-item">
+              <div class="event-pill">Студенческие фестивали</div>
+              <div>
+                <div class="event-title">Творчество и спорт</div>
+                <div class="event-meta">Концерты, соревнования, киберспорт, культурные фестивали.</div>
+              </div>
+              <div class="event-meta">Круглый год</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="events-side">
+          <div class="card">
+            <div class="card-title">Хочешь не пропустить важные даты?</div>
+            <div class="card-body">
+              Подпишись на Telegram-бота КГЭУ: он напомнит о дне открытых дверей,
+              старте подачи документов, важных сроках и конкурсных списках.
+            </div>
+            <div class="card-meta">
+              <span>Персональные уведомления</span>
+              <a href="#bot" class="btn-primary">Включить напоминания</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Студентам -->
+  <section id="students">
+    <div class="container reveal">
+      <span class="section-label">
+        <span class="section-label-dot"></span>
+        Студентам
+      </span>
+      <h2 class="section-title">Поддержка студентов КГЭУ</h2>
+      <p class="section-subtitle">
+        Стипендии, поддержка инициатив, карьерный центр, дополнительные образовательные
+        треки — всё это помогает выстроить сильную карьеру уже во время учёбы.
+      </p>
+
+      <div class="students-grid">
+        <div class="benefits-grid">
+          <article class="card">
+            <div class="card-title">Стипендии и гранты</div>
+            <div class="card-body">
+              Государственные академические стипендии, повышенные стипендии за успехи в
+              учёбе и научной деятельности, участие в грантовых конкурсах.
+            </div>
+            <div class="card-meta">
+              <span>Поддержка сильных студентов</span>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-title">Карьерный центр</div>
+            <div class="card-body">
+              Помощь с резюме, карьерные консультации, стажировки, ярмарки вакансий и
+              прямое взаимодействие с компаниями.
+            </div>
+            <div class="card-meta">
+              <span>Карьерные треки</span>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-title">Дополнительное образование</div>
+            <div class="card-body">
+              Дополнительные профессиональные программы, курсы повышения квалификации,
+              программы переподготовки и развитие надпрофессиональных навыков.
+            </div>
+            <div class="card-meta">
+              <span>Гибкие форматы обучения</span>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-title">Поддержка инициатив</div>
+            <div class="card-body">
+              Поддержка студенческих проектов, участие в конкурсах, акселераторах и
+              стартап-программах совместно с партнёрами университета.
+            </div>
+            <div class="card-meta">
+              <span>От идеи до внедрения</span>
+            </div>
+          </article>
+        </div>
+
+        <div>
+          <div class="quote-card">
+            «В КГЭУ вы не просто ходите на пары — вы становитесь частью инженерного
+            сообщества, которое решает реальные задачи энергетики и цифровой экономики.
+            Важно пользоваться всеми возможностями — от научных проектов до стажировок
+            и мероприятий».
+            <div class="quote-author">
+              — академический руководитель программы, преподаватель и наставник студентов
+            </div>
+          </div>
+          <div class="btn-row">
+            <a href="#bot" class="btn-primary">Задать вопрос о стипендии</a>
+            <a href="#faculties" class="btn-ghost">Вернуться к направлениям</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container reveal">
+      <span class="section-label">
+        <span class="section-label-dot"></span>
+        FAQ
+      </span>
+      <h2 class="section-title">Частые вопросы abитуриентов</h2>
+      <p class="section-subtitle">
+        Мы собрали популярные вопросы. Если чего-то нет в списке —
+        просто напиши нашему Telegram-боту, он подскажет.
+      </p>
+
+      <div class="faq-grid">
+        <div class="faq-list" id="faq-list">
+          <div class="faq-item">
+            <div class="faq-item-inner">
+              <div class="faq-q">Какие минимальные проходные баллы для поступления?</div>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-a">
+              Проходные баллы зависят от года и направления подготовки. Актуальные значения
+              публикуются на официальном сайте и в приёмной комиссии. Уточни для своего
+              направления через Telegram-бота — он выдаст последние данные.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-item-inner">
+              <div class="faq-q">Есть ли общежития для иногородних студентов?</div>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-a">
+              Да, для иногородних и иностранных студентов предусмотрены места в
+              общежитиях. Количество мест, очередность и порядок распределения определяются
+              приёмной комиссией и соответствующими документами университета.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-item-inner">
+              <div class="faq-q">Можно ли сочетать учёбу и работу?</div>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-a">
+              Многие студенты совмещают учёбу с работой по специальности или стажировками.
+              При приоритете учёбы и грамотном планировании расписания это возможно.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-item-inner">
+              <div class="faq-q">Какие олимпиады дают преимущества при поступлении?</div>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-a">
+              Преимущества дают олимпиады из утверждённых перечней (например, перечень
+              РСОШ) и собственные олимпиады университета. Конкретные условия лучше
+              уточнять для текущего года — это удобно сделать через бота.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-item-inner">
+              <div class="faq-q">Как понять, какое направление мне подходит?</div>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-a">
+              Важно оценить свои интересы: математика и физика, программирование,
+              управление, экономика. Посмотри описания программ и задавай вопросы
+              в Telegram-боте — он поможет сузить выбор и подскажет, какие экзамены нужны
+              для каждого направления.
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <div class="card-title">Если нет ответа в списке</div>
+            <div class="card-body">
+              Всегда можно задать свой вопрос в Telegram-боте КГЭУ. Он поможет с:
+              <ul style="margin:8px 0 0;padding-left:18px;font-size:13px;color:var(--muted);">
+                <li>выбором направления и программы;</li>
+                <li>информацией о приёмной кампании;</li>
+                <li>общежитиями и студенческой жизнью;</li>
+                <li>контактами нужных служб университета.</li>
+              </ul>
+            </div>
+            <div class="card-meta">
+              <span>Онлайн-консультант</span>
+              <a href="#bot" class="btn-primary">Перейти к боту</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Контакты -->
+  <section id="contacts">
+    <div class="container reveal">
+      <span class="section-label">
+        <span class="section-label-dot"></span>
+        Контакты
+      </span>
+      <h2 class="section-title">Как связаться с университетом</h2>
+      <p class="section-subtitle">
+        Официальные контакты приёмной комиссии и университета. Telegram-бот может
+        подсказать, куда лучше обратиться в каждом конкретном случае.
+      </p>
+
+      <div class="contacts-grid">
+        <div class="contact-list">
+          <div>
+            <div class="contact-label">Приёмная комиссия</div>
+            <div class="contact-highlight">Телефон: +7 (XXX) XXX-XX-XX</div>
+            <div>График работы и дополнительные контакты уточняйте на официальном сайте.</div>
+          </div>
+
+          <div>
+            <div class="contact-label">Электронная почта</div>
+            <div class="contact-highlight">example@kgeu.ru</div>
+            <div>Используйте для отправки документов и официальных запросов.</div>
+          </div>
+
+          <div>
+            <div class="contact-label">Адрес университета</div>
+            <div class="contact-highlight">г. Казань, кампус КГЭУ</div>
+            <div>Точный адрес корпусов и схемы проезда доступны на официальных ресурсах.</div>
+          </div>
+
+          <div>
+            <div class="contact-label">Социальные сети и мессенджеры</div>
+            <div>Telegram-каналы, сообщества ВКонтакте, официальные страницы — следите за новостями университета.</div>
+          </div>
+        </div>
+
+        <div class="contact-map">
+          <div class="card-sub">Как добраться</div>
+          <p>
+            Университет располагается в удобной транспортной доступности. Рядом —
+            общественный транспорт, ключевые городские магистрали и инфраструктура для студентов.
+          </p>
+          <div class="contact-map-placeholder">
+            Здесь можно встроить интерактивную карту (Яндекс.Карты, 2ГИС или другую)
+            с отмеченными корпусами и общежитиями КГЭУ.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Блок Telegram-бота -->
+  <section id="bot">
+    <div class="container reveal">
+      <span class="section-label">
+        <span class="section-label-dot"></span>
+        Онлайн-поддержка
+      </span>
+      <h2 class="section-title">Telegram-бот КГЭУ — твой персональный помощник</h2>
+      <p class="section-subtitle">
+        Задавай вопросы о поступлении, направлениях, стипендиях и студенческой жизни.
+        Бот работает 24/7 и помогает как абитуриентам, так и студентам.
+      </p>
+
+      <div class="bot-card">
+        <div>
+          <div class="badge">Официальный бот поддержки</div>
+          <h3 class="bot-title">Задай вопрос — получи ответ за пару секунд</h3>
+          <p class="bot-sub">
+            Не нужно искать информацию по разным разделам сайта: собрали всё в одном
+            месте. Бот подскажет, какие документы нужны, где посмотреть расписание,
+            как получить общежитие и на какие мероприятия стоит записаться.
+          </p>
+
+          <div class="bot-tag-grid">
+            <div class="bot-tag">
+              <span></span>
+              Вопросы по поступлению и приёмной кампании
+            </div>
+            <div class="bot-tag">
+              <span></span>
+              Направления подготовки и необходимые экзамены
+            </div>
+            <div class="bot-tag">
+              <span></span>
+              Общежития, стипендии, студенческая жизнь
+            </div>
+            <div class="bot-tag">
+              <span></span>
+              Контакты служб и расписание
+            </div>
+          </div>
+
+          <div class="bot-cta-row">
+            <a
+              href="https://t.me/kgeu_support_bot"
+              class="btn-primary"
+              target="_blank"
+              rel="noopener"
+            >
+              Открыть бота в Telegram
+            </a>
+            <div class="bot-handle">@kgeu_support_bot</div>
+          </div>
+        </div>
+
+        <div class="bot-right">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">
+            Пример диалога с ботом:
+          </div>
+          <div class="bot-chat-bubble user">
+            Привет! Какие предметы ЕГЭ нужны, чтобы поступить на направление по электроэнергетике?
+          </div>
+          <div class="bot-chat-bubble bot">
+            Здравствуйте! Для поступления на направление «Электроэнергетика и электротехника»
+            обычно учитываются результаты ЕГЭ по профильной математике, физике и русскому языку.
+            Точные минимальные баллы и перечень экзаменов уточняйте для текущего года.
+          </div>
+          <div class="bot-chat-bubble user">
+            А есть общежитие для иногородних?
+          </div>
+          <div class="bot-chat-bubble bot">
+            Да, для иногородних студентов предусмотрены места в общежитиях.
+            Я могу рассказать про порядок заселения и какие документы понадобятся.
+          </div>
+          <div class="bot-hint">
+            Нажми на кнопку «Открыть бота», чтобы задать свой вопрос. Можно писать как
+            от имени абитуриента, так и от имени родителя или студента.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Футер -->
+  <footer>
+    <div class="footer-inner">
+      <div>© КГЭУ. Университет энергетики будущего.</div>
+      <div class="footer-links">
+        <a href="#hero">Наверх</a>
+        <a href="#faculties">Направления</a>
+        <a href="https://t.me/kgeu_support_bot" target="_blank" rel="noopener">Telegram-бот</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  // sticky header
+  const header = document.getElementById("top-nav");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 10) {
+      header.classList.add("scrolled");
+    } else {
+      header.classList.remove("scrolled");
+    }
+  });
+
+  // мобильное меню
+  const navToggle = document.getElementById("nav-toggle");
+  const navLinks = document.getElementById("nav-links");
+
+  navToggle.addEventListener("click", () => {
+    navToggle.classList.toggle("open");
+    navLinks.classList.toggle("open");
+  });
+
+  navLinks.addEventListener("click", (e) => {
+    if (e.target.tagName === "A") {
+      navToggle.classList.remove("open");
+      navLinks.classList.remove("open");
+    }
+  });
+
+  // активная ссылка при скролле
+  const sections = document.querySelectorAll("section");
+  const navItems = document.querySelectorAll(".nav-links a");
+
+  function setActiveNav() {
+    let currentId = "";
+    sections.forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top <= 120 && rect.bottom >= 120) {
+        currentId = section.id;
+      }
+    });
+
+    navItems.forEach((link) => {
+      if (link.getAttribute("href") === "#" + currentId) {
+        link.classList.add("active");
+      } else {
+        link.classList.remove("active");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", setActiveNav);
+  window.addEventListener("load", setActiveNav);
+
+  // анимация появления блоков
+  const reveals = document.querySelectorAll(".reveal");
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.16 }
+  );
+
+  reveals.forEach((el) => observer.observe(el));
+
+  // FAQ аккордеон
+  document.getElementById("faq-list").addEventListener("click", (e) => {
+    const item = e.target.closest(".faq-item");
+    if (!item) return;
+    item.classList.toggle("open");
+    const icon = item.querySelector(".faq-icon");
+    if (icon) {
+      icon.textContent = item.classList.contains("open") ? "–" : "+";
+    }
+  });
+</script>
 </body>
 </html>
