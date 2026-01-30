@@ -1,2208 +1,1693 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <title>КГЭУ — университет будущего</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta
-    name="description"
-    content="Казанский государственный энергетический университет — поступление, направления, студенческая жизнь и поддержка абитуриентов."
-  />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>VESTA — одежда с характером</title>
+  <meta name="description" content="Интернет‑магазин одежды: новые коллекции, капсулы, аксессуары. Быстрая доставка и лёгкий возврат."/>
+  <meta name="theme-color" content="#0b0b0f" />
   <style>
-    :root {
-      --bg: #050816;
-      --bg-soft: #060b1e;
-      --bg-card: #0b1024;
-      --accent: #4f46e5;
-      --accent-soft: rgba(79, 70, 229, 0.12);
-      --accent-gradient: linear-gradient(135deg, #4f46e5, #22d3ee);
-      --accent2: #22d3ee;
-      --text: #f9fafb;
-      --muted: #9ca3af;
-      --border: rgba(148, 163, 184, 0.35);
-      --radius-xl: 18px;
-      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.65);
-      --nav-height: 80px;
+    :root{
+      --bg:#0b0b0f;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.10);
+      --stroke: rgba(255,255,255,.12);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --muted2: rgba(255,255,255,.52);
+      --shadow: 0 30px 80px rgba(0,0,0,.45);
+      --shadow2: 0 14px 40px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 28px;
+      --max: 1180px;
+      --accent1: #bda2ff;
+      --accent2: #67e8f9;
+      --accent3: #f59e0b;
+      --ok: #34d399;
+      --danger: #fb7185;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #0f172a 0, #020617 46%, #020617 100%);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    /* Глобальные элементы */
-
-    .page-wrapper {
-      min-height: 100vh;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
       background:
-        radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.12) 0, transparent 50%),
-        radial-gradient(circle at 100% 0%, rgba(79, 70, 229, 0.15) 0, transparent 55%);
+        radial-gradient(1200px 600px at 20% -10%, rgba(189,162,255,.35), transparent 65%),
+        radial-gradient(900px 520px at 90% 10%, rgba(103,232,249,.25), transparent 60%),
+        radial-gradient(1100px 700px at 50% 110%, rgba(245,158,11,.18), transparent 55%),
+        linear-gradient(180deg, #07070a 0%, #0b0b0f 45%, #07070a 100%);
+      color:var(--text);
+      font-family:var(--font);
+      overflow-x:hidden;
+    }
+    a{color:inherit; text-decoration:none}
+    button,input{font:inherit}
+    .noise{
+      pointer-events:none;
+      position:fixed; inset:0;
+      background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="220" height="220" filter="url(%23n)" opacity=".18"/></svg>');
+      mix-blend-mode:overlay;
+      opacity:.32;
+      z-index:1;
+    }
+    .wrap{position:relative; z-index:2}
+    .container{max-width:var(--max); margin:0 auto; padding:0 18px}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border:1px solid var(--stroke);
+      border-radius:999px;
+      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+      box-shadow: 0 8px 24px rgba(0,0,0,.25);
+      backdrop-filter: blur(10px);
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: conic-gradient(from 180deg, var(--accent2), var(--accent1), var(--accent3));
+      box-shadow: 0 0 0 6px rgba(255,255,255,.04);
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    img {
-      max-width: 100%;
-      border-radius: 12px;
-    }
-
-    section {
-      padding: 80px 20px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .container {
-      max-width: 1180px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 4px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      background: rgba(15, 23, 42, 0.7);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--muted);
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background: rgba(7,7,10,.55);
       backdrop-filter: blur(14px);
     }
-
-    .section-label-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent-gradient);
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:14px;
     }
-
-    .section-title {
-      font-size: clamp(26px, 3vw, 32px);
-      margin: 18px 0 10px;
-      letter-spacing: 0.03em;
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:750; letter-spacing:.22em;
+      text-transform:uppercase;
     }
-
-    .section-subtitle {
-      max-width: 640px;
-      color: var(--muted);
-      font-size: 15px;
+    .logo{
+      width:34px; height:34px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(189,162,255,.9), rgba(103,232,249,.75) 55%, rgba(245,158,11,.7));
+      box-shadow: 0 14px 36px rgba(0,0,0,.35);
+      position:relative;
+      overflow:hidden;
+      flex:0 0 auto;
     }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-      gap: 40px;
-      align-items: center;
+    .logo:after{
+      content:"";
+      position:absolute; inset:-40% -40%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.7), transparent 55%);
+      transform: rotate(25deg);
+      opacity:.75;
     }
-
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      padding: 6px 12px;
-      gap: 6px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      background: rgba(15, 23, 42, 0.8);
-      color: var(--muted);
-      font-size: 12px;
+    .navlinks{
+      display:flex; gap:16px; align-items:center;
+      color:var(--muted);
+      font-weight:550;
     }
-
-    .chip-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+    .navlinks a{
+      padding:10px 10px;
+      border-radius:12px;
+      transition: transform .2s ease, background .2s ease, color .2s ease;
     }
-
-    .btn-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 24px;
-    }
-
-    .btn-primary,
-    .btn-ghost {
-      border-radius: 999px;
-      padding: 11px 20px;
-      font-size: 14px;
-      border: 1px solid transparent;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-
-    .btn-primary {
-      background-image: var(--accent-gradient);
-      color: #0b1024;
-      box-shadow: 0 18px 40px rgba(79, 70, 229, 0.5);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px) scale(1.01);
-      box-shadow: 0 24px 50px rgba(79, 70, 229, 0.6);
-    }
-
-    .btn-ghost {
-      background: rgba(15, 23, 42, 0.9);
-      border-color: rgba(148, 163, 184, 0.55);
-      color: var(--muted);
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--accent2);
-      color: var(--accent2);
+    .navlinks a:hover{
+      background: rgba(255,255,255,.06);
+      color:var(--text);
       transform: translateY(-1px);
     }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      font-size: 11px;
-      color: var(--muted);
-      gap: 8px;
+    .actions{
+      display:flex; gap:10px; align-items:center;
+    }
+    .iconbtn{
+      width:44px; height:44px;
+      display:grid; place-items:center;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+      backdrop-filter: blur(10px);
+      color:rgba(255,255,255,.9);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      cursor:pointer;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .iconbtn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.22)}
+    .badge{
+      position:absolute;
+      transform: translate(12px,-12px);
+      min-width:18px; height:18px;
+      padding:0 6px;
+      display:grid; place-items:center;
+      font-size:12px;
+      border-radius:999px;
+      background: rgba(245,158,11,.92);
+      color:#111;
+      font-weight:750;
+      border:1px solid rgba(0,0,0,.25);
+      box-shadow: 0 10px 26px rgba(0,0,0,.35);
     }
 
-    .pill span {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 16px;
-      height: 16px;
-      border-radius: 999px;
-      background: rgba(248, 250, 252, 0.08);
-      font-size: 10px;
+    /* Hero */
+    .hero{
+      padding:42px 0 16px;
     }
-
-    .badge {
-      display: inline-flex;
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: rgba(22, 163, 74, 0.1);
-      border: 1px solid rgba(22, 163, 74, 0.6);
-      color: #bbf7d0;
-      font-size: 11px;
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:18px;
+      align-items:stretch;
     }
-
-    .cards-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 18px;
-      margin-top: 28px;
+    .card{
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius2);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      overflow:hidden;
+      position:relative;
     }
-
-    .card {
-      position: relative;
-      padding: 18px 18px 16px;
-      border-radius: var(--radius-xl);
-      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.17), rgba(15, 23, 42, 0.95));
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      box-shadow: var(--shadow-soft);
-      overflow: hidden;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    .heroMain{
+      padding:28px;
+      min-height: 420px;
+      display:flex; flex-direction:column; justify-content:space-between;
     }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
+    .heroMain:before{
+      content:"";
+      position:absolute; inset:-1px;
       background:
-        radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.12), transparent 65%),
-        radial-gradient(circle at 100% 0%, rgba(129, 140, 248, 0.12), transparent 65%);
-      opacity: 0;
-      transition: opacity 0.25s ease;
-      pointer-events: none;
+        radial-gradient(800px 300px at 12% 18%, rgba(189,162,255,.28), transparent 60%),
+        radial-gradient(700px 320px at 82% 28%, rgba(103,232,249,.22), transparent 60%),
+        radial-gradient(800px 520px at 65% 110%, rgba(245,158,11,.16), transparent 60%);
+      z-index:0;
     }
-
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(129, 140, 248, 0.9);
-      box-shadow: 0 25px 70px rgba(15, 23, 42, 0.9);
+    .heroMain > *{position:relative; z-index:1}
+    h1{
+      margin:12px 0 10px;
+      font-size: clamp(32px, 4.2vw, 56px);
+      line-height:1.03;
+      letter-spacing:-.02em;
     }
-
-    .card:hover::before {
-      opacity: 1;
-    }
-
-    .card-title {
+    .sub{
+      color:var(--muted);
       font-size: 16px;
-      margin-bottom: 4px;
+      max-width: 58ch;
+      line-height: 1.6;
+      margin:0 0 18px;
+    }
+    .ctaRow{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.05));
+      box-shadow: 0 14px 40px rgba(0,0,0,.28);
+      cursor:pointer;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+      font-weight:650;
+      color:rgba(255,255,255,.92);
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.24)}
+    .btn.primary{
+      border-color: rgba(103,232,249,.35);
+      background:
+        radial-gradient(900px 260px at 20% 0%, rgba(103,232,249,.35), transparent 60%),
+        radial-gradient(900px 260px at 80% 100%, rgba(189,162,255,.28), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.06));
+    }
+    .btn.ghost{
+      background: rgba(255,255,255,.03);
+      box-shadow:none;
+    }
+    .kpis{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:10px;
+      margin-top:18px;
+    }
+    .kpi{
+      padding:14px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+    }
+    .kpi strong{
+      display:block;
+      font-size:18px;
+      letter-spacing:.02em;
+    }
+    .kpi span{
+      display:block;
+      color:var(--muted2);
+      font-size:13px;
+      margin-top:4px;
+      line-height:1.35;
     }
 
-    .card-sub {
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 8px;
+    .heroSide{
+      display:grid;
+      grid-template-rows: 1fr 1fr;
+      gap:18px;
+    }
+    .mini{
+      padding:18px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(12px);
+      overflow:hidden;
+      position:relative;
+      min-height: 200px;
+    }
+    .mini h3{margin:0 0 8px; font-size:18px; letter-spacing:-.01em}
+    .mini p{margin:0; color:var(--muted); line-height:1.55}
+    .mini .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:12px;
+      color: rgba(255,255,255,.78);
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      margin-bottom:10px;
+      width:fit-content;
+    }
+    .mini:before{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(700px 280px at 10% 20%, rgba(245,158,11,.18), transparent 60%),
+                  radial-gradient(600px 260px at 85% 80%, rgba(103,232,249,.18), transparent 60%);
+      opacity:.9;
+    }
+    .mini > *{position:relative; z-index:1}
+    .mini .row{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:14px
+    }
+    .chip{
+      padding:9px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      font-size:13px;
+      color: rgba(255,255,255,.8);
     }
 
-    .card-body {
+    /* Sections */
+    section{padding:30px 0}
+    .sectionHead{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:14px; flex-wrap:wrap;
+      margin-bottom: 14px;
+    }
+    .sectionHead h2{
+      margin:0;
+      font-size: 24px;
+      letter-spacing:-.02em;
+    }
+    .sectionHead p{
+      margin:0;
+      color:var(--muted);
+      max-width: 60ch;
+      line-height:1.6;
+    }
+
+    /* Toolbar */
+    .toolbar{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+      margin: 12px 0 14px;
+    }
+    .search{
+      flex:1 1 300px;
+      display:flex; align-items:center; gap:10px;
+      padding:12px 12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 16px 40px rgba(0,0,0,.25);
+      backdrop-filter: blur(10px);
+    }
+    .search input{
+      width:100%;
+      border:0; outline:0;
+      background:transparent;
+      color: var(--text);
       font-size: 14px;
-      color: #e5e7eb;
     }
-
-    .card-meta {
-      margin-top: 12px;
-      font-size: 12px;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
+    .filters{
+      display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:flex-end;
+      flex:1 1 280px;
     }
-
-    .tag-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 12px;
-    }
-
-    .tag {
-      padding: 3px 9px;
-      font-size: 11px;
+    .fbtn{
+      padding:10px 12px;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      color: #e5e7eb;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.82);
+      cursor:pointer;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      font-weight:650;
+      font-size:13px;
+    }
+    .fbtn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.22)}
+    .fbtn.active{
+      background: radial-gradient(400px 140px at 30% 20%, rgba(103,232,249,.25), transparent 60%),
+                  radial-gradient(400px 140px at 80% 80%, rgba(189,162,255,.22), transparent 60%),
+                  rgba(255,255,255,.06);
+      border-color: rgba(103,232,249,.35);
     }
 
-    /* ШАПКА */
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(18px);
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.94), rgba(2, 6, 23, 0.97));
-      border-bottom: 1px solid rgba(148, 163, 184, 0.4);
-      transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    /* Product grid */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, minmax(0,1fr));
+      gap:14px;
+    }
+    .p{
+      grid-column: span 4;
+      position:relative;
+      overflow:hidden;
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow: 0 20px 60px rgba(0,0,0,.34);
+      backdrop-filter: blur(12px);
+      transition: transform .25s ease, border-color .25s ease;
+      min-height: 330px;
+    }
+    .p:hover{transform: translateY(-4px); border-color: rgba(255,255,255,.22)}
+    .p .img{
+      height: 180px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      position:relative;
+      overflow:hidden;
+    }
+    .p .img:before{
+      content:"";
+      position:absolute; inset:-1px;
+      background:
+        radial-gradient(800px 260px at 20% 15%, rgba(103,232,249,.24), transparent 60%),
+        radial-gradient(800px 260px at 80% 80%, rgba(189,162,255,.22), transparent 60%),
+        linear-gradient(135deg, rgba(0,0,0,.1), rgba(255,255,255,.05));
+    }
+    .p .img svg{
+      position:absolute; right:-12px; bottom:-16px;
+      width: 230px; height: 230px;
+      opacity:.85;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,.35));
+    }
+    .p .meta{padding:14px}
+    .p h4{margin:2px 0 8px; font-size:16px; letter-spacing:-.01em}
+    .p .desc{margin:0 0 12px; color:var(--muted); font-size:13px; line-height:1.55}
+    .p .bottom{display:flex; align-items:center; justify-content:space-between; gap:10px}
+    .price{font-weight:800; letter-spacing:.02em}
+    .price small{font-weight:700; color:var(--muted2)}
+    .p .btns{display:flex; gap:8px}
+    .miniBtn{
+      padding:10px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      cursor:pointer;
+      color: rgba(255,255,255,.88);
+      font-weight:750;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+      white-space:nowrap;
+    }
+    .miniBtn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.22)}
+    .miniBtn.primary{
+      background: radial-gradient(400px 140px at 20% 0%, rgba(245,158,11,.25), transparent 60%),
+                  rgba(255,255,255,.06);
+      border-color: rgba(245,158,11,.35);
+    }
+    .ribbon{
+      position:absolute; top:12px; left:12px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.22);
+      font-size:12px;
+      color: rgba(255,255,255,.82);
+      backdrop-filter: blur(10px);
+      display:inline-flex; align-items:center; gap:8px;
     }
 
-    header.scrolled {
-      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.85);
-      border-color: rgba(148, 163, 184, 0.6);
+    /* Lookbook */
+    .lookbook{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
     }
-
-    .nav {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 14px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .logo-mark {
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      background: conic-gradient(from 180deg, #22d3ee, #4f46e5, #22c55e, #22d3ee);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 14px 35px rgba(56, 189, 248, 0.75);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .logo-inner {
-      width: 20px;
-      height: 20px;
-      border-radius: 999px;
-      background: #020617;
-      border: 2px solid rgba(226, 232, 240, 0.9);
-      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 9px;
-      color: #e5e7eb;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .logo-text-main {
-      font-size: 17px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .logo-text-sub {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-size: 13px;
-    }
-
-    .nav-links a {
-      padding: 6px 10px;
-      border-radius: 999px;
-      color: var(--muted);
-      border: 1px solid transparent;
-      transition: all 0.18s ease;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: #e5e7eb;
-      border-color: rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.9);
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .nav-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      background: rgba(22, 163, 74, 0.12);
-      border: 1px solid rgba(22, 163, 74, 0.7);
-      color: #bbf7d0;
-    }
-
-    .nav-badge span {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
-    }
-
-    .nav-toggle {
-      display: none;
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.9);
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-
-    .nav-toggle span,
-    .nav-toggle span::before,
-    .nav-toggle span::after {
-      display: block;
-      width: 14px;
-      height: 2px;
-      background: #e5e7eb;
-      border-radius: 999px;
-      position: relative;
-    }
-
-    .nav-toggle span::before,
-    .nav-toggle span::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      transition: transform 0.2s ease, top 0.2s ease, opacity 0.2s ease;
-    }
-
-    .nav-toggle span::before {
-      top: -5px;
-    }
-
-    .nav-toggle span::after {
-      top: 5px;
-    }
-
-    .nav-toggle.open span {
-      background: transparent;
-    }
-
-    .nav-toggle.open span::before {
-      top: 0;
-      transform: rotate(45deg);
-    }
-
-    .nav-toggle.open span::after {
-      top: 0;
-      transform: rotate(-45deg);
-    }
-
-    @media (max-width: 840px) {
-      .nav-links {
-        position: absolute;
-        inset: var(--nav-height) 0 auto 0;
-        background: rgba(2, 6, 23, 0.98);
-        border-bottom: 1px solid rgba(148, 163, 184, 0.4);
-        padding: 12px 20px 14px;
-        flex-wrap: wrap;
-        justify-content: center;
-        transform-origin: top;
-        transform: scaleY(0.9);
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        transition: transform 0.2s ease, opacity 0.2s ease, visibility 0.2s ease;
-      }
-
-      .nav-links.open {
-        opacity: 1;
-        transform: scaleY(1);
-        visibility: visible;
-        pointer-events: auto;
-      }
-
-      .nav-toggle {
-        display: flex;
-      }
-
-      .nav-right .btn-primary {
-        display: none;
-      }
-    }
-
-    /* HERO */
-
-    #hero {
-      padding-top: calc(80px + 50px);
-      padding-bottom: 80px;
-    }
-
-    .hero-inner {
-      display: grid;
-      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-      gap: 40px;
-      align-items: center;
-    }
-
-    .hero-title {
-      font-size: clamp(30px, 4.4vw, 40px);
-      letter-spacing: 0.03em;
-      margin: 14px 0 12px;
-    }
-
-    .hero-title span {
-      background-image: var(--accent-gradient);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .hero-lead {
-      color: var(--muted);
-      max-width: 520px;
-      font-size: 15px;
-    }
-
-    .hero-meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 18px;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .hero-right {
-      position: relative;
+    .shot{
+      border-radius: 26px;
+      border:1px solid rgba(255,255,255,.12);
+      overflow:hidden;
+      background: rgba(255,255,255,.04);
+      box-shadow: 0 24px 70px rgba(0,0,0,.35);
+      position:relative;
       min-height: 260px;
     }
-
-    .hero-card {
-      position: relative;
-      padding: 18px 18px 16px;
-      border-radius: 20px;
+    .shot:before{
+      content:"";
+      position:absolute; inset:-1px;
       background:
-        radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), rgba(15, 23, 42, 0.95));
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.9);
-      max-width: 360px;
-      margin-left: auto;
-      overflow: hidden;
+        radial-gradient(900px 320px at 10% 20%, rgba(189,162,255,.22), transparent 60%),
+        radial-gradient(900px 320px at 90% 80%, rgba(103,232,249,.20), transparent 60%),
+        linear-gradient(135deg, rgba(0,0,0,.05), rgba(255,255,255,.05));
+    }
+    .shot .overlay{
+      position:absolute; inset:0;
+      display:flex; flex-direction:column; justify-content:flex-end;
+      padding:18px;
+      background: linear-gradient(180deg, transparent 30%, rgba(0,0,0,.55) 100%);
+    }
+    .shot h3{margin:0 0 6px; font-size:18px}
+    .shot p{margin:0; color:rgba(255,255,255,.72); line-height:1.55}
+    .shot .stack{
+      position:absolute; inset:16px 16px auto auto;
+      display:flex; gap:8px; align-items:center;
+    }
+    .spark{
+      width:38px; height:38px; border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.22);
+      backdrop-filter: blur(10px);
+      display:grid; place-items:center;
     }
 
-    .hero-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 12px;
+    /* Testimonials + newsletter */
+    .twoCol{
+      display:grid; grid-template-columns: 1.05fr .95fr; gap:14px; align-items:stretch;
+    }
+    .tcard{
+      padding:18px;
+      border-radius: 26px;
+      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow: 0 24px 70px rgba(0,0,0,.35);
+      overflow:hidden;
+      position:relative;
+      backdrop-filter: blur(12px);
+    }
+    .quote{
+      font-size:14px;
+      color:rgba(255,255,255,.82);
+      line-height:1.75;
+      margin:0 0 14px;
+    }
+    .person{
+      display:flex; align-items:center; gap:12px
+    }
+    .avatar{
+      width:42px; height:42px; border-radius:16px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.8), rgba(255,255,255,.12) 55%, rgba(0,0,0,.2));
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .person b{display:block}
+    .person span{display:block; color:var(--muted2); font-size:12px; margin-top:3px}
+    .form{
+      margin-top:14px;
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .form input{
+      flex: 1 1 220px;
+      padding:12px 12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      outline:0;
+      color:var(--text);
+    }
+    .note{
+      margin:10px 0 0;
+      color:var(--muted2);
+      font-size:12px;
+      line-height:1.5;
     }
 
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(22, 163, 74, 0.12);
-      border: 1px solid rgba(22, 163, 74, 0.7);
-      color: #bbf7d0;
-      font-size: 11px;
-    }
-
-    .hero-badge span {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
-    }
-
-    .hero-campus {
-      margin-top: 8px;
-      font-size: 12px;
+    /* Footer */
+    footer{
+      padding:26px 0 34px;
+      border-top: 1px solid rgba(255,255,255,.08);
       color: var(--muted);
     }
-
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 8px;
-      margin-top: 12px;
-      font-size: 11px;
+    .foot{
+      display:flex; gap:14px; align-items:center; justify-content:space-between; flex-wrap:wrap;
     }
-
-    .hero-stat {
-      padding: 8px 9px;
+    .foot small{color: rgba(255,255,255,.55)}
+    .links{
+      display:flex; gap:12px; flex-wrap:wrap
+    }
+    .links a{
+      padding:10px 10px;
       border-radius: 12px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.55);
-    }
-
-    .hero-stat strong {
-      display: block;
-      font-size: 13px;
-    }
-
-    .hero-floater {
-      position: absolute;
-      inset: auto -10px 0 auto;
-      transform: translate(18px, 18px);
-      display: grid;
-      gap: 10px;
-    }
-
-    .hero-floater-card {
-      padding: 8px 10px;
-      border-radius: 14px;
-      background: rgba(15, 23, 42, 0.98);
-      border: 1px solid rgba(148, 163, 184, 0.65);
-      font-size: 11px;
-      color: var(--muted);
-      max-width: 190px;
-      box-shadow: 0 14px 40px rgba(15, 23, 42, 1);
-    }
-
-    .hero-floater-title {
-      font-size: 11px;
-      color: #e5e7eb;
-      margin-bottom: 4px;
-    }
-
-    .hero-floater-card strong {
-      color: #fbbf24;
-    }
-
-    @media (max-width: 900px) {
-      #hero {
-        padding-top: 96px;
-      }
-
-      .hero-inner {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .hero-card {
-        margin: 0 auto;
-      }
-
-      .hero-floater {
-        position: static;
-        transform: none;
-        margin-top: 14px;
-      }
-    }
-
-    /* Блок «Направления» */
-
-    #faculties {
-      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.16), transparent 55%),
-        radial-gradient(circle at 100% 100%, rgba(79, 70, 229, 0.18), transparent 60%);
-    }
-
-    .faculty-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-      gap: 36px;
-      align-items: flex-start;
-      margin-top: 24px;
-    }
-
-    .faculty-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
-    }
-
-    .faculty-card .tag-row {
-      margin-top: 10px;
-    }
-
-    .faculty-side {
-      position: sticky;
-      top: calc(var(--nav-height) + 18px);
-    }
-
-    .progress-row {
-      display: grid;
-      gap: 10px;
-      margin-top: 14px;
-      font-size: 12px;
-    }
-
-    .progress-label {
-      display: flex;
-      justify-content: space-between;
-      color: var(--muted);
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 6px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      overflow: hidden;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-    }
-
-    .progress-bar-inner {
-      height: 100%;
-      border-radius: 999px;
-      background-image: var(--accent-gradient);
-      width: var(--value, 50%);
-    }
-
-    /* Поступление */
-
-    #admissions {
-      background: radial-gradient(circle at 100% 0, rgba(56, 189, 248, 0.17), transparent 60%);
-    }
-
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 18px;
-      margin-top: 26px;
-    }
-
-    .step-num {
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.9);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      margin-bottom: 8px;
-      background: rgba(15, 23, 42, 0.9);
-    }
-
-    .steps-note {
-      margin-top: 18px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    /* Кампус и жизнь */
-
-    #campus {
-      background: radial-gradient(circle at 0 100%, rgba(34, 197, 94, 0.16), transparent 60%);
-    }
-
-    .campus-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 32px;
-      margin-top: 26px;
-      align-items: flex-start;
-    }
-
-    .campus-gallery {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr;
-      gap: 12px;
-    }
-
-    .campus-photo-main {
-      border-radius: 18px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.28), rgba(15, 23, 42, 0.95));
-      height: 240px;
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .campus-photo-main::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: linear-gradient(
-        135deg,
-        rgba(15, 23, 42, 0.15),
-        rgba(2, 6, 23, 0.85)
-      );
-      mix-blend-mode: soft-light;
-      pointer-events: none;
-    }
-
-    .campus-photo-main h4 {
-      margin: 0;
-      font-size: 15px;
-    }
-
-    .campus-photo-main p {
-      margin: 4px 0 0;
-      font-size: 12px;
-      color: var(--muted);
-      max-width: 260px;
-    }
-
-    .campus-photo-strip {
-      display: grid;
-      grid-template-rows: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .campus-mini {
-      border-radius: 14px;
-      padding: 10px 11px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.95);
-      font-size: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .campus-mini strong {
-      font-size: 12px;
-    }
-
-    .campus-list {
-      margin-top: 16px;
-      display: grid;
-      gap: 10px;
-      font-size: 14px;
-    }
-
-    .campus-list-item {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      color: var(--muted);
-    }
-
-    .campus-bullet {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent-gradient);
-      margin-top: 6px;
-      flex-shrink: 0;
-    }
-
-    /* События */
-
-    #events {
-      background: radial-gradient(circle at 50% 0, rgba(79, 70, 229, 0.23), transparent 65%);
-    }
-
-    .events-layout {
-      margin-top: 26px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-      gap: 32px;
-      align-items: flex-start;
-    }
-
-    .events-timeline {
-      border-radius: 20px;
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      padding: 18px 18px 16px;
-      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.16), rgba(15, 23, 42, 0.95));
-      box-shadow: var(--shadow-soft);
-    }
-
-    .events-row {
-      display: grid;
-      gap: 14px;
-      margin-top: 10px;
-    }
-
-    .event-item {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 10px;
-      font-size: 13px;
-      align-items: center;
-    }
-
-    .event-pill {
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      color: var(--muted);
-    }
-
-    .event-title {
-      font-size: 13px;
-    }
-
-    .event-meta {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .events-side {
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    /* Студентам */
-
-    #students {
-      background: radial-gradient(circle at 0 0, rgba(34, 197, 94, 0.18), transparent 60%);
-    }
-
-    .students-grid {
-      margin-top: 26px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 32px;
-      align-items: flex-start;
-    }
-
-    .benefits-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 18px;
-    }
-
-    .quote-card {
-      border-radius: 20px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.16), rgba(15, 23, 42, 0.95));
-      padding: 18px 18px 16px;
-      font-size: 14px;
-      color: #e5e7eb;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .quote-author {
-      margin-top: 12px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    /* FAQ */
-
-    #faq {
-      background: radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.17), transparent 60%);
-    }
-
-    .faq-grid {
-      margin-top: 26px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-      gap: 32px;
-      align-items: flex-start;
-    }
-
-    .faq-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .faq-item {
-      border-radius: 16px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.95);
-      padding: 12px 14px;
-      cursor: pointer;
-      transition: border-color 0.18s ease, background 0.18s ease;
-    }
-
-    .faq-item-inner {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .faq-q {
-      font-size: 14px;
-    }
-
-    .faq-icon {
-      width: 20px;
-      height: 20px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      flex-shrink: 0;
-    }
-
-    .faq-a {
-      margin-top: 6px;
-      font-size: 13px;
-      color: var(--muted);
-      display: none;
-    }
-
-    .faq-item.open {
-      border-color: rgba(79, 70, 229, 0.95);
-      background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.18), rgba(15, 23, 42, 0.96));
-    }
-
-    .faq-item.open .faq-a {
-      display: block;
-    }
-
-    /* Контакты + карта */
-
-    #contacts {
-      background: radial-gradient(circle at 50% 0, rgba(15, 23, 42, 0.7), rgba(2, 6, 23, 1));
-    }
-
-    .contacts-grid {
-      margin-top: 26px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-      gap: 32px;
-      align-items: flex-start;
-    }
-
-    .contact-list {
-      font-size: 14px;
-      display: grid;
-      gap: 10px;
-      color: var(--muted);
-    }
-
-    .contact-label {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      color: #e5e7eb;
-    }
-
-    .contact-highlight {
-      font-size: 16px;
-      color: #f9fafb;
-    }
-
-    .contact-map {
-      border-radius: 18px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.18), rgba(15, 23, 42, 0.96));
-      padding: 14px;
-      font-size: 12px;
-      color: var(--muted);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .contact-map-placeholder {
-      margin-top: 10px;
-      border-radius: 14px;
-      border: 1px dashed rgba(148, 163, 184, 0.7);
-      padding: 16px;
-      text-align: center;
-      font-size: 12px;
-      color: var(--muted);
-      background: rgba(15, 23, 42, 0.9);
-    }
-
-    /* Блок Telegram-бота */
-
-    #bot {
-      background: radial-gradient(circle at 50% 100%, rgba(34, 197, 94, 0.22), transparent 65%);
-    }
-
-    .bot-card {
-      border-radius: 24px;
-      border: 1px solid rgba(148, 163, 184, 0.65);
+      background: rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.10);
+      color: rgba(255,255,255,.76);
+    }
+
+    /* Modal + drawer */
+    .backdrop{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.62);
+      backdrop-filter: blur(6px);
+      display:none;
+      z-index: 80;
+    }
+    .modal{
+      position:fixed;
+      left:50%; top:50%;
+      transform: translate(-50%,-50%) scale(.98);
+      width: min(920px, calc(100vw - 26px));
+      border-radius: 28px;
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.05));
+      box-shadow: 0 40px 120px rgba(0,0,0,.55);
+      overflow:hidden;
+      display:none;
+      z-index: 90;
+    }
+    .modalInner{
+      display:grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap:0;
+    }
+    .modalPic{
+      min-height: 360px;
+      position:relative;
+      border-right:1px solid rgba(255,255,255,.10);
       background:
-        radial-gradient(circle at top left, rgba(56, 189, 248, 0.26), rgba(15, 23, 42, 0.98));
-      padding: 22px 20px 20px;
-      box-shadow: 0 26px 70px rgba(15, 23, 42, 0.98);
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-      gap: 26px;
-      align-items: center;
+        radial-gradient(900px 320px at 20% 25%, rgba(103,232,249,.26), transparent 60%),
+        radial-gradient(900px 320px at 80% 75%, rgba(189,162,255,.22), transparent 60%),
+        linear-gradient(135deg, rgba(0,0,0,.08), rgba(255,255,255,.05));
     }
-
-    .bot-title {
-      font-size: clamp(22px, 2.6vw, 26px);
-      margin: 10px 0 6px;
+    .modalPic svg{
+      position:absolute; right:-30px; bottom:-40px;
+      width: 340px; height: 340px;
+      filter: drop-shadow(0 26px 60px rgba(0,0,0,.42));
+      opacity:.92;
     }
-
-    .bot-sub {
-      color: var(--muted);
-      font-size: 14px;
-      max-width: 520px;
+    .modalBody{
+      padding:18px;
+      display:flex; flex-direction:column; gap:10px;
     }
-
-    .bot-tag-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 10px;
-      margin-top: 16px;
-      font-size: 12px;
+    .modalTop{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
     }
-
-    .bot-tag {
+    .close{
+      width:44px; height:44px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      cursor:pointer;
+    }
+    .modalBody h3{margin:0; font-size:20px; letter-spacing:-.01em}
+    .modalBody p{margin:0; color:var(--muted); line-height:1.7; font-size:14px}
+    .sizes{display:flex; gap:8px; flex-wrap:wrap; margin-top:6px}
+    .size{
+      padding:10px 12px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.96);
-      padding: 7px 11px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--muted);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      cursor:pointer;
+      color: rgba(255,255,255,.86);
+      font-weight:750;
+      font-size:13px;
     }
-
-    .bot-tag span {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: var(--accent-gradient);
+    .size.active{
+      border-color: rgba(103,232,249,.35);
+      background: rgba(103,232,249,.12);
     }
+    .hr{
+      height:1px;
+      background: rgba(255,255,255,.10);
+      margin:10px 0;
+    }
+    .row2{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap}
+    .muted{color:var(--muted2); font-size:12px; line-height:1.5}
 
-    .bot-right {
+    /* Cart drawer */
+    .drawer{
+      position:fixed; top:0; right:0;
+      height:100%;
+      width: min(430px, calc(100vw - 34px));
+      border-left:1px solid rgba(255,255,255,.12);
+      background: rgba(10,10,14,.72);
+      backdrop-filter: blur(16px);
+      box-shadow: -30px 0 90px rgba(0,0,0,.55);
+      transform: translateX(105%);
+      transition: transform .28s ease;
+      z-index: 95;
+      display:flex; flex-direction:column;
+    }
+    .drawer.open{transform: translateX(0)}
+    .dHead{
+      padding:16px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .dHead b{letter-spacing:-.01em}
+    .dBody{
+      padding:12px 16px;
+      overflow:auto;
+      flex:1;
+      display:flex; flex-direction:column; gap:10px;
+    }
+    .item{
+      display:grid;
+      grid-template-columns: 64px 1fr auto;
+      gap:10px;
+      padding:10px;
       border-radius: 18px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.96);
-      padding: 14px 14px 12px;
-      font-size: 12px;
-      color: var(--muted);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      align-items:center;
+    }
+    .thumb{
+      width:64px; height:64px; border-radius: 18px;
+      border:1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(220px 90px at 20% 20%, rgba(245,158,11,.25), transparent 60%),
+        radial-gradient(220px 90px at 80% 80%, rgba(103,232,249,.18), transparent 60%),
+        rgba(0,0,0,.18);
+      position:relative;
+      overflow:hidden;
+    }
+    .thumb svg{position:absolute; right:-8px; bottom:-10px; width:90px; height:90px; opacity:.85}
+    .item h5{margin:0; font-size:14px}
+    .item small{display:block; color:var(--muted2); margin-top:4px}
+    .qty{
+      display:flex; flex-direction:column; gap:6px; align-items:flex-end;
+    }
+    .qty .qrow{
+      display:flex; gap:6px; align-items:center;
+    }
+    .qbtn{
+      width:34px; height:34px;
+      border-radius: 12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      cursor:pointer;
+    }
+    .dFoot{
+      padding:14px 16px;
+      border-top:1px solid rgba(255,255,255,.10);
+      display:flex; flex-direction:column; gap:10px;
+    }
+    .total{
+      display:flex; justify-content:space-between; align-items:center;
+      color: rgba(255,255,255,.86);
     }
 
-    .bot-chat-bubble {
-      border-radius: 16px;
-      padding: 10px 11px;
-      margin-bottom: 8px;
-      max-width: 100%;
-    }
-
-    .bot-chat-bubble.user {
-      background: rgba(15, 23, 42, 0.98);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-    }
-
-    .bot-chat-bubble.bot {
-      background: rgba(37, 99, 235, 0.16);
-      border: 1px solid rgba(59, 130, 246, 0.8);
-    }
-
-    .bot-hint {
-      margin-top: 10px;
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .bot-cta-row {
-      margin-top: 18px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .bot-handle {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-        "Courier New", monospace;
-      font-size: 13px;
-      padding: 4px 10px;
+    /* Toast */
+    .toast{
+      position:fixed;
+      left:50%; bottom:18px;
+      transform: translateX(-50%) translateY(18px);
+      padding:12px 14px;
       border-radius: 999px;
-      border: 1px dashed rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.9);
-      color: #e5e7eb;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.42);
+      color: rgba(255,255,255,.9);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 18px 60px rgba(0,0,0,.45);
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .25s ease, transform .25s ease;
+      z-index: 120;
+      display:flex; align-items:center; gap:10px;
+      font-weight:650;
+    }
+    .toast.show{opacity:1; transform: translateX(-50%) translateY(0)}
+    .toast .ok{width:10px; height:10px; border-radius:999px; background: var(--ok); box-shadow: 0 0 0 6px rgba(52,211,153,.12)}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .heroGrid{grid-template-columns: 1fr}
+      .heroMain{min-height: 420px}
+      .heroSide{grid-template-rows:auto; grid-template-columns: 1fr 1fr}
+      .p{grid-column: span 6}
+      .twoCol{grid-template-columns: 1fr}
+      .modalInner{grid-template-columns: 1fr}
+      .modalPic{min-height: 260px; border-right:0; border-bottom:1px solid rgba(255,255,255,.10)}
+    }
+    @media (max-width: 640px){
+      .navlinks{display:none}
+      .heroMain{padding:20px}
+      .kpis{grid-template-columns: 1fr}
+      .heroSide{grid-template-columns: 1fr}
+      .p{grid-column: span 12}
+      .lookbook{grid-template-columns: 1fr}
+      .btn{width:100%}
+      .btn.ghost{width:auto}
     }
 
-    /* Футер */
-
-    footer {
-      padding: 20px;
-      border-top: 1px solid rgba(148, 163, 184, 0.5);
-      font-size: 11px;
-      color: var(--muted);
-      background: rgba(2, 6, 23, 0.98);
-    }
-
-    .footer-inner {
-      max-width: 1180px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      text-decoration: underline;
-      text-decoration-style: dotted;
-      text-underline-offset: 2px;
-    }
-
-    /* Адаптив */
-
-    @media (max-width: 960px) {
-      .grid-2,
-      .faculty-layout,
-      .campus-grid,
-      .events-layout,
-      .students-grid,
-      .faq-grid,
-      .contacts-grid,
-      .bot-card {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .faculty-side {
-        position: static;
-      }
-
-      section {
-        padding: 70px 18px;
-      }
-
-      .bot-right {
-        order: -1;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .cards-row {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .hero-meta-row {
-        flex-direction: column;
-      }
-
-      .nav {
-        padding-inline: 16px;
-      }
-
-      .container {
-        max-width: 100%;
-      }
-
-      .bot-card {
-        padding: 18px 16px 16px;
-      }
-    }
-
-    /* Анимация появления */
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
+    /* Motion preferences */
+    @media (prefers-reduced-motion: reduce){
+      *{scroll-behavior:auto !important; transition:none !important; animation:none !important}
     }
   </style>
 </head>
+
 <body>
-<div class="page-wrapper">
-  <!-- Навигация -->
-  <header id="top-nav">
-    <nav class="nav">
-      <div class="nav-left">
-        <div class="logo-mark">
-          <div class="logo-inner">KG</div>
-        </div>
-        <div>
-          <div class="logo-text-main">КГЭУ</div>
-          <div class="logo-text-sub">Университет энергетики будущего</div>
+  <div class="noise"></div>
+
+  <div class="wrap">
+    <header>
+      <div class="container">
+        <div class="nav">
+          <a class="brand" href="#top" aria-label="На главную">
+            <span class="logo" aria-hidden="true"></span>
+            <span>VESTA</span>
+          </a>
+
+          <nav class="navlinks" aria-label="Навигация">
+            <a href="#catalog">Каталог</a>
+            <a href="#lookbook">Лукбук</a>
+            <a href="#delivery">Доставка</a>
+            <a href="#contacts">Контакты</a>
+          </nav>
+
+          <div class="actions">
+            <button class="iconbtn" id="themeBtn" title="Переключить акцент" aria-label="Переключить акцент">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3v2m0 14v2M4.22 4.22l1.42 1.42m12.72 12.72 1.42 1.42M3 12h2m14 0h2M4.22 19.78l1.42-1.42m12.72-12.72 1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </button>
+
+            <button class="iconbtn" id="openCart" title="Корзина" aria-label="Открыть корзину" style="position:relative;">
+              <span class="badge" id="cartCount" style="display:none;">0</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 6h15l-2 9H8L6 6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M6 6 5 3H2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm9 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
+    </header>
 
-      <div class="nav-links" id="nav-links">
-        <a href="#hero" class="active">Главная</a>
-        <a href="#faculties">Направления</a>
-        <a href="#admissions">Поступление</a>
-        <a href="#campus">Кампус</a>
-        <a href="#events">События</a>
-        <a href="#students">Студентам</a>
-        <a href="#faq">FAQ</a>
-        <a href="#bot">Поддержка</a>
-      </div>
+    <main id="top">
+      <section class="hero">
+        <div class="container">
+          <div class="heroGrid">
+            <div class="card heroMain">
+              <div>
+                <span class="pill"><span class="dot"></span><span>Новая коллекция • зима/весна</span></span>
+                <h1>Одежда, которая выглядит дорого — и носится легко.</h1>
+                <p class="sub">
+                  Минимализм, который цепляет деталями: премиальные ткани, аккуратные посадки, и капсулы,
+                  которые собираются «на автопилоте». Выбирай основу и добавляй акценты — остальное мы уже продумали.
+                </p>
 
-      <div class="nav-right">
-        <div class="nav-badge">
-          <span></span>
-          Приёмная кампания открыта
+                <div class="ctaRow">
+                  <a class="btn primary" href="#catalog">
+                    <span>Открыть каталог</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </a>
+
+                  <button class="btn ghost" id="openModalFeatured">
+                    <span>Быстрый просмотр</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z" stroke="currentColor" stroke-width="2"/>
+                      <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                  </button>
+                </div>
+
+                <div class="kpis" aria-label="Преимущества">
+                  <div class="kpi">
+                    <strong>24 часа</strong>
+                    <span>на отправку заказов в будни</span>
+                  </div>
+                  <div class="kpi">
+                    <strong>14 дней</strong>
+                    <span>лёгкий возврат без лишних вопросов</span>
+                  </div>
+                  <div class="kpi">
+                    <strong>Капсулы</strong>
+                    <span>готовые сочетания на каждый день</span>
+                  </div>
+                </div>
+              </div>
+              <div class="muted" style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                <span class="pill" style="gap:10px">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M20 7 10 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span>Оплата картой • Apple Pay • Google Pay</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="heroSide">
+              <div class="mini">
+                <div class="tag">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M20 12a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 8v5l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span>Капсула недели</span>
+                </div>
+                <h3>«Городской минимал»</h3>
+                <p>Три вещи — шесть образов: свитер с текстурой, прямые брюки и плащ‑тренч. Дальше — только аксессуары.</p>
+                <div class="row">
+                  <span class="chip">Тренч</span>
+                  <span class="chip">Трикотаж</span>
+                  <span class="chip">Смарт‑кэжуал</span>
+                </div>
+              </div>
+
+              <div class="mini">
+                <div class="tag">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 2l2.7 6.1 6.6.6-5 4.3 1.5 6.5L12 16.9 6.2 19.5l1.5-6.5-5-4.3 6.6-.6L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                  </svg>
+                  <span>Бестселлеры</span>
+                </div>
+                <h3>Лимитированная серия</h3>
+                <p>Ткани с «дорогим» переплетением, чистые швы, идеальные воротники. То, что хочется носить годами.</p>
+                <div class="row">
+                  <span class="chip">Премиум хлопок</span>
+                  <span class="chip">Оверсайз</span>
+                  <span class="chip">Unisex</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <a href="#bot" class="btn-primary">Написать в Telegram</a>
-        <button class="nav-toggle" id="nav-toggle" aria-label="Открыть меню">
-          <span></span>
+      </section>
+
+      <section id="catalog">
+        <div class="container">
+          <div class="sectionHead">
+            <div>
+              <h2>Каталог</h2>
+              <p>Выбери категорию и добавляй в корзину. Быстрый просмотр — чтобы не терять темп.</p>
+            </div>
+            <span class="pill" aria-label="Сервис">
+              <span class="dot"></span>
+              <span>Бесплатная доставка от 3990 ₽</span>
+            </span>
+          </div>
+
+          <div class="toolbar">
+            <div class="search" role="search">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              <input id="searchInput" placeholder="Поиск: свитер, тренч, брюки…" autocomplete="off"/>
+            </div>
+
+            <div class="filters" aria-label="Фильтры">
+              <button class="fbtn active" data-filter="all">Все</button>
+              <button class="fbtn" data-filter="outerwear">Верхняя</button>
+              <button class="fbtn" data-filter="tops">Топы</button>
+              <button class="fbtn" data-filter="bottoms">Низ</button>
+              <button class="fbtn" data-filter="accessories">Аксессуары</button>
+            </div>
+          </div>
+
+          <div class="grid" id="productGrid" aria-label="Список товаров">
+            <!-- cards injected by JS -->
+          </div>
+        </div>
+      </section>
+
+      <section id="lookbook">
+        <div class="container">
+          <div class="sectionHead">
+            <div>
+              <h2>Лукбук</h2>
+              <p>Готовые настроения. Просто повтори — и будет выглядеть так, будто над образом работал стилист.</p>
+            </div>
+          </div>
+
+          <div class="lookbook" aria-label="Лукбук">
+            <div class="shot">
+              <div class="stack">
+                <div class="spark" title="Тренч"><span style="font-family:var(--mono); font-weight:800; font-size:12px">TR</span></div>
+                <div class="spark" title="Трикотаж"><span style="font-family:var(--mono); font-weight:800; font-size:12px">KN</span></div>
+                <div class="spark" title="Кожа"><span style="font-family:var(--mono); font-weight:800; font-size:12px">LE</span></div>
+              </div>
+              <div class="overlay">
+                <h3>Пальто + трикотаж + ботинки</h3>
+                <p>Собранный силуэт на каждый день. Тёплые оттенки, чистые линии, никаких лишних деталей.</p>
+              </div>
+            </div>
+
+            <div class="shot">
+              <div class="stack">
+                <div class="spark" title="Оверсайз"><span style="font-family:var(--mono); font-weight:800; font-size:12px">OV</span></div>
+                <div class="spark" title="Деним"><span style="font-family:var(--mono); font-weight:800; font-size:12px">DN</span></div>
+                <div class="spark" title="Акцент"><span style="font-family:var(--mono); font-weight:800; font-size:12px">AC</span></div>
+              </div>
+              <div class="overlay">
+                <h3>Худи + прямые джинсы</h3>
+                <p>Мягко, свободно, но не «домашне». Секрет — качественная ткань и правильная длина.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="delivery">
+        <div class="container">
+          <div class="twoCol">
+            <div class="tcard">
+              <div class="sectionHead" style="margin-bottom:10px;">
+                <div>
+                  <h2>Доставка и возврат</h2>
+                  <p>Коротко и по делу — без мелкого шрифта.</p>
+                </div>
+              </div>
+              <p class="quote">• Доставка по городу — 1–2 дня, по стране — 2–6 дней (в зависимости от региона).</p>
+              <p class="quote">• Примерка: аккуратно, с бирками. Возврат — в течение 14 дней.</p>
+              <p class="quote">• Упаковка: плотный пакет + защитная бумага, чтобы вещи доехали идеально.</p>
+              <div class="hr"></div>
+              <div class="row2">
+                <div>
+                  <b>Нужен подбор размера?</b>
+                  <div class="muted">Напиши нам — подскажем по росту и параметрам.</div>
+                </div>
+                <button class="btn" id="helpBtn">
+                  <span>Спросить стилиста</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="tcard">
+              <div class="sectionHead" style="margin-bottom:10px;">
+                <div>
+                  <h2>Новости и скидки</h2>
+                  <p>Раз в неделю — подборка новинок и капсул. Без спама.</p>
+                </div>
+              </div>
+              <form class="form" id="newsletter">
+                <input type="email" required placeholder="Email для подписки" aria-label="Email"/>
+                <button class="btn primary" type="submit">
+                  <span>Подписаться</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M22 2 11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M22 2 15 22l-4-9-9-4 20-7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </form>
+              <p class="note">Нажимая «Подписаться», ты соглашаешься получать письма от VESTA. Отписка — в один клик.</p>
+
+              <div class="hr"></div>
+
+              <div class="sectionHead" style="margin-bottom:10px;">
+                <div>
+                  <h2>Отзывы</h2>
+                  <p>Те самые «попал в размер» и «ткань вау».</p>
+                </div>
+              </div>
+
+              <div class="person" style="margin-top:10px;">
+                <div class="avatar" aria-hidden="true"></div>
+                <div>
+                  <b>Марина</b>
+                  <span>«Тренч сел идеально, ощущается как люкс. Теперь хочу ещё свитер из этой ткани.»</span>
+                </div>
+              </div>
+
+              <div class="person" style="margin-top:12px;">
+                <div class="avatar" aria-hidden="true" style="border-radius:999px;"></div>
+                <div>
+                  <b>Илья</b>
+                  <span>«Худи не растягивается, внутри мягкое, выглядит аккуратно. Супер база.»</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contacts">
+        <div class="container">
+          <div class="card" style="padding:18px;">
+            <div class="sectionHead" style="margin-bottom:10px;">
+              <div>
+                <h2>Контакты</h2>
+                <p>Сюда можно поставить реальные ссылки/телефон. Сейчас — красиво оформленные заглушки.</p>
+              </div>
+              <span class="pill"><span class="dot"></span><span>Поддержка: 10:00–20:00</span></span>
+            </div>
+
+            <div class="grid" style="gap:12px;">
+              <div class="tcard" style="grid-column: span 4;">
+                <b>Соцсети</b>
+                <p class="muted" style="margin:8px 0 12px;">Новые дропы, лукбуки, сторис.</p>
+                <div class="links">
+                  <a href="#" onclick="return false;">Instagram</a>
+                  <a href="#" onclick="return false;">TikTok</a>
+                  <a href="#" onclick="return false;">Telegram</a>
+                </div>
+              </div>
+              <div class="tcard" style="grid-column: span 4;">
+                <b>Поддержка</b>
+                <p class="muted" style="margin:8px 0 12px;">Ответим быстро и по делу.</p>
+                <div class="links">
+                  <a href="#" onclick="return false;">help@vesta.store</a>
+                  <a href="#" onclick="return false;">+7 (900) 000‑00‑00</a>
+                </div>
+              </div>
+              <div class="tcard" style="grid-column: span 4;">
+                <b>Адрес шоурума</b>
+                <p class="muted" style="margin:8px 0 12px;">Если хочешь потрогать ткань.</p>
+                <div class="links">
+                  <a href="#" onclick="return false;">ул. Примерная, 12</a>
+                  <a href="#" onclick="return false;">Как пройти</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="container">
+          <div class="foot">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span class="logo" aria-hidden="true" style="width:28px;height:28px;border-radius:12px"></span>
+              <div>
+                <b style="letter-spacing:.18em;">VESTA</b><br/>
+                <small>© <span id="year"></span> Все права защищены.</small>
+              </div>
+            </div>
+            <div class="links">
+              <a href="#catalog">Каталог</a>
+              <a href="#delivery">Доставка</a>
+              <a href="#contacts">Контакты</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- Backdrop -->
+    <div class="backdrop" id="backdrop" aria-hidden="true"></div>
+
+    <!-- Product modal -->
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Просмотр товара">
+      <div class="modalInner">
+        <div class="modalPic" id="modalPic">
+          <!-- svg injected -->
+        </div>
+        <div class="modalBody">
+          <div class="modalTop">
+            <div>
+              <h3 id="mTitle">Товар</h3>
+              <div class="muted" id="mMeta">Категория • Состав</div>
+            </div>
+            <button class="close" id="closeModal" aria-label="Закрыть">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+
+          <p id="mDesc">Описание товара.</p>
+
+          <div class="row2" style="margin-top:6px;">
+            <div>
+              <div class="price" id="mPrice">0 ₽</div>
+              <div class="muted">Оплата любым способом • возврат 14 дней</div>
+            </div>
+            <span class="pill" id="mBadge"><span class="dot"></span><span>В наличии</span></span>
+          </div>
+
+          <div class="hr"></div>
+
+          <div>
+            <b>Размер</b>
+            <div class="sizes" id="sizes">
+              <!-- sizes injected -->
+            </div>
+            <div class="muted" style="margin-top:8px;">
+              Советы: если любишь свободнее — бери на размер больше.
+            </div>
+          </div>
+
+          <div class="hr"></div>
+
+          <div class="row2">
+            <button class="btn primary" id="addFromModal">
+              <span>Добавить в корзину</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 6h15l-2 9H8L6 6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M6 6 5 3H2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <button class="btn" id="buyNow">
+              <span>Купить сейчас</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M22 2 11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M22 2 15 22l-4-9-9-4 20-7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart drawer -->
+    <aside class="drawer" id="drawer" aria-label="Корзина" aria-hidden="true">
+      <div class="dHead">
+        <b>Корзина</b>
+        <button class="close" id="closeCart" aria-label="Закрыть корзину">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
         </button>
       </div>
-    </nav>
-  </header>
-
-  <!-- HERO -->
-  <section id="hero">
-    <div class="container hero-inner reveal">
-      <div>
-        <div class="chip">
-          <div class="chip-dot"></div>
-          Казанский государственный энергетический университет
-        </div>
-        <h1 class="hero-title">
-          КГЭУ — <span>университет, который заряжает</span> на инженерное будущее
-        </h1>
-        <p class="hero-lead">
-          Получи сильное инженерное образование, погрузись в современную энергетическую отрасль,
-          IT и цифровые технологии. Кампус, лаборатории, проекты с компаниями —
-          всё в одном университете.
-        </p>
-
-        <div class="hero-meta-row">
-          <div class="pill">
-            <span>★</span>
-            Более 10&nbsp;000 студентов
-          </div>
-          <div class="pill">
-            <span>⚡</span>
-            Базовый вуз энергетической отрасли
-          </div>
-          <div class="pill">
-            <span>✔</span>
-            Бакалавриат, специалитет, магистратура, аспирантура
-          </div>
-        </div>
-
-        <div class="btn-row">
-          <a href="#admissions" class="btn-primary">Как поступить</a>
-          <a href="#faculties" class="btn-ghost">Посмотреть направления</a>
-        </div>
+      <div class="dBody" id="cartList">
+        <div class="muted">Пока пусто. Добавь что-нибудь из каталога ✨</div>
       </div>
-
-      <div class="hero-right">
-        <div class="hero-card">
-          <div class="hero-card-header">
-            <div>
-              <div class="badge">День открытых дверей</div>
-              <div class="hero-campus">
-                Узнай всё о поступлении, встретись с преподавателями и студентами.
-              </div>
-            </div>
-            <div class="hero-badge">
-              <span></span>
-              Онлайн + офлайн
-            </div>
-          </div>
-
-          <div class="hero-stats">
-            <div class="hero-stat">
-              <strong>4</strong>
-              уровня образования
-            </div>
-            <div class="hero-stat">
-              <strong>40+</strong>
-              образовательных программ
-            </div>
-            <div class="hero-stat">
-              <strong>95%</strong>
-              трудоустройство выпускников
-            </div>
-          </div>
-
-          <div class="hero-floater">
-            <div class="hero-floater-card">
-              <div class="hero-floater-title">Абитуриент спрашивает:</div>
-              «Какие предметы нужны для поступления на энергетику?»<br />
-              <strong>Telegram-бот КГЭУ</strong> отвечает за несколько секунд.
-            </div>
-            <div class="hero-floater-card">
-              <div class="hero-floater-title">Онлайн-поддержка</div>
-              Задавай вопросы 24/7 — расписание, приёмная комиссия, общежития, студенческая жизнь.
-            </div>
-          </div>
+      <div class="dFoot">
+        <div class="total">
+          <span>Итого</span>
+          <b id="cartTotal">0 ₽</b>
         </div>
+        <button class="btn primary" id="checkoutBtn">
+          <span>Оформить заказ</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2v20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M5 9l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="muted">Это демо‑страница: кнопка показывает подтверждение.</div>
       </div>
+    </aside>
+
+    <div class="toast" id="toast" role="status" aria-live="polite">
+      <span class="ok"></span>
+      <span id="toastText">Добавлено в корзину</span>
     </div>
-  </section>
 
-  <!-- Направления подготовки -->
-  <section id="faculties">
-    <div class="container reveal">
-      <span class="section-label">
-        <span class="section-label-dot"></span>
-        Направления подготовки
-      </span>
-      <h2 class="section-title">Куда можно поступить в КГЭУ</h2>
-      <p class="section-subtitle">
-        Классическая энергетика, цифровые технологии, управление и экономика.
-        Выбирай направление, которое ближе твоим интересам и целям.
-      </p>
+  </div>
 
-      <div class="faculty-layout">
-        <div class="faculty-list">
-          <article class="card faculty-card">
-            <div class="card-title">Электроэнергетика и электротехника</div>
-            <div class="card-sub">Классическая и возобновляемая энергетика</div>
-            <div class="card-body">
-              Проектирование и эксплуатация энергосистем, электрические станции,
-              smart-grid, цифровые подстанции, управление режимами энергосистем.
-            </div>
-            <div class="tag-row">
-              <span class="tag">ЕГЭ: профильная математика</span>
-              <span class="tag">Физика</span>
-              <span class="tag">Русский язык</span>
-            </div>
-            <div class="card-meta">
-              <span>Форма: очная / заочная</span>
-              <span>Места: бюджет + платные</span>
-            </div>
-          </article>
-
-          <article class="card faculty-card">
-            <div class="card-title">Теплоэнергетика и теплотехника</div>
-            <div class="card-sub">Теплоэлектростанции, тепловые сети, энергоэффективность</div>
-            <div class="card-body">
-              Работа с тепловыми системами, котельными установками, системами климатизации
-              и повышением энергетической эффективности предприятий.
-            </div>
-            <div class="tag-row">
-              <span class="tag">ЕГЭ: математика</span>
-              <span class="tag">Физика</span>
-              <span class="tag">Русский язык</span>
-            </div>
-            <div class="card-meta">
-              <span>Проекты с реальными предприятиями</span>
-              <span>Стажировки</span>
-            </div>
-          </article>
-
-          <article class="card faculty-card">
-            <div class="card-title">Информатика и вычислительная техника</div>
-            <div class="card-sub">IT, программирование, цифровая энергетика</div>
-            <div class="card-body">
-              Разработка программного обеспечения, анализ данных, цифровые двойники,
-              промышленные IoT-системы, кибербезопасность в энергетике.
-            </div>
-            <div class="tag-row">
-              <span class="tag">ЕГЭ: математика</span>
-              <span class="tag">Информатика / физика</span>
-              <span class="tag">Русский язык</span>
-            </div>
-            <div class="card-meta">
-              <span>IT-проекты и хакатоны</span>
-              <span>Партнёрства с компаниями</span>
-            </div>
-          </article>
-
-          <article class="card faculty-card">
-            <div class="card-title">Прикладная математика и информатика</div>
-            <div class="card-sub">Моделирование, анализ данных, алгоритмы</div>
-            <div class="card-body">
-              Математическое моделирование энергосистем, анализ больших данных,
-              машинное обучение в задачах энергетики и промышленности.
-            </div>
-            <div class="tag-row">
-              <span class="tag">Углубленная математика</span>
-              <span class="tag">Алгоритмы</span>
-              <span class="tag">Data Science</span>
-            </div>
-            <div class="card-meta">
-              <span>Подготовка к исследовательской карьере</span>
-              <span>Магистратура и аспирантура</span>
-            </div>
-          </article>
-
-          <article class="card faculty-card">
-            <div class="card-title">Экономика и управление в энергетике</div>
-            <div class="card-sub">Менеджмент, финансы, энергосервис</div>
-            <div class="card-body">
-              Умение управлять энергетическими проектами, анализировать эффективность,
-              работать с тарифами, инвестициями и стратегическим развитием компаний.
-            </div>
-            <div class="tag-row">
-              <span class="tag">Экономика</span>
-              <span class="tag">Управление</span>
-              <span class="tag">Проектный подход</span>
-            </div>
-            <div class="card-meta">
-              <span>Кейсы с компаниями</span>
-              <span>Стажировки и практика</span>
-            </div>
-          </article>
-
-          <article class="card faculty-card">
-            <div class="card-title">Магистратура и аспирантура</div>
-            <div class="card-sub">Углублённое обучение и наука</div>
-            <div class="card-body">
-              Исследовательские треки, научные проекты, участие в грантах,
-              развитие академической и профессиональной карьеры.
-            </div>
-            <div class="tag-row">
-              <span class="tag">Исследования</span>
-              <span class="tag">Научные публикации</span>
-              <span class="tag">Научные руководители</span>
-            </div>
-            <div class="card-meta">
-              <span>Зачисление по конкурсу</span>
-              <span>Индивидуальные траектории</span>
-            </div>
-          </article>
-        </div>
-
-        <aside class="faculty-side">
-          <div class="card">
-            <div class="card-title">Выбери свой маршрут</div>
-            <div class="card-sub">4 уровня образования — один университет</div>
-            <div class="card-body">
-              Бакалавриат, специалитет, магистратура и аспирантура — ты можешь
-              построить непрерывную траекторию обучения внутри КГЭУ и вырасти
-              от абитуриента до эксперта отрасли.
-            </div>
-            <div class="progress-row">
-              <div>
-                <div class="progress-label">
-                  <span>Бакалавриат / специалитет</span>
-                  <span>4–5 лет</span>
-                </div>
-                <div class="progress-bar">
-                  <div class="progress-bar-inner" style="--value: 75%;"></div>
-                </div>
-              </div>
-              <div>
-                <div class="progress-label">
-                  <span>Магистратура</span>
-                  <span>2 года</span>
-                </div>
-                <div class="progress-bar">
-                  <div class="progress-bar-inner" style="--value: 45%;"></div>
-                </div>
-              </div>
-              <div>
-                <div class="progress-label">
-                  <span>Аспирантура</span>
-                  <span>3–4 года</span>
-                </div>
-                <div class="progress-bar">
-                  <div class="progress-bar-inner" style="--value: 35%;"></div>
-                </div>
-              </div>
-            </div>
-            <div class="card-meta">
-              <span>Нужна помощь с выбором?</span>
-              <a href="#bot" class="btn-ghost">Спросить у бота</a>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </div>
-  </section>
-
-  <!-- Поступление -->
-  <section id="admissions">
-    <div class="container reveal">
-      <span class="section-label">
-        <span class="section-label-dot"></span>
-        Поступление
-      </span>
-      <h2 class="section-title">Как поступить в КГЭУ</h2>
-      <p class="section-subtitle">
-        Основные шаги для абитуриента: от выбора направления до заселения в общежитие.
-        Telegram-бот поможет на каждом этапе.
-      </p>
-
-      <div class="steps-grid">
-        <article class="card">
-          <div class="step-num">1</div>
-          <div class="card-title">Выбери направление</div>
-          <div class="card-body">
-            Определи, что тебе ближе: классическая энергетика, IT и цифровые технологии,
-            экономика или управление. Изучи программы и списки вступительных испытаний.
-          </div>
-          <div class="card-meta">
-            <span>Подбор программ</span>
-            <span>Через бота</span>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="step-num">2</div>
-          <div class="card-title">Подготовь документы</div>
-          <div class="card-body">
-            Паспорт, документы об образовании, результаты ЕГЭ или внутренние экзамены,
-            фотографии, СНИЛС и другие необходимые бумаги в зависимости от формы обучения.
-          </div>
-          <div class="card-meta">
-            <span>Список документов</span>
-            <span>Актуальные требования</span>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="step-num">3</div>
-          <div class="card-title">Подай заявление</div>
-          <div class="card-body">
-            Подача заявления возможна очно в приёмной комиссии или онлайн.
-            Следи за конкурсными списками и сроками через официальный сайт и Telegram-каналы.
-          </div>
-          <div class="card-meta">
-            <span>Онлайн-подача</span>
-            <span>Консультация в боте</span>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="step-num">4</div>
-          <div class="card-title">Зачисление и общежитие</div>
-          <div class="card-body">
-            После зачисления — оформление договоров, при необходимости — заселение
-            в общежитие. Кураторы и студсовет помогут адаптироваться в университете.
-          </div>
-          <div class="card-meta">
-            <span>Кураторские группы</span>
-            <span>Студенческий кампус</span>
-          </div>
-        </article>
-      </div>
-
-      <div class="steps-note">
-        Не уверен в направлении, вопрос по проходным баллам или срокам? Задай вопрос
-        <a href="#bot">нашему Telegram-боту КГЭУ</a> — он подскажет, куда тебе лучше поступать.
-      </div>
-    </div>
-  </section>
-
-  <!-- Кампус и студенческая жизнь -->
-  <section id="campus">
-    <div class="container reveal">
-      <span class="section-label">
-        <span class="section-label-dot"></span>
-        Кампус и студенческая жизнь
-      </span>
-      <h2 class="section-title">Университет, в котором хочется проводить время</h2>
-      <p class="section-subtitle">
-        Учёба — это только часть жизни в КГЭУ. Кампус, лаборатории, спортивная и творческая
-        инфраструктура помогают развиваться во всех направлениях.
-      </p>
-
-      <div class="campus-grid">
-        <div class="campus-gallery">
-          <div class="campus-photo-main">
-            <div>
-              <h4>Учебные корпуса и лаборатории</h4>
-              <p>
-                Современные лаборатории, компьютерные классы, научные центры. Занятия,
-                практикумы и проектная работа проходят на оборудовании, приближенном к
-                реальной отрасли.
-              </p>
-            </div>
-            <div style="font-size:11px;color:var(--muted);display:flex;gap:12px;align-items:center;justify-content:space-between;">
-              <span>Практика с первого курса</span>
-              <span>Технологический кампус</span>
-            </div>
-          </div>
-          <div class="campus-photo-strip">
-            <div class="campus-mini">
-              <strong>Общежития</strong>
-              <span>Студенческие общежития рядом с корпусами, студенческое сообщество,
-                мероприятия и совместные проекты.</span>
-            </div>
-            <div class="campus-mini">
-              <strong>Спорт и творчество</strong>
-              <span>Спортивные секции, творческие студии, КВН, волонтёрство и студенческие
-                клубы по интересам.</span>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div class="campus-list">
-            <div class="campus-list-item">
-              <div class="campus-bullet"></div>
-              <div>
-                <strong>Студенческие объединения</strong><br />
-                Научные кружки, проектные команды, стартап-сообщества, профком, студсовет —
-                каждый найдёт себе сообщество по душе.
-              </div>
-            </div>
-            <div class="campus-list-item">
-              <div class="campus-bullet"></div>
-              <div>
-                <strong>Проекты с компаниями</strong><br />
-                Участие в реальных кейсах и проектах партнёрских организаций, стажировки и
-                привязка дипломных работ к задачам бизнеса.
-              </div>
-            </div>
-            <div class="campus-list-item">
-              <div class="campus-bullet"></div>
-              <div>
-                <strong>Конференции и олимпиады</strong><br />
-                Научные конференции, олимпиады, хакатоны — возможность проявить себя и
-                получить дополнительные бонусы при поступлении в магистратуру.
-              </div>
-            </div>
-            <div class="campus-list-item">
-              <div class="campus-bullet"></div>
-              <div>
-                <strong>Поддержка иностранных студентов</strong><br />
-                Адаптационные программы, помощь с документами и интеграцией в студенческую
-                жизнь университета.
-              </div>
-            </div>
-          </div>
-          <div class="btn-row">
-            <a href="#events" class="btn-ghost">Посмотреть события</a>
-            <a href="#bot" class="btn-primary">Спросить про общежитие</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- События и олимпиады -->
-  <section id="events">
-    <div class="container reveal">
-      <span class="section-label">
-        <span class="section-label-dot"></span>
-        События
-      </span>
-      <h2 class="section-title">Олимпиады, форумы, день открытых дверей</h2>
-      <p class="section-subtitle">
-        В течение года КГЭУ проводит мероприятия для школьников, абитуриентов и студентов:
-        от инженерных олимпиад до карьерных форумов.
-      </p>
-
-      <div class="events-layout">
-        <div class="events-timeline">
-          <div class="card-sub">Примеры регулярных мероприятий</div>
-          <div class="events-row">
-            <div class="event-item">
-              <div class="event-pill">День открытых дверей</div>
-              <div>
-                <div class="event-title">Знакомство с университетом</div>
-                <div class="event-meta">Презентации направлений, экскурсии по корпусам и лабораториям.</div>
-              </div>
-              <div class="event-meta">1–2 раза в год</div>
-            </div>
-            <div class="event-item">
-              <div class="event-pill">Инженерные олимпиады</div>
-              <div>
-                <div class="event-title">Олимпиады по физике и математике</div>
-                <div class="event-meta">Дополнительные баллы при поступлении и развитие инженерного мышления.</div>
-              </div>
-              <div class="event-meta">Зима / весна</div>
-            </div>
-            <div class="event-item">
-              <div class="event-pill">Карьерные форумы</div>
-              <div>
-                <div class="event-title">Встречи с работодателями</div>
-                <div class="event-meta">Прямое общение с представителями компаний, стажировки и вакансии.</div>
-              </div>
-              <div class="event-meta">В течение года</div>
-            </div>
-            <div class="event-item">
-              <div class="event-pill">Студенческие фестивали</div>
-              <div>
-                <div class="event-title">Творчество и спорт</div>
-                <div class="event-meta">Концерты, соревнования, киберспорт, культурные фестивали.</div>
-              </div>
-              <div class="event-meta">Круглый год</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="events-side">
-          <div class="card">
-            <div class="card-title">Хочешь не пропустить важные даты?</div>
-            <div class="card-body">
-              Подпишись на Telegram-бота КГЭУ: он напомнит о дне открытых дверей,
-              старте подачи документов, важных сроках и конкурсных списках.
-            </div>
-            <div class="card-meta">
-              <span>Персональные уведомления</span>
-              <a href="#bot" class="btn-primary">Включить напоминания</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Студентам -->
-  <section id="students">
-    <div class="container reveal">
-      <span class="section-label">
-        <span class="section-label-dot"></span>
-        Студентам
-      </span>
-      <h2 class="section-title">Поддержка студентов КГЭУ</h2>
-      <p class="section-subtitle">
-        Стипендии, поддержка инициатив, карьерный центр, дополнительные образовательные
-        треки — всё это помогает выстроить сильную карьеру уже во время учёбы.
-      </p>
-
-      <div class="students-grid">
-        <div class="benefits-grid">
-          <article class="card">
-            <div class="card-title">Стипендии и гранты</div>
-            <div class="card-body">
-              Государственные академические стипендии, повышенные стипендии за успехи в
-              учёбе и научной деятельности, участие в грантовых конкурсах.
-            </div>
-            <div class="card-meta">
-              <span>Поддержка сильных студентов</span>
-            </div>
-          </article>
-          <article class="card">
-            <div class="card-title">Карьерный центр</div>
-            <div class="card-body">
-              Помощь с резюме, карьерные консультации, стажировки, ярмарки вакансий и
-              прямое взаимодействие с компаниями.
-            </div>
-            <div class="card-meta">
-              <span>Карьерные треки</span>
-            </div>
-          </article>
-          <article class="card">
-            <div class="card-title">Дополнительное образование</div>
-            <div class="card-body">
-              Дополнительные профессиональные программы, курсы повышения квалификации,
-              программы переподготовки и развитие надпрофессиональных навыков.
-            </div>
-            <div class="card-meta">
-              <span>Гибкие форматы обучения</span>
-            </div>
-          </article>
-          <article class="card">
-            <div class="card-title">Поддержка инициатив</div>
-            <div class="card-body">
-              Поддержка студенческих проектов, участие в конкурсах, акселераторах и
-              стартап-программах совместно с партнёрами университета.
-            </div>
-            <div class="card-meta">
-              <span>От идеи до внедрения</span>
-            </div>
-          </article>
-        </div>
-
-        <div>
-          <div class="quote-card">
-            «В КГЭУ вы не просто ходите на пары — вы становитесь частью инженерного
-            сообщества, которое решает реальные задачи энергетики и цифровой экономики.
-            Важно пользоваться всеми возможностями — от научных проектов до стажировок
-            и мероприятий».
-            <div class="quote-author">
-              — академический руководитель программы, преподаватель и наставник студентов
-            </div>
-          </div>
-          <div class="btn-row">
-            <a href="#bot" class="btn-primary">Задать вопрос о стипендии</a>
-            <a href="#faculties" class="btn-ghost">Вернуться к направлениям</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq">
-    <div class="container reveal">
-      <span class="section-label">
-        <span class="section-label-dot"></span>
-        FAQ
-      </span>
-      <h2 class="section-title">Частые вопросы abитуриентов</h2>
-      <p class="section-subtitle">
-        Мы собрали популярные вопросы. Если чего-то нет в списке —
-        просто напиши нашему Telegram-боту, он подскажет.
-      </p>
-
-      <div class="faq-grid">
-        <div class="faq-list" id="faq-list">
-          <div class="faq-item">
-            <div class="faq-item-inner">
-              <div class="faq-q">Какие минимальные проходные баллы для поступления?</div>
-              <div class="faq-icon">+</div>
-            </div>
-            <div class="faq-a">
-              Проходные баллы зависят от года и направления подготовки. Актуальные значения
-              публикуются на официальном сайте и в приёмной комиссии. Уточни для своего
-              направления через Telegram-бота — он выдаст последние данные.
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <div class="faq-item-inner">
-              <div class="faq-q">Есть ли общежития для иногородних студентов?</div>
-              <div class="faq-icon">+</div>
-            </div>
-            <div class="faq-a">
-              Да, для иногородних и иностранных студентов предусмотрены места в
-              общежитиях. Количество мест, очередность и порядок распределения определяются
-              приёмной комиссией и соответствующими документами университета.
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <div class="faq-item-inner">
-              <div class="faq-q">Можно ли сочетать учёбу и работу?</div>
-              <div class="faq-icon">+</div>
-            </div>
-            <div class="faq-a">
-              Многие студенты совмещают учёбу с работой по специальности или стажировками.
-              При приоритете учёбы и грамотном планировании расписания это возможно.
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <div class="faq-item-inner">
-              <div class="faq-q">Какие олимпиады дают преимущества при поступлении?</div>
-              <div class="faq-icon">+</div>
-            </div>
-            <div class="faq-a">
-              Преимущества дают олимпиады из утверждённых перечней (например, перечень
-              РСОШ) и собственные олимпиады университета. Конкретные условия лучше
-              уточнять для текущего года — это удобно сделать через бота.
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <div class="faq-item-inner">
-              <div class="faq-q">Как понять, какое направление мне подходит?</div>
-              <div class="faq-icon">+</div>
-            </div>
-            <div class="faq-a">
-              Важно оценить свои интересы: математика и физика, программирование,
-              управление, экономика. Посмотри описания программ и задавай вопросы
-              в Telegram-боте — он поможет сузить выбор и подскажет, какие экзамены нужны
-              для каждого направления.
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div class="card">
-            <div class="card-title">Если нет ответа в списке</div>
-            <div class="card-body">
-              Всегда можно задать свой вопрос в Telegram-боте КГЭУ. Он поможет с:
-              <ul style="margin:8px 0 0;padding-left:18px;font-size:13px;color:var(--muted);">
-                <li>выбором направления и программы;</li>
-                <li>информацией о приёмной кампании;</li>
-                <li>общежитиями и студенческой жизнью;</li>
-                <li>контактами нужных служб университета.</li>
-              </ul>
-            </div>
-            <div class="card-meta">
-              <span>Онлайн-консультант</span>
-              <a href="#bot" class="btn-primary">Перейти к боту</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Контакты -->
-  <section id="contacts">
-    <div class="container reveal">
-      <span class="section-label">
-        <span class="section-label-dot"></span>
-        Контакты
-      </span>
-      <h2 class="section-title">Как связаться с университетом</h2>
-      <p class="section-subtitle">
-        Официальные контакты приёмной комиссии и университета. Telegram-бот может
-        подсказать, куда лучше обратиться в каждом конкретном случае.
-      </p>
-
-      <div class="contacts-grid">
-        <div class="contact-list">
-          <div>
-            <div class="contact-label">Приёмная комиссия</div>
-            <div class="contact-highlight">Телефон: +7 (XXX) XXX-XX-XX</div>
-            <div>График работы и дополнительные контакты уточняйте на официальном сайте.</div>
-          </div>
-
-          <div>
-            <div class="contact-label">Электронная почта</div>
-            <div class="contact-highlight">example@kgeu.ru</div>
-            <div>Используйте для отправки документов и официальных запросов.</div>
-          </div>
-
-          <div>
-            <div class="contact-label">Адрес университета</div>
-            <div class="contact-highlight">г. Казань, кампус КГЭУ</div>
-            <div>Точный адрес корпусов и схемы проезда доступны на официальных ресурсах.</div>
-          </div>
-
-          <div>
-            <div class="contact-label">Социальные сети и мессенджеры</div>
-            <div>Telegram-каналы, сообщества ВКонтакте, официальные страницы — следите за новостями университета.</div>
-          </div>
-        </div>
-
-        <div class="contact-map">
-          <div class="card-sub">Как добраться</div>
-          <p>
-            Университет располагается в удобной транспортной доступности. Рядом —
-            общественный транспорт, ключевые городские магистрали и инфраструктура для студентов.
-          </p>
-          <div class="contact-map-placeholder">
-            Здесь можно встроить интерактивную карту (Яндекс.Карты, 2ГИС или другую)
-            с отмеченными корпусами и общежитиями КГЭУ.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Блок Telegram-бота -->
-  <section id="bot">
-    <div class="container reveal">
-      <span class="section-label">
-        <span class="section-label-dot"></span>
-        Онлайн-поддержка
-      </span>
-      <h2 class="section-title">Telegram-бот КГЭУ — твой персональный помощник</h2>
-      <p class="section-subtitle">
-        Задавай вопросы о поступлении, направлениях, стипендиях и студенческой жизни.
-        Бот работает 24/7 и помогает как абитуриентам, так и студентам.
-      </p>
-
-      <div class="bot-card">
-        <div>
-          <div class="badge">Официальный бот поддержки</div>
-          <h3 class="bot-title">Задай вопрос — получи ответ за пару секунд</h3>
-          <p class="bot-sub">
-            Не нужно искать информацию по разным разделам сайта: собрали всё в одном
-            месте. Бот подскажет, какие документы нужны, где посмотреть расписание,
-            как получить общежитие и на какие мероприятия стоит записаться.
-          </p>
-
-          <div class="bot-tag-grid">
-            <div class="bot-tag">
-              <span></span>
-              Вопросы по поступлению и приёмной кампании
-            </div>
-            <div class="bot-tag">
-              <span></span>
-              Направления подготовки и необходимые экзамены
-            </div>
-            <div class="bot-tag">
-              <span></span>
-              Общежития, стипендии, студенческая жизнь
-            </div>
-            <div class="bot-tag">
-              <span></span>
-              Контакты служб и расписание
-            </div>
-          </div>
-
-          <div class="bot-cta-row">
-            <a
-              href="https://t.me/kgeu_support_bot"
-              class="btn-primary"
-              target="_blank"
-              rel="noopener"
-            >
-              Открыть бота в Telegram
-            </a>
-            <div class="bot-handle">@kgeu_support_bot</div>
-          </div>
-        </div>
-
-        <div class="bot-right">
-          <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">
-            Пример диалога с ботом:
-          </div>
-          <div class="bot-chat-bubble user">
-            Привет! Какие предметы ЕГЭ нужны, чтобы поступить на направление по электроэнергетике?
-          </div>
-          <div class="bot-chat-bubble bot">
-            Здравствуйте! Для поступления на направление «Электроэнергетика и электротехника»
-            обычно учитываются результаты ЕГЭ по профильной математике, физике и русскому языку.
-            Точные минимальные баллы и перечень экзаменов уточняйте для текущего года.
-          </div>
-          <div class="bot-chat-bubble user">
-            А есть общежитие для иногородних?
-          </div>
-          <div class="bot-chat-bubble bot">
-            Да, для иногородних студентов предусмотрены места в общежитиях.
-            Я могу рассказать про порядок заселения и какие документы понадобятся.
-          </div>
-          <div class="bot-hint">
-            Нажми на кнопку «Открыть бота», чтобы задать свой вопрос. Можно писать как
-            от имени абитуриента, так и от имени родителя или студента.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Футер -->
-  <footer>
-    <div class="footer-inner">
-      <div>© КГЭУ. Университет энергетики будущего.</div>
-      <div class="footer-links">
-        <a href="#hero">Наверх</a>
-        <a href="#faculties">Направления</a>
-        <a href="https://t.me/kgeu_support_bot" target="_blank" rel="noopener">Telegram-бот</a>
-      </div>
-    </div>
-  </footer>
-</div>
-
-<script>
-  // sticky header
-  const header = document.getElementById("top-nav");
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 10) {
-      header.classList.add("scrolled");
-    } else {
-      header.classList.remove("scrolled");
-    }
-  });
-
-  // мобильное меню
-  const navToggle = document.getElementById("nav-toggle");
-  const navLinks = document.getElementById("nav-links");
-
-  navToggle.addEventListener("click", () => {
-    navToggle.classList.toggle("open");
-    navLinks.classList.toggle("open");
-  });
-
-  navLinks.addEventListener("click", (e) => {
-    if (e.target.tagName === "A") {
-      navToggle.classList.remove("open");
-      navLinks.classList.remove("open");
-    }
-  });
-
-  // активная ссылка при скролле
-  const sections = document.querySelectorAll("section");
-  const navItems = document.querySelectorAll(".nav-links a");
-
-  function setActiveNav() {
-    let currentId = "";
-    sections.forEach((section) => {
-      const rect = section.getBoundingClientRect();
-      if (rect.top <= 120 && rect.bottom >= 120) {
-        currentId = section.id;
+  <script>
+    // --- Data ---
+    const products = [
+      {
+        id: "p1",
+        title: "Тренч «Классика»",
+        cat: "outerwear",
+        catLabel: "Верхняя",
+        badge: "Хит сезона",
+        price: 8990,
+        oldPrice: 10990,
+        desc: "Плотный тренч с чистыми линиями и идеальными лацканами. Садится аккуратно, выглядит дорого.",
+        material: "хлопок/полиэстер",
+        sizes: ["XS","S","M","L"],
+        svg: svgCoat()
+      },
+      {
+        id: "p2",
+        title: "Свитер «Текстура»",
+        cat: "tops",
+        catLabel: "Топы",
+        badge: "Премиум трикотаж",
+        price: 4590,
+        oldPrice: 5290,
+        desc: "Мягкий, тёплый, не колется. Держит форму и идеально дружит с любым низом.",
+        material: "шерсть/акрил",
+        sizes: ["S","M","L","XL"],
+        svg: svgKnit()
+      },
+      {
+        id: "p3",
+        title: "Брюки «Прямая линия»",
+        cat: "bottoms",
+        catLabel: "Низ",
+        badge: "Лучшая посадка",
+        price: 3890,
+        oldPrice: 4490,
+        desc: "Прямой крой и мягкая талия. Для офиса, города и путешествий — один универсальный ответ.",
+        material: "вискоза/эластан",
+        sizes: ["XS","S","M","L"],
+        svg: svgPants()
+      },
+      {
+        id: "p4",
+        title: "Худи «Мягкий силуэт»",
+        cat: "tops",
+        catLabel: "Топы",
+        badge: "Unisex",
+        price: 4290,
+        oldPrice: 4990,
+        desc: "Плотный футер, аккуратный капюшон и чистый низ. Выглядит собранно даже в расслабленном образе.",
+        material: "хлопок",
+        sizes: ["S","M","L","XL"],
+        svg: svgHoodie()
+      },
+      {
+        id: "p5",
+        title: "Платье «Ночь»",
+        cat: "tops",
+        catLabel: "Топы",
+        badge: "Событие",
+        price: 6490,
+        oldPrice: 7490,
+        desc: "Лаконичное платье, которое вытягивает силуэт. Минимум деталей — максимум эффекта.",
+        material: "вискоза",
+        sizes: ["XS","S","M","L"],
+        svg: svgDress()
+      },
+      {
+        id: "p6",
+        title: "Сумка «Акцент»",
+        cat: "accessories",
+        catLabel: "Аксессуары",
+        badge: "Новинка",
+        price: 2990,
+        oldPrice: 3490,
+        desc: "Компактная сумка для города. Геометрия, которая собирает образ и добавляет «дорогой» штрих.",
+        material: "эко‑кожа",
+        sizes: ["One size"],
+        svg: svgBag()
       }
+    ];
+
+    // --- State ---
+    let currentFilter = "all";
+    let query = "";
+    let modalProduct = products[0];
+    let selectedSize = null;
+
+    const cart = loadCart(); // { id: {qty, size} }
+
+    // --- Elements ---
+    const grid = document.getElementById("productGrid");
+    const searchInput = document.getElementById("searchInput");
+    const fbtns = Array.from(document.querySelectorAll(".fbtn"));
+
+    const backdrop = document.getElementById("backdrop");
+    const modal = document.getElementById("modal");
+    const modalPic = document.getElementById("modalPic");
+    const mTitle = document.getElementById("mTitle");
+    const mMeta = document.getElementById("mMeta");
+    const mDesc = document.getElementById("mDesc");
+    const mPrice = document.getElementById("mPrice");
+    const mBadge = document.getElementById("mBadge");
+    const sizesEl = document.getElementById("sizes");
+    const addFromModal = document.getElementById("addFromModal");
+    const buyNow = document.getElementById("buyNow");
+
+    const drawer = document.getElementById("drawer");
+    const cartList = document.getElementById("cartList");
+    const cartTotal = document.getElementById("cartTotal");
+    const cartCount = document.getElementById("cartCount");
+
+    const toast = document.getElementById("toast");
+    const toastText = document.getElementById("toastText");
+
+    // --- Init ---
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    render();
+    updateCartUI();
+
+    // --- Events ---
+    searchInput.addEventListener("input", (e) => {
+      query = e.target.value.trim().toLowerCase();
+      render();
     });
 
-    navItems.forEach((link) => {
-      if (link.getAttribute("href") === "#" + currentId) {
-        link.classList.add("active");
-      } else {
-        link.classList.remove("active");
-      }
-    });
-  }
-
-  window.addEventListener("scroll", setActiveNav);
-  window.addEventListener("load", setActiveNav);
-
-  // анимация появления блоков
-  const reveals = document.querySelectorAll(".reveal");
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
+    fbtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        fbtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentFilter = btn.dataset.filter;
+        render();
       });
-    },
-    { threshold: 0.16 }
-  );
+    });
 
-  reveals.forEach((el) => observer.observe(el));
+    document.getElementById("openModalFeatured").addEventListener("click", () => openModal(products[0]));
+    document.getElementById("closeModal").addEventListener("click", closeModal);
+    backdrop.addEventListener("click", () => {
+      closeModal();
+      closeCart();
+    });
 
-  // FAQ аккордеон
-  document.getElementById("faq-list").addEventListener("click", (e) => {
-    const item = e.target.closest(".faq-item");
-    if (!item) return;
-    item.classList.toggle("open");
-    const icon = item.querySelector(".faq-icon");
-    if (icon) {
-      icon.textContent = item.classList.contains("open") ? "–" : "+";
+    document.getElementById("openCart").addEventListener("click", openCart);
+    document.getElementById("closeCart").addEventListener("click", closeCart);
+
+    document.getElementById("checkoutBtn").addEventListener("click", () => {
+      if (!Object.keys(cart).length) {
+        showToast("Корзина пустая — добавь товары 🙂", false);
+        return;
+      }
+      showToast("Демо: заказ «оформлен» ✨", true);
+      // keep items, but you can clear if you want:
+      // clearCart();
+    });
+
+    document.getElementById("newsletter").addEventListener("submit", (e) => {
+      e.preventDefault();
+      e.target.reset();
+      showToast("Готово! Письмо придёт скоро.", true);
+    });
+
+    document.getElementById("helpBtn").addEventListener("click", () => {
+      showToast("Демо: стилист уже набирает ответ…", true);
+    });
+
+    addFromModal.addEventListener("click", () => {
+      if (!selectedSize) {
+        showToast("Выбери размер 🙂", false);
+        return;
+      }
+      addToCart(modalProduct.id, selectedSize);
+      showToast("Добавлено в корзину", true);
+      updateCartUI();
+    });
+
+    buyNow.addEventListener("click", () => {
+      if (!selectedSize) {
+        showToast("Выбери размер 🙂", false);
+        return;
+      }
+      addToCart(modalProduct.id, selectedSize);
+      updateCartUI();
+      closeModal();
+      openCart();
+      showToast("Готово — можно оформлять", true);
+    });
+
+    // Accent switch (just playful)
+    const themeBtn = document.getElementById("themeBtn");
+    const accents = [
+      ["#bda2ff","#67e8f9","#f59e0b"],
+      ["#60a5fa","#34d399","#fb7185"],
+      ["#f472b6","#a78bfa","#22c55e"],
+    ];
+    let accentIndex = 0;
+    themeBtn.addEventListener("click", () => {
+      accentIndex = (accentIndex + 1) % accents.length;
+      const [a1,a2,a3] = accents[accentIndex];
+      document.documentElement.style.setProperty("--accent1", a1);
+      document.documentElement.style.setProperty("--accent2", a2);
+      document.documentElement.style.setProperty("--accent3", a3);
+      showToast("Акцент обновлён", true);
+    });
+
+    // Escape closes
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeModal();
+        closeCart();
+      }
+    });
+
+    // --- Render ---
+    function render(){
+      const list = products
+        .filter(p => currentFilter === "all" ? true : p.cat === currentFilter)
+        .filter(p => {
+          if (!query) return true;
+          const hay = (p.title + " " + p.desc + " " + p.catLabel).toLowerCase();
+          return hay.includes(query);
+        });
+
+      grid.innerHTML = list.map(p => productCard(p)).join("");
+
+      // attach listeners
+      list.forEach(p => {
+        const el = document.getElementById("card-" + p.id);
+        el.querySelector("[data-action='view']").addEventListener("click", () => openModal(p));
+        el.querySelector("[data-action='add']").addEventListener("click", () => {
+          // auto size: first size
+          addToCart(p.id, p.sizes[0]);
+          updateCartUI();
+          showToast("Добавлено в корзину", true);
+        });
+      });
     }
-  });
-</script>
+
+    function productCard(p){
+      const price = fmt(p.price);
+      const oldP = fmt(p.oldPrice);
+      return `
+        <article class="p" id="card-${p.id}">
+          <div class="ribbon">
+            <span class="dot"></span>
+            <span>${escapeHtml(p.badge)}</span>
+          </div>
+          <div class="img">${p.svg}</div>
+          <div class="meta">
+            <h4>${escapeHtml(p.title)}</h4>
+            <p class="desc">${escapeHtml(p.desc)}</p>
+            <div class="bottom">
+              <div class="price">${price} <small>• <s>${oldP}</s></small></div>
+              <div class="btns">
+                <button class="miniBtn" data-action="view">Смотреть</button>
+                <button class="miniBtn primary" data-action="add">В корзину</button>
+              </div>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    // --- Modal ---
+    function openModal(p){
+      modalProduct = p;
+      selectedSize = p.sizes[0] || null;
+
+      modalPic.innerHTML = p.svg;
+      mTitle.textContent = p.title;
+      mMeta.textContent = `${p.catLabel} • ${p.material}`;
+      mDesc.textContent = p.desc;
+      mPrice.textContent = fmt(p.price) + " ₽";
+      mBadge.innerHTML = `<span class="dot"></span><span>${p.badge}</span>`;
+
+      sizesEl.innerHTML = p.sizes.map(s => `<button class="size ${s===selectedSize?'active':''}" data-size="${s}">${s}</button>`).join("");
+      Array.from(sizesEl.querySelectorAll(".size")).forEach(btn => {
+        btn.addEventListener("click", () => {
+          selectedSize = btn.dataset.size;
+          Array.from(sizesEl.querySelectorAll(".size")).forEach(b => b.classList.toggle("active", b.dataset.size === selectedSize));
+        });
+      });
+
+      backdrop.style.display = "block";
+      modal.style.display = "block";
+      requestAnimationFrame(() => {
+        modal.style.transform = "translate(-50%,-50%) scale(1)";
+      });
+    }
+
+    function closeModal(){
+      if (modal.style.display !== "block") return;
+      modal.style.transform = "translate(-50%,-50%) scale(.98)";
+      setTimeout(() => {
+        modal.style.display = "none";
+        // keep backdrop if cart open
+        if (!drawer.classList.contains("open")) backdrop.style.display = "none";
+      }, 160);
+    }
+
+    // --- Cart ---
+    function openCart(){
+      drawer.classList.add("open");
+      drawer.setAttribute("aria-hidden", "false");
+      backdrop.style.display = "block";
+      updateCartUI();
+    }
+    function closeCart(){
+      if (!drawer.classList.contains("open")) return;
+      drawer.classList.remove("open");
+      drawer.setAttribute("aria-hidden", "true");
+      setTimeout(() => {
+        // keep backdrop if modal open
+        if (modal.style.display !== "block") backdrop.style.display = "none";
+      }, 180);
+    }
+
+    function addToCart(id, size){
+      if (!cart[id]) cart[id] = { qty: 0, size };
+      cart[id].qty += 1;
+      cart[id].size = size || cart[id].size;
+      saveCart();
+    }
+
+    function decFromCart(id){
+      if (!cart[id]) return;
+      cart[id].qty -= 1;
+      if (cart[id].qty <= 0) delete cart[id];
+      saveCart();
+    }
+
+    function clearCart(){
+      for (const k of Object.keys(cart)) delete cart[k];
+      saveCart();
+      updateCartUI();
+    }
+
+    function updateCartUI(){
+      const ids = Object.keys(cart);
+      const count = ids.reduce((s,id) => s + cart[id].qty, 0);
+      cartCount.textContent = count;
+      cartCount.style.display = count ? "grid" : "none";
+
+      if (!ids.length){
+        cartList.innerHTML = `<div class="muted">Пока пусто. Добавь что-нибудь из каталога ✨</div>`;
+        cartTotal.textContent = "0 ₽";
+        return;
+      }
+
+      let total = 0;
+      cartList.innerHTML = ids.map(id => {
+        const p = products.find(x => x.id === id);
+        const qty = cart[id].qty;
+        const size = cart[id].size || (p.sizes[0] ?? "—");
+        total += p.price * qty;
+
+        return `
+          <div class="item">
+            <div class="thumb">${p.svg}</div>
+            <div>
+              <h5>${escapeHtml(p.title)}</h5>
+              <small>${escapeHtml(p.catLabel)} • размер: <b>${escapeHtml(size)}</b></small>
+              <small style="margin-top:6px; color: rgba(255,255,255,.78); font-weight:750;">${fmt(p.price)} ₽</small>
+            </div>
+            <div class="qty">
+              <div class="qrow">
+                <button class="qbtn" data-dec="${id}" aria-label="Уменьшить">−</button>
+                <b>${qty}</b>
+                <button class="qbtn" data-inc="${id}" aria-label="Увеличить">+</button>
+              </div>
+              <button class="qbtn" style="width:auto; padding:0 10px; height:34px" data-remove="${id}" aria-label="Удалить">×</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      cartTotal.textContent = fmt(total) + " ₽";
+
+      // attach listeners
+      cartList.querySelectorAll("[data-inc]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          addToCart(btn.dataset.inc, cart[btn.dataset.inc]?.size);
+          updateCartUI();
+        });
+      });
+      cartList.querySelectorAll("[data-dec]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          decFromCart(btn.dataset.dec);
+          updateCartUI();
+        });
+      });
+      cartList.querySelectorAll("[data-remove]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          delete cart[btn.dataset.remove];
+          saveCart();
+          updateCartUI();
+        });
+      });
+    }
+
+    // --- Storage ---
+    function saveCart(){
+      try { localStorage.setItem("vesta_cart", JSON.stringify(cart)); } catch {}
+    }
+    function loadCart(){
+      try { return JSON.parse(localStorage.getItem("vesta_cart") || "{}"); } catch { return {}; }
+    }
+
+    // --- Utils ---
+    function fmt(n){
+      return new Intl.NumberFormat("ru-RU").format(n);
+    }
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, s => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+      }[s]));
+    }
+
+    let toastTimer = null;
+    function showToast(text, ok=true){
+      toastText.textContent = text;
+      toast.querySelector(".ok").style.background = ok ? "var(--ok)" : "var(--danger)";
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+    }
+
+    // --- SVG art (simple, brand-safe placeholders) ---
+    function svgBase(paths){
+      return `
+        <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="var(--accent2)" stop-opacity=".8"/>
+              <stop offset=".55" stop-color="var(--accent1)" stop-opacity=".72"/>
+              <stop offset="1" stop-color="var(--accent3)" stop-opacity=".7"/>
+            </linearGradient>
+          </defs>
+          <g fill="none" stroke="url(#g)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity=".95">
+            ${paths}
+          </g>
+        </svg>
+      `;
+    }
+    function svgCoat(){
+      return svgBase(`
+        <path d="M80 70c8-14 24-22 40-22s32 8 40 22"/>
+        <path d="M70 90l20-20 30 30 30-30 20 20"/>
+        <path d="M90 100l-10 95 50 0"/>
+        <path d="M150 100l10 95-50 0"/>
+        <path d="M120 110v85"/>
+      `);
+    }
+    function svgKnit(){
+      return svgBase(`
+        <path d="M70 98l26-22 24 16 24-16 26 22"/>
+        <path d="M90 100v90h60v-90"/>
+        <path d="M90 128h60"/>
+        <path d="M90 156h60"/>
+      `);
+    }
+    function svgPants(){
+      return svgBase(`
+        <path d="M92 70h56l-6 80 18 70h-32l-8-60-8 60H80l18-70-6-80Z"/>
+        <path d="M112 86h16"/>
+      `);
+    }
+    function svgHoodie(){
+      return svgBase(`
+        <path d="M90 96c0-20 14-34 30-34s30 14 30 34"/>
+        <path d="M76 110l14-16 30 18 30-18 14 16"/>
+        <path d="M90 118v92h60v-92"/>
+        <path d="M104 150h32"/>
+      `);
+    }
+    function svgDress(){
+      return svgBase(`
+        <path d="M96 60h48l-10 36 22 28-36 12-36-12 22-28-10-36Z"/>
+        <path d="M120 136v84"/>
+        <path d="M94 220h52"/>
+      `);
+    }
+    function svgBag(){
+      return svgBase(`
+        <path d="M86 110h68l-8 94H94l-8-94Z"/>
+        <path d="M104 110c0-18 8-30 16-30s16 12 16 30"/>
+        <path d="M98 150h44"/>
+      `);
+    }
+  </script>
 </body>
 </html>
